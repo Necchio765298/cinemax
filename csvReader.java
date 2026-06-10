@@ -25,7 +25,7 @@ public class csvReader{
 		FileReader frd = new FileReader("proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		
-		while(brd.readLine() != args.toString()){
+		while(!(brd.readLine().contains(args.toString()))){
 			brd.readLine();
 		}
 		String proiezione = brd.readLine();
@@ -39,13 +39,13 @@ public class csvReader{
 	}
 	
 	
-	public void registraCliente(Utente utente) throws IOException{
+	public static void registraCliente(Utente utente) throws IOException{
 		FileWriter fwt = new FileWriter("utenti.csv");
 		BufferedWriter bwt = new BufferedWriter(fwt);
 		FileReader frd = new FileReader("utenti.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		while(brd.readLine() != null){
-			bwt.newLine();
+			brd.readLine();
 		}
 		bwt.write(utente.toString());
 		bwt.newLine();

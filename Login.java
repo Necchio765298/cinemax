@@ -19,7 +19,7 @@ public class Login{
 
 	//metodi
 	public String toString(){
-		return "username: " + username + " password: " + password;
+		return username + ", " + password;
 	}
 	
 	public boolean login(Login login) throws IOException{

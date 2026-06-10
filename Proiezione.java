@@ -35,7 +35,14 @@ public class Proiezione {
 
     @Override
     public String toString(){
-        return film.getTitolo()+"\n Data: "+dataOra.toLocalDate()+"\n Ora: "+dataOra.toLocalTime()+"\n Prezzo: "+getPrezzoBiglietto()+"€";
+	String titolo = System.in("inserire il titolo");
+	String genere = System.in("inserire iil genere del film");
+	String regista = System.in("inserire il regista");
+	int anno = System.in("inserire l'anno");
+	int durataMinuti = System.in("inserire la durata del film");
+	int etaMinima = System.in("inseire l'età minima consentita");
+	Film film = new Film(String titolo,String genere,String registra,int anno,int durataMinuti,int etaMinima);
+        return data_ora_proiezione+ ","+ film.toString()+ "," +prezzo_biglietto;
     }
 
 
