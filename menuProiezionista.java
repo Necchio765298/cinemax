@@ -22,13 +22,20 @@ import java.io.BufferedWriter;
    
    //METODI
    //aggiunge una proiezione
-   public void aggiungiProiezione(Proiezione p) throws IOException{		//aggiunge proiezione se non si accavalla con una già esistente
+   public void aggiungiProiezione(Proiezione p) throws IOException{		
 	    FileWriter fwt = new FileWriter("proiezioni.csv");
 		BufferedWriter bwt = new BufferedWriter(fwt);
 		FileReader frd = new FileReader("proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		while(brd.readLine() != null){
 			brd.readLine();
+	//aggiunge proiezione se non si accavalla con una già esistente
+			public boolean siAccavalla(Proiezione p) {
+				for(int i=0; i<numeroProiezioni; i++) {
+				
+			if(siAccavalla(p)) {
+				System.out.println("la proiezione si accavalla");
+			}
 		}
 		bwt.write(p.toString());
 		bwt.newLine();
