@@ -18,7 +18,6 @@ import java.io.BufferedWriter;
    this.numeroProiezioni = 0;
    }
    
-   //data_ora_proiezione, titolo_film, genere, regista, anno, durata_minuti, eta_minima, prezzo_biglietto
    
    //METODI
    //aggiunge una proiezione
@@ -29,15 +28,11 @@ import java.io.BufferedWriter;
 		BufferedReader brd = new BufferedReader(frd);
 		while(brd.readLine() != null){
 			brd.readLine();
-	//aggiunge proiezione se non si accavalla con una già esistente
-			public boolean siAccavalla(Proiezione p) {
-				for(int i=0; i<numeroProiezioni; i++) {
-				
-			if(siAccavalla(p)) {
-				System.out.println("la proiezione si accavalla");
-			}
+			if (brd.readLine().contains(p.toString())
+				System.ou.println("la proiezione inserita si accavalla con una già esistente");
+			else
+				bwt.write(p.toString());
 		}
-		bwt.write(p.toString());
 		bwt.newLine();
 		bwt.close();
 		fwt.close();

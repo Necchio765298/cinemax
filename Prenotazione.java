@@ -15,25 +15,13 @@ public class Prenotazione {
         this.numeroBiglietto=numeroBiglietto;
     }
 
-    
-
-
-
     public void setProiezione(Proiezione proiezione) {
         this.proiezione = proiezione;
     }
 
-
-    
-
-
     public void setNumeroBiglietto(int numeroBiglietto) {
         this.numeroBiglietto = numeroBiglietto;
     }
-
-
-
-
 
     public String getCodice() {
         return codice;
@@ -56,13 +44,8 @@ public class Prenotazione {
         return proiezione.getPrezzoBiglietto()*numeroBiglietto;
     }
 
-
-
-
-
-    @Override
     public String toString() {
-        return "Codice : "+codice+"\n Cliente : "+utente.getNome()  +" " + utente.getCognome() + "\n Film : "+proiezione.getFilm().getTitolo()+"\n Data : "+proiezione.getDataOra().toLocalDate()+"\n biglietti : "+numeroBiglietto+"\n totale : "+getCostoTotale()+"€";
+        return utente.getNome() +"," + utente.getCognome() +"," + proiezione.getFilm().getTitolo() +"," + proiezione.getDataOra() +","+ numeroBiglietto + ","+ codice;
     }
 
 
