@@ -1,6 +1,6 @@
 package bin;
 
-import java.lang.IOException;
+import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.BufferedReader;
