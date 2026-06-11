@@ -52,9 +52,9 @@ import java.io.BufferedWriter;
 	*/
 	
    //modifica una proiezione
-   public String modificaProiezione(int i, Proiezione nuovaProiezione) {
+   public void modificaProiezione(int i, Proiezione nuovaProiezione) {
 	   proiezioni[i] = nuovaProiezione;
-   }
+    }
 
 	//elimina una proiezione
 	 public void eliminaProiezione(int i) {
