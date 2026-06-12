@@ -1,6 +1,6 @@
 package bin;
 import java.time.LocalDateTime;
-
+import java.io.Console;
 
 public class Proiezione {
     private Film film;
@@ -33,15 +33,18 @@ public class Proiezione {
         this.prezzoBiglietto = prezzoBiglietto;
     }
 
-    @Override
     public String toString(){
-	String titolo = System.in("inserire il titolo");
-	String genere = System.in("inserire il genere del film");
-	String regista = System.in("inserire il regista");
-	int anno = System.in("inserire l'anno");
-	int durataMinuti = System.in("inserire la durata del film");
-	int etaMinima = System.in("inseire l'età minima consentita");
-	Film film = new Film(String titolo,String genere,String registra,int anno,int durataMinuti,int etaMinima);
+		Console cons = System.console();
+		String titolo = cons.readLine("inserire il titolo");
+		String genere = cons.readLine("inserire il genere del film");
+		String regista = cons.readLine("inserire il regista");
+		String Anno = cons.readLine("inserire l'anno");
+		int anno = Integer.parseInt(Anno);
+		String DurataMinuti = cons.readLine("inserire la durata del film");
+		int durataMinuti = Integer.parseInt(DurataMinuti);
+		String EtaMinima = cons.readLine("inseire l'età minima consentita");
+		int etaMinima = Integer.parseInt(EtaMinima);
+		Film film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
         return dataOra+ ","+ film.toString()+ "," +prezzoBiglietto;
     }
 

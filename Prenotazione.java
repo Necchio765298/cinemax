@@ -23,7 +23,7 @@ public class Prenotazione {
         this.numeroBiglietto = numeroBiglietto;
     }
 
-    public String getCodice() {
+    public static String getCodice() {
         return codice;
     }
 
