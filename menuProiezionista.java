@@ -29,7 +29,7 @@ import java.io.BufferedWriter;
 		while(brd.readLine() != null){
 			brd.readLine();
 			if (brd.readLine().contains(p.toString())
-				System.ou.println("la proiezione inserita si accavalla con una già esistente");
+				System.out.println("la proiezione inserita si accavalla con una già esistente");
 			else
 				bwt.write(p.toString());
 		}
@@ -82,5 +82,45 @@ import java.io.BufferedWriter;
 			 proiezioni[i]=null;
 		 }
 	 }
+
+	 //modifica con gli stream
+	 public void modificaProiezione(Proiezione vecchiaProiezione, Proiezione nuovaProiezione) throws IOException{	
+		FileWriter fwt = new FileWriter("proiezioni.csv");
+		BufferedWriter bwt = new BufferedWriter(fwt);
+		FileReader frd = new FileReader("proiezioni.csv");
+		BufferedReader brd = new BufferedReader(frd);
+		 while((riga=brd.readLine()) != null) {
+			 if(riga.contains(vecchiaProiezione.toString())) {
+				 bwt.write(nuovaProiezione.toString());
+			 }
+			 else {
+				 bwt.write(riga);
+			 }
+			 bwt.newLine();
+		 }
+	    bwt.close();
+		fwt.close();
+		brd.close();
+		frd.close();
+	 }
+
+	 //elimina con gli stream
+	 public void eliminaProiezione(Proiezione proiezioneDaEliminare) {
+		FileWriter fwt = new FileWriter("proiezioni.csv");
+		BufferedWriter bwt = new BufferedWriter(fwt);
+		FileReader frd = new FileReader("proiezioni.csv");
+		BufferedReader brd = new BufferedReader(frd);
+		 while((riga=brd.readLine()) != null) {
+			 if(!riga.contains(proiezioneDaEliminare.toString())) {
+				 bwt.write(riga);
+				 bwt.newLine();
+			 }
+		 }
+		bwt.close();
+		fwt.close(); 
+		brd.close();
+		frd.close();
   }
+
+ }
    
