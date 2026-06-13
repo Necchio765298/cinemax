@@ -66,5 +66,21 @@ import java.io.BufferedWriter;
 		 proiezioni[numeroProiezioni-1] = null;
 		 numeroProiezioni--;
 	 }
+
+	  //modifica una proiezione se non è ancora iniziata
+	 public Proiezione modificaProiezione(int i, Proiezione nuovaProiezione) {
+		 if(proiezioni[i].getDataOra().compareTo(LocalDateTime.now()>0) {
+			 proiezioni[i]=nuovaProiezione;
+		 }
+		 return proiezioni[i];
+	 }
+
+	 
+	 //elimina una proiezione controllando se è già iniziata
+	 public void eliminaProiezione(int i) {
+		 if(proiezione[i].getDataOra().compareTo(LocalDateTime.now())>0) {
+			 proiezioni[i]=null;
+		 }
+	 }
   }
    
