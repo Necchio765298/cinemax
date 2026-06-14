@@ -22,7 +22,7 @@ public class Login{
 		return username + ", " + password;
 	}
 	
-	public boolean login(Login login) throws IOException{
+	public static boolean login(Login login) throws IOException{
 		FileReader frd = new FileReader("utenti.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		

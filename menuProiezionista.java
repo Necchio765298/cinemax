@@ -9,14 +9,13 @@ import java.io.BufferedWriter;
  public class menuProiezionista {
   //CAMPI
  
- private Proiezione[] proiezioni;
- private int numeroProiezioni;
+ private Proiezione proiezione;
+ 
 
   //COSTRUTTORE
-  public menuProiezionista() {
-   this.proiezioni = new Proiezione[10]; //l'array memorizza al massimo 10 proiezioni
-   this.numeroProiezioni = 0;
-   }
+public menuProiezionista() {
+	this.proiezione = proiezione;
+}
    
    
    //METODI
@@ -28,99 +27,48 @@ import java.io.BufferedWriter;
 		BufferedReader brd = new BufferedReader(frd);
 		while(brd.readLine() != null){
 			brd.readLine();
-			if (brd.readLine().contains(p.toString())
+			if (brd.readLine().contains(p.toString()))
 				System.out.println("la proiezione inserita si accavalla con una già esistente");
 			else
 				bwt.write(p.toString());
 		}
-		bwt.newLine();
 		bwt.close();
 		fwt.close();
 	}
-	/*
-   //visualizza tutte le proiezioni
-   public void visualizzaProiezioni() {
-    for(int i=0; i<numeroProiezioni; i++) {
-	 System.out.println("ecco l'elenco delle proiezioni: ");
-	 System.out.println(proiezioni[i]);
-	 }
-   }
-   
-   /*
-   //modifica il prezzo di una proiezione
-   public void modificaPrezzo(int i, double nuovoPrezzo) {
-    proiezioni[i].setPrezzoBiglietto(nuovoPrezzo);
-	}
-	*/
-	
-   //modifica una proiezione
-   public void modificaProiezione(int i, Proiezione nuovaProiezione) {
-	   proiezioni[i] = nuovaProiezione;
-    }
-
-	//elimina una proiezione
-	 public void eliminaProiezione(int i) {
-		 for(int j = i; j<numeroProiezioni-1; j++) {
-			 proiezioni[j] = proiezioni[j+1];
-		 }
-		 proiezioni[numeroProiezioni-1] = null;
-		 numeroProiezioni--;
-	 }
-
-	  //modifica una proiezione se non è ancora iniziata
-	 public Proiezione modificaProiezione(int i, Proiezione nuovaProiezione) {
-		 if(proiezioni[i].getDataOra().compareTo(LocalDateTime.now()>0) {
-			 proiezioni[i]=nuovaProiezione;
-		 }
-		 return proiezioni[i];
-	 }
-
-	 
-	 //elimina una proiezione controllando se è già iniziata
-	 public void eliminaProiezione(int i) {
-		 if(proiezione[i].getDataOra().compareTo(LocalDateTime.now())>0) {
-			 proiezioni[i]=null;
-		 }
-	 }
 
 	 //modifica con gli stream
-	 public void modificaProiezione(Proiezione vecchiaProiezione, Proiezione nuovaProiezione) throws IOException{	
+	public void modificaProiezione(Proiezione vecchiaProiezione, Proiezione nuovaProiezione) throws IOException{	
 		FileWriter fwt = new FileWriter("proiezioni.csv");
 		BufferedWriter bwt = new BufferedWriter(fwt);
 		FileReader frd = new FileReader("proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
-		 while((riga=brd.readLine()) != null) {
-			 if(riga.contains(vecchiaProiezione.toString())) {
-				 bwt.write(nuovaProiezione.toString());
-			 }
-			 else {
-				 bwt.write(riga);
-			 }
-			 bwt.newLine();
-		 }
+		while((brd.readLine()) != null) {
+			if(brd.readLine().contains(vecchiaProiezione.toString())) {
+				bwt.write(nuovaProiezione.toString());
+			}
+			bwt.newLine();
+		}
 	    bwt.close();
 		fwt.close();
 		brd.close();
 		frd.close();
-	 }
+	}
 
 	 //elimina con gli stream
-	 public void eliminaProiezione(Proiezione proiezioneDaEliminare) {
+	public void eliminaProiezione(Proiezione proiezioneDaEliminare) throws IOException {
 		FileWriter fwt = new FileWriter("proiezioni.csv");
 		BufferedWriter bwt = new BufferedWriter(fwt);
 		FileReader frd = new FileReader("proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
-		 while((riga=brd.readLine()) != null) {
-			 if(!riga.contains(proiezioneDaEliminare.toString())) {
-				 bwt.write(riga);
-				 bwt.newLine();
-			 }
-		 }
+		while((brd.readLine()) != proiezioneDaEliminare.toString()) {
+			brd.readLine();
+		}
+		bwt.write(" ");
 		bwt.close();
 		fwt.close(); 
 		brd.close();
 		frd.close();
-  }
+	}
 
- }
+}
    

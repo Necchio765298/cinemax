@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class csvReader{
 	//campi
-	private Proiezione proiezione;
+	private static Proiezione proiezione;
 	private Utente utente;
 	
 	//costruttori
@@ -21,7 +21,7 @@ public class csvReader{
 	}
 	
 	//metodi
-	public String cercaProiezione(Object... args) throws IOException{
+	public static String cercaProiezione(Object... args) throws IOException{
 		FileReader frd = new FileReader("proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		
@@ -34,7 +34,7 @@ public class csvReader{
 		return proiezione;
 	}
 	
-	public String visualizzaProiezione() throws IOException{
+	public static String visualizzaProiezione() throws IOException{
 		return cercaProiezione(proiezione).toString();
 	}
 	

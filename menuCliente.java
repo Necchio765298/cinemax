@@ -65,11 +65,6 @@ public class menuCliente{
 		}
 	}
 	
-	//metodo che calcola la data odierna per compararla con la data delle prenotazioni
-	public LocalDateTime dataOdierna(){
-		return LocalDateTime.now();
-	}
-	
 	public static void modificaPrenotazione(Prenotazione prenotazione, LocalDateTime data) throws IOException{
 		if((prenotazione.getProiezione().getDataOra().isAfter(LocalDateTime.now())) &&  (data.isAfter(LocalDateTime.now()))){
 			FileWriter fwt = new FileWriter("prenotazioni.csv");

@@ -1,52 +1,39 @@
 package bin;
 
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 
  public class menuBigliettaio {
   
-  
   //CAMPI
-  
-  private Prenotazione[] prenotazioni;
-  private int numeroPrenotazioni;
-  
+private Prenotazione prenotazione;
   
   //COSTRUTTORE
-  
   public menuBigliettaio() {
-   prenotazioni = new Prenotazione[10]; //l'array memorizza al massimo 10 prenotazioni
-   numeroPrenotazioni = 0;
+   this.prenotazione = prenotazione;
    }
    
-  
   //METODI
   
-  //aggiunge una prenotazione
-  public void aggiungiPrenotazione(Prenotazione p) {
-   prenotazioni[numeroPrenotazioni] = p;
-   numeroPrenotazioni++;
-   }
-   
-   //visualizza prenotazioni
-   public void visualizzaPrenotazioni() {
-    for(int i=0; i<numeroPrenotazioni; i++) {
-	 System.out.println("ecco le prenotazioni: ");
-	 System.out.println(prenotazioni[i]);
-	 System.out.println("costo totale: " + prenotazioni[i].getCostoTotale() + "€");
-	 }
-   }
-   
-   //modifica numero biglietti
-   public void modificaNumeroBiglietti(int i, int nuovoNumero) {
-    prenotazioni[i].setNumeroBiglietto(nuovoNumero);
-	}
-
 	//cerca prenotazione
-	public Prenotazione cercaPrenotazione(String codice) {
-		for(int i=0; i<numeroPrenotazioni; i++) {
-			if(prenotazioni[i].getCodice().equals(codice)) {
-				return prenotazioni[i];
-			}
+	public String cercaPrenotazione(Object... args) throws IOException{
+		FileReader frd = new FileReader("prenotazioni.csv");
+		BufferedReader brd = new BufferedReader(frd);
+		
+		while(!(brd.readLine().contains(args.toString()))){
+			brd.readLine();
 		}
-		return null;
+		String prenotazione = brd.readLine();
+		brd.close();
+		frd.close();
+		return prenotazione;
+	}
+	
+	//visualizza la prenotazione
+	public String visualizzaPrenotazione() throws IOException{
+		return cercaPrenotazione(prenotazione).toString();
 	}
 }
