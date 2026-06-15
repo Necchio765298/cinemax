@@ -31,9 +31,25 @@ private Prenotazione prenotazione;
 		frd.close();
 		return prenotazione;
 	}
+
+	 //cerca prenotazione per intervallo di date
+	public  static String cercaPrenotazione(LocalDateTime dataInizio, LocalDateTime dataFine) throws IOException{
+		FileReader frd = new FileReader("prenotazioni.csv");
+		BufferedReader brd = new BufferedReader(frd);
+
+		String riga;
+		String risultato;
+		while((riga=brd.readLine()) != null) {
+			if(dataPrenotazione.isAfter(dataInizio) && dataPrenotazione.isBefore(dataFine)) {
+				risultato = risultato + riga;
+			}
+		}
+		return risultato;
+	}
 	
-	//visualizza la prenotazione
+	//visualizza la prenotazione e il costo totale dei biglietti
 	public String visualizzaPrenotazione() throws IOException{
 		return cercaPrenotazione(prenotazione).toString();
+		return "costo totale: " + prenotazione.getCostoTotale() + "€";
 	}
 }
