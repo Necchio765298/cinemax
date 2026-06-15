@@ -1,4 +1,4 @@
-package bin;
+//package bin;
 
 import java.time.LocalDateTime;
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class menuCliente{
 	}
 	
 	//metodi
-	public void visualizzaPrenotazione() throws IOException{
+	public static void visualizzaPrenotazione() throws IOException{
 		Console cons = System.console();
 		FileWriter fwt = new FileWriter("prenotazioni.csv");
 		BufferedWriter bwt = new BufferedWriter(fwt);
@@ -40,7 +40,7 @@ public class menuCliente{
 		}
 	}
 	
-	public void creaPrenotazione(int numeroBiglietto) throws IOException{
+	public static void creaPrenotazione(int numeroBiglietto) throws IOException{
 		if(numeroBiglietto < 200-numeroBiglietto){ //se numero di posti richiesti è minore del numero di posti disponibili
 			Console cons = System.console();
 			String nome = cons.readLine("inserire il prorio nome");

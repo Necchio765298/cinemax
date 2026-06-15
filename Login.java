@@ -1,4 +1,4 @@
-package bin;
+//package bin;
 
 import java.io.FileReader;
 import java.io.FileWriter;

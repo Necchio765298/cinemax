@@ -1,4 +1,4 @@
-package bin;
+//package bin;
 
 import java.io.IOException;
 import java.io.FileReader;
@@ -19,7 +19,7 @@ private Prenotazione prenotazione;
   //METODI
   
 	//cerca prenotazione
-	public String cercaPrenotazione(Object... args) throws IOException{
+	public  static String cercaPrenotazione(Object... args) throws IOException{
 		FileReader frd = new FileReader("prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		

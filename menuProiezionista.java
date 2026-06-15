@@ -1,4 +1,4 @@
-package bin;
+//package bin;
 
 import java.io.IOException;
 import java.io.FileReader;
@@ -20,7 +20,7 @@ public menuProiezionista() {
    
    //METODI
    //aggiunge una proiezione
-   public void aggiungiProiezione(Proiezione p) throws IOException{		
+   public static void aggiungiProiezione(Proiezione p) throws IOException{		
 	    FileWriter fwt = new FileWriter("proiezioni.csv");
 		BufferedWriter bwt = new BufferedWriter(fwt);
 		FileReader frd = new FileReader("proiezioni.csv");
@@ -37,7 +37,7 @@ public menuProiezionista() {
 	}
 
 	 //modifica con gli stream
-	public void modificaProiezione(Proiezione vecchiaProiezione, Proiezione nuovaProiezione) throws IOException{	
+	public static void modificaProiezione(Proiezione vecchiaProiezione, Proiezione nuovaProiezione) throws IOException{	
 		FileWriter fwt = new FileWriter("proiezioni.csv");
 		BufferedWriter bwt = new BufferedWriter(fwt);
 		FileReader frd = new FileReader("proiezioni.csv");
@@ -55,7 +55,7 @@ public menuProiezionista() {
 	}
 
 	 //elimina con gli stream
-	public void eliminaProiezione(Proiezione proiezioneDaEliminare) throws IOException {
+	public static void eliminaProiezione(Proiezione proiezioneDaEliminare) throws IOException {
 		FileWriter fwt = new FileWriter("proiezioni.csv");
 		BufferedWriter bwt = new BufferedWriter(fwt);
 		FileReader frd = new FileReader("proiezioni.csv");

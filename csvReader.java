@@ -1,4 +1,4 @@
-package bin;
+//package bin;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -8,11 +8,11 @@ import java.io.IOException;
 
 public class csvReader{
 	//campi
-	private static Proiezione proiezione;
+	private static String proiezione;
 	private Utente utente;
 	
 	//costruttori
-	public csvReader(Proiezione proiezione){
+	public csvReader(String proiezione){
 		this.proiezione = proiezione;
 	}
 	
@@ -34,7 +34,7 @@ public class csvReader{
 		return proiezione;
 	}
 	
-	public static String visualizzaProiezione() throws IOException{
+	public String visualizzaProiezione() throws IOException{
 		return cercaProiezione(proiezione).toString();
 	}
 	

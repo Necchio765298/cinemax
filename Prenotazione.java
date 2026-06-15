@@ -1,4 +1,4 @@
-package bin;
+//package bin;
 import java.util.UUID;
 
 public class Prenotazione {
@@ -23,7 +23,7 @@ public class Prenotazione {
         this.numeroBiglietto = numeroBiglietto;
     }
 
-    public static String getCodice() {
+    public String getCodice() {
         return codice;
     }
 

@@ -1,4 +1,4 @@
-package bin;
+//package bin;
 
 public class Film {
     private String titolo ;
