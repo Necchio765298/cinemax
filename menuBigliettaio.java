@@ -40,11 +40,15 @@ private Prenotazione prenotazione;
 
 		String riga;
 		String risultato = "";
+		String[] campi = riga.split(";");
+		LOcalDateTime dataPrenotazione = LocalDateTime.parse(campi[3]);
 		while((riga=brd.readLine()) != null) {
 			if(dataPrenotazione.isAfter(dataInizio) && dataPrenotazione.isBefore(dataFine)) {
 				risultato = risultato + riga;
 			}
 		}
+		brd.close();
+		frd.close();
 		return risultato;
 	}
 	
