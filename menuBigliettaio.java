@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.time.LocalDateTime;
 
  public class menuBigliettaio {
   
@@ -38,7 +39,7 @@ private Prenotazione prenotazione;
 		BufferedReader brd = new BufferedReader(frd);
 
 		String riga;
-		String risultato;
+		String risultato = "";
 		while((riga=brd.readLine()) != null) {
 			if(dataPrenotazione.isAfter(dataInizio) && dataPrenotazione.isBefore(dataFine)) {
 				risultato = risultato + riga;
