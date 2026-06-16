@@ -49,7 +49,7 @@ private Prenotazione prenotazione;
 	}
 	
 	//visualizza la prenotazione e il costo totale dei biglietti
-	public String Integer visualizzaPrenotazione() throws IOException{
+	public String String visualizzaPrenotazione() throws IOException{
 		return cercaPrenotazione(prenotazione).toString();
 		return "costo totale: " + prenotazione.getCostoTotale() + "€";
 	}
