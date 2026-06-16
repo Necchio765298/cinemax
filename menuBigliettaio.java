@@ -37,14 +37,12 @@ private Prenotazione prenotazione;
 	public  static String cercaPrenotazione(LocalDateTime dataInizio, LocalDateTime dataFine) throws IOException{
 		FileReader frd = new FileReader("prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
-
-		String riga;
-		String risultato = "";
-		LocalDateTime dataPrenotazione = LocalDateTime.parse(dataPrenotazione);
-		while((riga=brd.readLine()) != null) {
-			if(dataPrenotazione.isAfter(dataInizio) && dataPrenotazione.isBefore(dataFine)) {
-				risultato = risultato + riga;
-			}
+		 while(brd.readLine() != null) {
+			 String Date brd.readLine().subString(0,10);
+			 LocalDateTime data = LocalDateTime.parse(Date);
+			 if(data.isAfter(dataInizio) && data.isBefore(dataFine))
+				 return brd.readLine();
+		 }
 		}
 		brd.close();
 		frd.close();
