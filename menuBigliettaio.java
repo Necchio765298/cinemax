@@ -38,7 +38,7 @@ private Prenotazione prenotazione;
 		FileReader frd = new FileReader("prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		 while(brd.readLine() != null) {
-			 String Date brd.readLine().subString(0,10);
+			 String Date = brd.readLine().substring(0,10);
 			 LocalDateTime data = LocalDateTime.parse(Date);
 			 if(data.isAfter(dataInizio) && data.isBefore(dataFine))
 				 return brd.readLine();
