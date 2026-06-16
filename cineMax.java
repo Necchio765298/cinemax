@@ -20,7 +20,7 @@ public static void main(String[] args) throws IOException {
 			System.out.println("0. Esci");
 			String Scelta = cons.readLine("Scelta: ");
 			scelta = Integer.parseInt(Scelta);
-		}
+		
 		switch(scelta){
 			case 1:
 				String username;
@@ -42,9 +42,9 @@ public static void main(String[] args) throws IOException {
 						System.out.println("Ritentare l'accesso? digitare 'S' per loggarsi; 'N' per tornare al menù di benvenuto");
 						exit = cons.readLine();
 						if(exit == "S")
-							break function_benvenuto;
-						else if(exit == "N")
 							break function_login;
+						else if(exit == "N")
+							break function_benvenuto;
 					}while(exit != "S" || exit != "N");
 				}
 			case 2:
@@ -59,7 +59,7 @@ public static void main(String[] args) throws IOException {
 				String ruolo = cons.readLine("ruolo? scrivere Cliente, Bigliettaio o Proiezionista");
 				Utente nuovoUtente = new Utente(nome, cognome, username, password, dataNascita, domicilio, ruolo);
 				csvReader.registraCliente(nuovoUtente);
-				break;
+				break function_benvenuto;
 			
 			case 3:	//creare il menu con le funzionalità di ogni utente
 				Object argomenti = cons.readLine("inserire titolo del film, genere, intervallo di date, costo bilgietto o combianzione dei criteri di ricerca");
@@ -75,7 +75,8 @@ public static void main(String[] args) throws IOException {
 			default:
 				System.out.println("scelta non valida");
 				break function_benvenuto;
-		}		
+		}	
+		}
 	}while(scelta != 0);
 		
 	}
