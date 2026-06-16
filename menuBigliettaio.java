@@ -43,7 +43,6 @@ private Prenotazione prenotazione;
 			 if(data.isAfter(dataInizio) && data.isBefore(dataFine))
 				 return brd.readLine();
 		 }
-		}
 		brd.close();
 		frd.close();
 		return risultato;
