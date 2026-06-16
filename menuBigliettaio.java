@@ -41,10 +41,11 @@ private Prenotazione prenotazione;
 			 String Date = brd.readLine().substring(0,10);
 			 LocalDateTime data = LocalDateTime.parse(Date);
 			 if(data.isAfter(dataInizio) && data.isBefore(dataFine))
-				 return brd.readLine();
+				 System.out.println(data);
 		 }
 		brd.close();
 		frd.close();
+		return data;
 	}
 	
 	//visualizza la prenotazione e il costo totale dei biglietti
