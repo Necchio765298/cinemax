@@ -45,7 +45,6 @@ private Prenotazione prenotazione;
 		 }
 		brd.close();
 		frd.close();
-		return data;
 	}
 	
 	//visualizza la prenotazione e il costo totale dei biglietti
