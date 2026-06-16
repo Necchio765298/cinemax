@@ -45,10 +45,11 @@ private Prenotazione prenotazione;
 		 }
 		brd.close();
 		frd.close();
+		return data;
 	}
 	
 	//visualizza la prenotazione e il costo totale dei biglietti
-	public String visualizzaPrenotazione() throws IOException{
+	public String int visualizzaPrenotazione() throws IOException{
 		return cercaPrenotazione(prenotazione).toString();
 		return "costo totale: " + prenotazione.getCostoTotale() + "€";
 	}
