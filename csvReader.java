@@ -28,7 +28,7 @@ public class csvReader{
 		while((proiezione = brd.readLine()) != null){
 			if(proiezione.contains(args.toString()))
 				System.out.println(proiezione);
-			break;
+			
 		}
 		brd.close();
 		frd.close();
@@ -41,15 +41,12 @@ public class csvReader{
 	
 	
 	public static void registraCliente(Utente utente) throws IOException{
-		FileWriter fwt = new FileWriter("../data/utenti.csv");
+		FileWriter fwt = new FileWriter("../data/utenti.csv", true);
 		BufferedWriter bwt = new BufferedWriter(fwt);
-		FileReader frd = new FileReader("../data/utenti.csv");
-		BufferedReader brd = new BufferedReader(frd);
-		while(brd.readLine() != null){
-			brd.readLine();
-		}
-		bwt.write(utente.toString());
+		
 		bwt.newLine();
+		bwt.write(utente.toString());
+		
 		bwt.close();
 		fwt.close();
 	}

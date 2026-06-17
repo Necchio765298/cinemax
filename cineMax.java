@@ -55,16 +55,16 @@ public class CineMax {
 						String cognome = cons.readLine("cognome? ");
 						username = cons.readLine("username? ");
 						password = cons.readLine("password? ");
-						String DataNascita = cons.readLine("data di nascita? Richiesta nel formato aaaa-mm-gg");
+						String DataNascita = cons.readLine("data di nascita? Richiesta nel formato aaaa-mm-gg ");
 						LocalDate dataNascita = LocalDate.parse(DataNascita);
 						String domicilio = cons.readLine("domicilio? ");
-						String ruolo = cons.readLine("ruolo? scrivere Cliente, Bigliettaio o Proiezionista");
+						String ruolo = cons.readLine("ruolo? scrivere Cliente, Bigliettaio o Proiezionista ");
 						Utente nuovoUtente = new Utente(nome, cognome, username, password, dataNascita, domicilio, ruolo);
 						csvReader.registraCliente(nuovoUtente);
 						break function_benvenuto;
 					
 					case 3:	//creare il menu con le funzionalità di ogni utente
-						Object argomenti = cons.readLine("inserire titolo del film, genere, intervallo di date, costo bilgietto o combianzione dei criteri di ricerca");
+						Object argomenti = cons.readLine("inserire titolo del film, genere, intervallo di date, costo biglietto o combinazione dei criteri di ricerca");
 						String proiezione = csvReader.cercaProiezione(argomenti);
 						System.out.println("ecco la proiezione trovata: ");
 						System.out.println(proiezione);

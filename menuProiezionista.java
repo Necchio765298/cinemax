@@ -21,17 +21,18 @@ public menuProiezionista() {
    //METODI
    //aggiunge una proiezione
    public static void aggiungiProiezione(Proiezione p) throws IOException{		
-	    FileWriter fwt = new FileWriter("proiezioni.csv");
+	    FileWriter fwt = new FileWriter("proiezioni.csv", true);
 		BufferedWriter bwt = new BufferedWriter(fwt);
 		FileReader frd = new FileReader("proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
-		while(brd.readLine() != null){
-			brd.readLine();
-			if (brd.readLine().contains(p.toString()))
+		String proiezione;
+		while((proiezione = brd.readLine()) != null){
+			if (proiezione.contains(p.toString()))
 				System.out.println("la proiezione inserita si accavalla con una già esistente");
-			else
-				bwt.write(p.toString());
 		}
+			bwt.newLine();
+			bwt.write(p.toString());
+		
 		bwt.close();
 		fwt.close();
 	}
@@ -42,11 +43,12 @@ public menuProiezionista() {
 		BufferedWriter bwt = new BufferedWriter(fwt);
 		FileReader frd = new FileReader("proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
-		while((brd.readLine()) != null) {
-			if(brd.readLine().contains(vecchiaProiezione.toString())) {
+		String proiezione;
+		while((proiezione = brd.readLine()) != null) {
+			if(proiezione.contains(vecchiaProiezione.toString())) {
 				bwt.write(nuovaProiezione.toString());
 			}
-			bwt.newLine();
+			
 		}
 	    bwt.close();
 		fwt.close();
@@ -60,10 +62,12 @@ public menuProiezionista() {
 		BufferedWriter bwt = new BufferedWriter(fwt);
 		FileReader frd = new FileReader("proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
-		while((brd.readLine()) != proiezioneDaEliminare.toString()) {
-			brd.readLine();
+		String proiezione;
+		while((proiezione = brd.readLine()) != null ) {
+			if(proiezione == proiezioneDaEliminare.toString())
+				bwt.write(" ");
 		}
-		bwt.write(" ");
+		
 		bwt.close();
 		fwt.close(); 
 		brd.close();
