@@ -19,15 +19,16 @@ public class Login{
 
 	//metodi
 	public String toString(){
-		return username + ", " + password;
+		return username + "," + password;
 	}
 	
 	public static boolean login(Login login) throws IOException{
-		FileReader frd = new FileReader("utenti.csv");
+		FileReader frd = new FileReader("../data/utenti.csv");
 		BufferedReader brd = new BufferedReader(frd);
-		
-		while(brd.readLine() != null){
-			if(brd.readLine().contains(login.toString()))
+		String persona;
+		while((persona = brd.readLine()) != null){
+			
+			if(persona.contains(login.toString()))
 				brd.close();
 				frd.close();
 				return true;	
@@ -36,5 +37,28 @@ public class Login{
 		brd.close();
 		frd.close();
 		return false;
+	}
+	
+	public static String ruolo(Login login) throws IOException{
+		FileReader frd = new FileReader("../data/utenti.csv");
+		BufferedReader brd = new BufferedReader(frd);
+		String ruolo = "non specificato";
+		String persona;
+		while((persona= brd.readLine()) != null){
+			
+			if(persona.contains(login.toString())){
+				
+				if(persona.contains("Cliente"))
+					ruolo = "Cliente";
+					
+				else if(persona.contains("Bigliettaio"))
+					ruolo = "Bigliettaio";
+					
+				else
+					ruolo = "Proiezionista";
+					
+			}
+		}
+		return ruolo;
 	}
 }

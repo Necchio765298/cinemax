@@ -22,13 +22,14 @@ public class csvReader{
 	
 	//metodi
 	public static String cercaProiezione(Object... args) throws IOException{
-		FileReader frd = new FileReader("proiezioni.csv");
+		FileReader frd = new FileReader("../data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
-		
-		while(!(brd.readLine().contains(args.toString()))){
-			brd.readLine();
+		String proiezione;
+		while((proiezione = brd.readLine()) != null){
+			if(proiezione.contains(args.toString()))
+				System.out.println(proiezione);
+			break;
 		}
-		String proiezione = brd.readLine();
 		brd.close();
 		frd.close();
 		return proiezione;
@@ -40,9 +41,9 @@ public class csvReader{
 	
 	
 	public static void registraCliente(Utente utente) throws IOException{
-		FileWriter fwt = new FileWriter("utenti.csv");
+		FileWriter fwt = new FileWriter("../data/utenti.csv");
 		BufferedWriter bwt = new BufferedWriter(fwt);
-		FileReader frd = new FileReader("utenti.csv");
+		FileReader frd = new FileReader("../data/utenti.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		while(brd.readLine() != null){
 			brd.readLine();

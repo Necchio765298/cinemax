@@ -34,22 +34,22 @@ private Prenotazione prenotazione;
 	}
 
 	 //cerca prenotazione per intervallo di date
-	public  static String cercaPrenotazione(LocalDateTime dataInizio, LocalDateTime dataFine) throws IOException{
+	public  static void cercaPrenotazione(LocalDateTime dataInizio, LocalDateTime dataFine) throws IOException{
 		FileReader frd = new FileReader("prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
-		 while(brd.readLine() != null) {
-			 String Date = brd.readLine().substring(0,10);
-			 LocalDateTime data = LocalDateTime.parse(Date);
-			 if(data.isAfter(dataInizio) && data.isBefore(dataFine))
-				 System.out.println(data);
-		 }
+		String Date;
+		while(brd.readLine() != null) {
+			Date = brd.readLine().substring(0,10);
+			LocalDateTime data = LocalDateTime.parse(Date);
+			if(data.isAfter(dataInizio) && data.isBefore(dataFine))
+				System.out.println(data.toString());
+		}
 		brd.close();
 		frd.close();
-		return data;
 	}
 	
-	//visualizza la prenotazione e il costo totale dei biglietti
+	//visualizza la prenotazione 
 	public String visualizzaPrenotazione() throws IOException{
-		return cercaPrenotazione(Object... args).toString();
+		return cercaPrenotazione().toString();
 	}
 }
