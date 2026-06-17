@@ -52,14 +52,13 @@ public class menuCliente{
 
 			String prenotazione = nome+"," + cognome+","  + titolo +"," + DataOra+"," +  NumBiglietto +"," + codice;
 
-			FileWriter fwt = new FileWriter("prenotazioni.csv");
+			FileWriter fwt = new FileWriter("prenotazioni.csv", true);
 			BufferedWriter bwt = new BufferedWriter(fwt);
 			FileReader frd = new FileReader("prenotazioni.csv");
 			BufferedReader brd = new BufferedReader(frd);
-			while(brd.readLine() != null){
-				brd.readLine();
-			}
+			
 			bwt.write(prenotazione);
+			System.out.println("la prenotazione è stata registrata");
 		}else{
 			System.out.print("il numero dei biglietti eccede il numero di posti disponibili");
 		}
@@ -72,14 +71,15 @@ public class menuCliente{
 			FileReader frd = new FileReader("prenotazioni.csv");
 			BufferedReader brd = new BufferedReader(frd);
 			
-			while(brd.readLine() != prenotazione.toString()){
-				brd.readLine();
+			String Prenotazione;
+			while((Prenotazione = brd.readLine()) != null){
+				if(Prenotazione == prenotazione.toString()){
+					prenotazione.getProiezione().setDataOra(data);
+					bwt.write(prenotazione.toString());
+				}
 			}
-			prenotazione.getProiezione().setDataOra(data);
-			bwt.write(prenotazione.toString());
-		}else{
+		}else
 			System.out.println("la data vecchia e quella inserita sono antecedenti la data odierna");
-		}
 	}
 	
 	public static void eliminaPrenotazione(Prenotazione prenotazione) throws IOException{
@@ -88,11 +88,11 @@ public class menuCliente{
 			BufferedWriter bwt = new BufferedWriter(fwt);
 			FileReader frd = new FileReader("prenotazioni.csv");
 			BufferedReader brd = new BufferedReader(frd);
-			
-			while(brd.readLine() != prenotazione.toString()){
-				brd.readLine();
+			String Prenotazione;
+			while((Prenotazione = brd.readLine()) != null){
+				if(Prenotazione == prenotazione.toString())
+					bwt.write(" ");
 			}
-			bwt.write(" ");
 		}else{
 			System.out.println("la data della proiezione non è successiva alla data odierna");
 		}

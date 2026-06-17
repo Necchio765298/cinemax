@@ -64,12 +64,60 @@ public class CineMax {
 						break function_benvenuto;
 					
 					case 3:	//creare il menu con le funzionalità di ogni utente
-						Object argomenti = cons.readLine("inserire titolo del film, genere, intervallo di date, costo biglietto o combinazione dei criteri di ricerca");
-						String proiezione = csvReader.cercaProiezione(argomenti);
-						System.out.println("ecco la proiezione trovata: ");
-						System.out.println(proiezione);
-						break;
-						
+					int alternativa;
+						switch(ruoloUtente){
+							case "Cliente":
+								do{
+									String exit;
+									function_cliente:{
+										System.out.println("cosa si desidera fare?");
+										System.out.println("1. creare una nuova prenotazione");
+										System.out.println("2. visualizzare le proprie prenotazioni");
+										System.out.println("3. modificare una prenotazione");
+										System.out.println("4. eliminare una prenotazione");
+										String Alternativa = cons.readLine("Scelta: ");
+										alternativa = Integer.parseInt(Alternativa);
+									
+										if(alternativa == 1){
+											//crea nuova prenotazione
+											System.out.println("quanti biglietti si desidera acquistare?");
+											String Biglietti = cons.readLine("Numero: ");
+											int biglietti = Integer.parseInt(Biglietti);
+											menuCliente.creaPrenotazione(biglietti);
+										
+											System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
+											exit = cons.readLine();
+											if(exit == "S")
+												break function_cliente;
+											else if(exit == "N")
+												break function_benvenuto;
+										
+										}else if(alternativa == 2){
+											//visualizza le prenotazioni
+											menuCliente.visualizzaPrenotazione();
+											
+											System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
+											exit = cons.readLine();
+											if(exit == "S")
+												break function_cliente;
+											else if(exit == "N")
+												break function_benvenuto;
+										}else if(alternativa == 3){
+											//modifica una prenotazione
+											
+										}else if(alternativa == 4){
+											//elimina una prenotazione
+										}
+									}
+								}while(alternativa != 1 && alternativa != 2 && alternativa != 3 && alternativa != 4 );	
+								break;
+							case "Bigliettaio":
+							
+								break;
+							case "Proiezionista":
+							
+								break;
+						}
 					case 0:
 						System.out.println("Arrivederci!");
 						break;
@@ -79,6 +127,15 @@ public class CineMax {
 						break function_benvenuto;
 				}	
 			}
+			
 		}while(scelta != 0);		
-	}	
+		
+	}
 }
+/*
+						Object argomenti = cons.readLine("inserire titolo del film, genere, intervallo di date, costo biglietto o combinazione dei criteri di ricerca");
+						String proiezione = csvReader.cercaProiezione(argomenti);
+						System.out.println("ecco la proiezione trovata: ");
+						System.out.println(proiezione);
+						break;
+						*/

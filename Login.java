@@ -31,9 +31,9 @@ public class Login{
 			if(persona.contains(login.toString()))
 				brd.close();
 				frd.close();
-				return true;	
-		}
-		System.out.println("username o password non corretti");
+				return true;
+			
+		}		
 		brd.close();
 		frd.close();
 		return false;
