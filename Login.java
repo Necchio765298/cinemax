@@ -26,17 +26,19 @@ public class Login{
 		FileReader frd = new FileReader("../data/utenti.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String persona;
+		boolean accesso;
 		while((persona = brd.readLine()) != null){
 			
 			if(persona.contains(login.toString()))
 				brd.close();
 				frd.close();
-				return true;
+				accesso = true;
 			
 		}		
 		brd.close();
 		frd.close();
-		return false;
+		accesso = false;
+		return accesso;
 	}
 	
 	public static String ruolo(Login login) throws IOException{
