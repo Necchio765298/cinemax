@@ -160,6 +160,8 @@ public class CineMax {
 									       else if(alternativa == 2){
 											//visualizza una prenotazione
 											   menuBigliettaio.visualizzaPrenotazione();
+											   System.out.println("Proiezione: ");
+											   Proiezione.getFilm();
 											   System.out.println("Codice prenotazione: ");
 											   Prenotazione.getCodice();
 											   System.out.println("Nome e cognome cliente: ");
@@ -186,6 +188,20 @@ public class CineMax {
 								break;
 								
 							case "Proiezionista":
+								do{
+									String exit;
+									function_proiezionista:{
+										System.out.println("cosa si desidera fare?");
+										System.out.println("1. aggiungere una proiezione");
+										System.out.println("2. modificare una proiezione");
+										System.out.println("3. eliminare una proiezione");
+										String Alternativa = cons.readLine("Scelta: ");
+										alternativa = Integer.parseInt(Alternativa);
+
+										if(alternativa == 1){
+											//aggiunge proiezione
+											
+										
 							
 								break;
 						}
