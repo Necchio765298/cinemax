@@ -159,9 +159,32 @@ public class CineMax {
 											} 
 									       else if(alternativa == 2){
 											//visualizza una prenotazione
-											   
-							
+											   menuBigliettaio.visualizzaPrenotazione();
+											   System.out.println("Codice prenotazione: ");
+											   Prenotazione.getCodice();
+											   System.out.println("Nome e cognome cliente: ");
+											   Utente.getNome();
+											   Utente.getCognome();
+											   System.out.println("Data e ora proiezione: ");
+											   Proiezione.getDataOra();
+											   System.out.println("Numero Biglietti: ");
+											   Prenotazione.getNumeroBiglietto();
+											   System.out.println("Prezzo unitario: ");
+											   Proiezione.getPrezzoBiglietto();
+											   System.out.println("Prezzo totale: ");
+											   Prenotazione.getCostoTotale();
+
+											   System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
+											exit = cons.readLine();
+											if(exit == "S")
+												break function_bigliettaio;
+											else if(exit == "N")
+												break function_benvenuto;
+										   }
+									}
+								}while(alternativa != 1 && alternativa != 2 && alternativa != 3 && alternativa != 4 );			   
 								break;
+								
 							case "Proiezionista":
 							
 								break;
