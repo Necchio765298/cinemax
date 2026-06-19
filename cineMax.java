@@ -421,9 +421,45 @@ public class CineMax {
 										   }
 										else if(alternativa == 2){
 										//modifica proiezione
-										System.out.println("quale proiezione modificare?");
-										  menuProiezionista.modificaProiezione(
-
+										System.out.println("Quale proiezione modificare? Inserire i dati della proiezione per ricercarla");
+											System.out.println("Titolo: ");
+											String titolo = cons.readLine();
+											System.out.println("Genere: ");
+											String genere = cons.readLine();
+											System.out.println("Regista: ");
+											String regista = cons.readLine();
+											System.out.println("Anno: ");
+											int anno = cons.readInt();
+											System.out.println("Durata in minuti: ");
+											int durataMinuti = cons.readInt();
+											System.out.println("Età minima: ");
+											int etaMinima = cons.readInt();
+											Film film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
+											System.out.println("Data e ora: ");
+											LocalDateTime dataOra = cons.readLine();
+											System.out.println("Prezzo biglietto: ");
+											double prezzoBiglietto = cons.readDouble();
+											Proiezione vecchiaProiezione = new Proiezione(film, dataOra, prezzoBiglietto);
+											System.out.println("Inserire ora i nuovi dati della proiezione");
+											System.out.println("Titolo: ");
+											String titolo = cons.readLine();
+											System.out.println("Genere: ");
+											String genere = cons.readLine();
+											System.out.println("Regista: ");
+											String regista = cons.readLine();
+											System.out.println("Anno: ");
+											int anno = cons.readInt();
+											System.out.println("Durata in minuti: ");
+											int durataMinuti = cons.readInt();
+											System.out.println("Età minima: ");
+											int etaMinima = cons.readInt();
+											Film film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
+											System.out.println("Data e ora: ");
+											LocalDateTime dataOra = cons.readLine();
+											System.out.println("Prezzo biglietto: ");
+											double prezzoBiglietto = cons.readDouble();
+											Proiezione nuovaProiezione = new Proiezione(film, dataOra, prezzoBiglietto);
+										    menuProiezionista.modificaProiezione(vecchiaProiezione, nuovaProiezione);
 
                                            System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
 											exit = cons.readLine();
@@ -434,7 +470,26 @@ public class CineMax {
 										   } 
 									  else if(alternativa == 3){
 										//elimina proiezione
-									    menuProiezionista.eliminaProiezione(
+										  System.out.println("Quale proiezione eliminare? Inserire i dati della proiezione per ricercarla");
+											System.out.println("Titolo: ");
+											String titolo = cons.readLine();
+											System.out.println("Genere: ");
+											String genere = cons.readLine();
+											System.out.println("Regista: ");
+											String regista = cons.readLine();
+											System.out.println("Anno: ");
+											int anno = cons.readInt();
+											System.out.println("Durata in minuti: ");
+											int durataMinuti = cons.readInt();
+											System.out.println("Età minima: ");
+											int etaMinima = cons.readInt();
+											Film film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
+											System.out.println("Data e ora: ");
+											LocalDateTime dataOra = cons.readLine();
+											System.out.println("Prezzo biglietto: ");
+											double prezzoBiglietto = cons.readDouble();
+											Proiezione p = new Proiezione(film, dataOra, prezzoBiglietto);
+									        menuProiezionista.eliminaProiezione(p);
 								        
 											System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
 											exit = cons.readLine();
