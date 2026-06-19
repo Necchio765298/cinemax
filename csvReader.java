@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-
+import java.time.LocalDate;
 public class csvReader{
 	//campi
 	private static String proiezione;
@@ -21,7 +21,7 @@ public class csvReader{
 	}
 	
 	//metodi
-	public static String cercaProiezione(Object... args) throws IOException{
+	public static void cercaProiezione(Object... args) throws IOException{
 		FileReader frd = new FileReader("../data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String proiezione;
@@ -32,13 +32,26 @@ public class csvReader{
 		}
 		brd.close();
 		frd.close();
-		return proiezione;
 	}
 	
-	public String visualizzaProiezione() throws IOException{
-		return cercaProiezione(proiezione).toString();
+	public  static void cercaProiezione(LocalDate dataInizio, LocalDate dataFine) throws IOException{
+		FileReader frd = new FileReader("../data/proiezioni.csv");
+		BufferedReader brd = new BufferedReader(frd);
+		String Date;
+		while(brd.readLine() != null) {
+			Date = brd.readLine().substring(0,10);
+			LocalDate data = LocalDate.parse(Date);
+			if(data.isAfter(dataInizio) && data.isBefore(dataFine))
+				System.out.println(data.toString());
+		}
+		brd.close();
+		frd.close();
 	}
 	
+	/*public String visualizzaProiezione() throws IOException{
+		return cercaProiezione(proiezione);
+	}
+	*/
 	
 	public static void registraCliente(Utente utente) throws IOException{
 		FileWriter fwt = new FileWriter("../data/utenti.csv", true);

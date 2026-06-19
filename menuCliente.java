@@ -24,9 +24,9 @@ public class menuCliente{
 	//metodi
 	public static void visualizzaPrenotazione() throws IOException{
 		Console cons = System.console();
-		FileWriter fwt = new FileWriter("prenotazioni.csv");
+		FileWriter fwt = new FileWriter("../data/prenotazioni.csv");
 		BufferedWriter bwt = new BufferedWriter(fwt);
-		FileReader frd = new FileReader("prenotazioni.csv");
+		FileReader frd = new FileReader("../data/prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		
 		String nome = cons.readLine("inserire il nome del cliente per cui cercare le prenotazioni associate");
@@ -50,11 +50,11 @@ public class menuCliente{
 			String NumBiglietto = cons.readLine("inserire il numero di biglietti da acquistare");
 			String codice = UUID.randomUUID().toString().substring(0,8).toUpperCase(); 
 
-			String prenotazione = nome+"," + cognome+","  + titolo +"," + DataOra+"," +  NumBiglietto +"," + codice;
+			String prenotazione = DataOra+"," + nome+","+ cognome+","  + titolo +","  +  NumBiglietto +"," + codice;
 
-			FileWriter fwt = new FileWriter("prenotazioni.csv", true);
+			FileWriter fwt = new FileWriter("../data/prenotazioni.csv", true);
 			BufferedWriter bwt = new BufferedWriter(fwt);
-			FileReader frd = new FileReader("prenotazioni.csv");
+			FileReader frd = new FileReader("../data/prenotazioni.csv");
 			BufferedReader brd = new BufferedReader(frd);
 			
 			bwt.write(prenotazione);
@@ -84,9 +84,9 @@ public class menuCliente{
 	
 	public static void eliminaPrenotazione(Prenotazione prenotazione) throws IOException{
 		if(prenotazione.getProiezione().getDataOra().compareTo(LocalDateTime.now())>0){
-			FileWriter fwt = new FileWriter("prenotazioni.csv");
+			FileWriter fwt = new FileWriter("../data/prenotazioni.csv");
 			BufferedWriter bwt = new BufferedWriter(fwt);
-			FileReader frd = new FileReader("prenotazioni.csv");
+			FileReader frd = new FileReader("../data/prenotazioni.csv");
 			BufferedReader brd = new BufferedReader(frd);
 			String Prenotazione;
 			while((Prenotazione = brd.readLine()) != null){

@@ -21,7 +21,7 @@ private Prenotazione prenotazione;
   
 	//cerca prenotazione
 	public  static String cercaPrenotazione(Object... args) throws IOException{
-		FileReader frd = new FileReader("prenotazioni.csv");
+		FileReader frd = new FileReader("../data/prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		
 		while(!(brd.readLine().contains(args.toString()))){
@@ -35,7 +35,7 @@ private Prenotazione prenotazione;
 
 	 //cerca prenotazione per intervallo di date
 	public  static void cercaPrenotazione(LocalDateTime dataInizio, LocalDateTime dataFine) throws IOException{
-		FileReader frd = new FileReader("prenotazioni.csv");
+		FileReader frd = new FileReader("../data/prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String Date;
 		while(brd.readLine() != null) {

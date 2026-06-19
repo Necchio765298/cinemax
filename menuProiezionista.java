@@ -21,9 +21,9 @@ public menuProiezionista() {
    //METODI
    //aggiunge una proiezione
    public static void aggiungiProiezione(Proiezione p) throws IOException{		
-	    FileWriter fwt = new FileWriter("proiezioni.csv", true);
+	    FileWriter fwt = new FileWriter("../data/proiezioni.csv", true);
 		BufferedWriter bwt = new BufferedWriter(fwt);
-		FileReader frd = new FileReader("proiezioni.csv");
+		FileReader frd = new FileReader("../data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String proiezione;
 		while((proiezione = brd.readLine()) != null){
@@ -39,9 +39,9 @@ public menuProiezionista() {
 
 	 //modifica con gli stream
 	public static void modificaProiezione(Proiezione vecchiaProiezione, Proiezione nuovaProiezione) throws IOException{	
-		FileWriter fwt = new FileWriter("proiezioni.csv");
+		FileWriter fwt = new FileWriter("../data/proiezioni.csv");
 		BufferedWriter bwt = new BufferedWriter(fwt);
-		FileReader frd = new FileReader("proiezioni.csv");
+		FileReader frd = new FileReader("../data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String proiezione;
 		while((proiezione = brd.readLine()) != null) {
@@ -58,9 +58,9 @@ public menuProiezionista() {
 
 	 //elimina con gli stream
 	public static void eliminaProiezione(Proiezione proiezioneDaEliminare) throws IOException {
-		FileWriter fwt = new FileWriter("proiezioni.csv");
+		FileWriter fwt = new FileWriter("../data/proiezioni.csv");
 		BufferedWriter bwt = new BufferedWriter(fwt);
-		FileReader frd = new FileReader("proiezioni.csv");
+		FileReader frd = new FileReader("../data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String proiezione;
 		while((proiezione = brd.readLine()) != null ) {

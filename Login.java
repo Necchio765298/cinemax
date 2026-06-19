@@ -26,41 +26,34 @@ public class Login{
 		FileReader frd = new FileReader("../data/utenti.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String persona;
-		boolean accesso;
+		boolean accesso = false;
 		while((persona = brd.readLine()) != null){
 			
 			if(persona.contains(login.toString()))
-				brd.close();
-				frd.close();
 				accesso = true;
-			
-		}		
+		}	
 		brd.close();
 		frd.close();
-		accesso = false;
 		return accesso;
 	}
 	
-	public static String ruolo(Login login) throws IOException{
+	public static String ruolo(Login login, boolean accesso) throws IOException{
 		FileReader frd = new FileReader("../data/utenti.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String ruolo = "non specificato";
 		String persona;
 		while((persona= brd.readLine()) != null){
-			
 			if(persona.contains(login.toString())){
-				
 				if(persona.contains("Cliente"))
 					ruolo = "Cliente";
-					
 				else if(persona.contains("Bigliettaio"))
 					ruolo = "Bigliettaio";
-					
 				else
 					ruolo = "Proiezionista";
-					
 			}
 		}
+		brd.close();
+		frd.close();
 		return ruolo;
 	}
 }
