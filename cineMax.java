@@ -112,6 +112,54 @@ public class CineMax {
 								}while(alternativa != 1 && alternativa != 2 && alternativa != 3 && alternativa != 4 );	
 								break;
 							case "Bigliettaio":
+								do{
+									String exit;
+									function_bigliettaio:{
+										System.out.println("cosa si desidera fare?");
+										System.out.println("1. cercare una prenotazione");
+										System.out.println("2. visualizzare una prenotazione");
+										String Alternativa = cons.readLine("Scelta: ");
+										alternativa = Integer.parseInt(Alternativa);
+									
+										if(alternativa == 1){
+											//cerca una prenotazione
+											System.out.println("come cercare la prenotazione?");
+											System.out.println("1. codice prenotazione");
+											System.out.println("2. nome e cognome cliente");
+											System.out.println("3. titolo film");
+											System.out.println("4. intervallo date");
+											String ricerca = cons.readLine("Scelta: ");
+
+											switch(ricerca) {
+												case "1":
+													String codice = cons.readLine("Codice: ");
+													menuBigliettaio.cercaPrenotazione(codice);
+													break;
+												case "2":
+													String nome = cons.readLine("Nome: ");
+													String cognome = cons.readLine("Cognome: ");
+													menuBigliettaio.cercaPrenotazione(nome, cognome);
+													break;
+												case "3":
+													String titolo = cons.readLine("Titolo: ");
+													menuBigliettaio.cercaPrenotazione(titolo);
+													break;
+												case "4":
+													LocalDateTime inizio = cons.readLine("data di inizio: ");
+													LocalDateTime fine = cons.readLine("data di fine: ");
+													menuBigliettaio.cercaPrenotazione(inizio, fine);
+													break;
+											}
+											System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
+											exit = cons.readLine();
+											if(exit == "S")
+												break function_bigliettaio;
+											else if(exit == "N")
+												break function_benvenuto;
+											} 
+									       else if(alternativa == 2){
+											//visualizza una prenotazione
+											   
 							
 								break;
 							case "Proiezionista":
