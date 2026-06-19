@@ -229,16 +229,32 @@ public class CineMax {
 											else if(exit == "N")
 												break function_benvenuto;
 										   }
-										}else if(alternativa == 2){
+										else if(alternativa == 2){
+										//modifica proiezione
+										System.out.println("quale proiezione modificare?");
 										  menuProiezionista.modificaProiezione(
 
 
-
-									  }else if(alternativa == 3){
+                                           System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
+											exit = cons.readLine();
+											if(exit == "S")
+												break function_proiezionista;
+											else if(exit == "N")
+												break function_benvenuto;
+										   } 
+									  else if(alternativa == 3){
+										//elimina proiezione
 									    menuProiezionista.eliminaProiezione(
-										
-							}while(alternativa != 1 && alternativa != 2 && alternativa != 3);
-								break;
+								        
+											System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
+											exit = cons.readLine();
+											if(exit == "S")
+												break function_proiezionista;
+											else if(exit == "N")
+												break function_benvenuto;
+										   }		
+							while(alternativa != 1 && alternativa != 2 && alternativa != 3);
+									}		break;
 						}
 					case 0:
 						System.out.println("Arrivederci!");
