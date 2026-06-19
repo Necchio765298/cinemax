@@ -184,7 +184,7 @@ public class CineMax {
 												break function_benvenuto;
 										   }
 									}
-								}while(alternativa != 1 && alternativa != 2 && alternativa != 3 && alternativa != 4 );			   
+								}while(alternativa != 1 && alternativa != 2);			   
 								break;
 								
 							case "Proiezionista":
@@ -225,14 +225,19 @@ public class CineMax {
 											System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
 											exit = cons.readLine();
 											if(exit == "S")
-												break function_bigliettaio;
+												break function_proiezionista;
 											else if(exit == "N")
 												break function_benvenuto;
 										   }
+										}else if(alternativa == 2){
+										  menuProiezionista.modificaProiezione(
+
+
+
+									  }else if(alternativa == 3){
+									    menuProiezionista.eliminaProiezione(
 										
-										
-										
-							
+							}while(alternativa != 1 && alternativa != 2 && alternativa != 3);
 								break;
 						}
 					case 0:
