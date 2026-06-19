@@ -160,7 +160,7 @@ public class CineMax {
 									       else if(alternativa == 2){
 											//visualizza una prenotazione
 											   menuBigliettaio.visualizzaPrenotazione();
-											   System.out.println("Proiezione: ");
+											   System.out.println("Film: ");
 											   Proiezione.getFilm();
 											   System.out.println("Codice prenotazione: ");
 											   Prenotazione.getCodice();
@@ -200,7 +200,37 @@ public class CineMax {
 
 										if(alternativa == 1){
 											//aggiunge proiezione
-											
+											System.out.println("Inserire dati del film");
+											System.out.println("Titolo: ");
+											String titolo = cons.readLine();
+											System.out.println("Genere: ");
+											String genere = cons.readLine();
+											System.out.println("Regista: ");
+											String regista = cons.readLine();
+											System.out.println("Anno: ");
+											int anno = cons.readInt();
+											System.out.println("Durata in minuti: ");
+											int durataMinuti = cons.readInt();
+											System.out.println("Età minima: ");
+											int etaMinima = cons.readInt();
+											Film film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
+											System.out.println("Inserire dati della proiezione");
+											System.out.println("Data e ora: ");
+											LocalDateTime dataOra = cons.readLine();
+											System.out.println("Prezzo biglietto: ");
+											double prezzoBiglietto = cons.readDouble();
+											Proiezione p = new Proiezione(film, dataOra, prezzoBiglietto);
+											menuProiezioinista.aggiungiProiezione(p);
+
+											System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
+											exit = cons.readLine();
+											if(exit == "S")
+												break function_bigliettaio;
+											else if(exit == "N")
+												break function_benvenuto;
+										   }
+										
+										
 										
 							
 								break;
