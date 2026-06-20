@@ -85,6 +85,7 @@ public class CineMax {
 									case "Bigliettaio":
 										do{
 											String exit;
+											int alternativa;
 											function_bigliettaio:{
 												System.out.println("cosa si desidera fare?");
 												System.out.println("1. cercare una prenotazione");
@@ -157,10 +158,10 @@ public class CineMax {
 											}
 										}while(alternativa != 1 && alternativa != 2);			   
 										break;
-										
 									case "Proiezionista":
 										do{
 											String exit;
+											int alternativa;
 											function_proiezionista:{
 												System.out.println("cosa si desidera fare?");
 												System.out.println("1. aggiungere una proiezione");
@@ -282,17 +283,60 @@ public class CineMax {
 									
 											}		
 										}while(alternativa != 1 && alternativa != 2 && alternativa != 3);
-									break;
-									case 0:
-										System.out.println("Arrivederci!");
+										break;
 									default:
-										System.out.println("scelta non valida");
+										break;
+								}
+							}else{
+								System.out.println("Nome utente o password non corretti oppure non si è stati ancora registrati");
+								exit = cons.readLine("Inserire S ritentare il login, N per tornare al menù di avvio");
+								do{
+									if(exit == "S")
+										break function_login;
+									else if(exit == "N")
 										break function_benvenuto;
-				}
-				
-			}		
-		
-	}
+								}while(exit != "S" && exit != "N");
+							}
+					case 2:
+						System.out.println("Procedura di registrazione: inserire i dati richiesti");
+						String nome =cons.readLine("nome? ");
+						String cognome = cons.readLine("cognome? ");
+						username = cons.readLine("username? ");
+						password = cons.readLine("password? ");
+						String DataNascita = cons.readLine("data di nascita? Richiesta nel formato aaaa-mm-gg ");
+						LocalDate dataNascita = LocalDate.parse(DataNascita);
+						String domicilio = cons.readLine("domicilio? ");
+						String ruolo = cons.readLine("ruolo? scrivere Cliente, Bigliettaio o Proiezionista ");
+						Utente nuovoUtente = new Utente(nome, cognome, username, password, dataNascita, domicilio, ruolo);
+						csvReader.registraCliente(nuovoUtente);
+						break function_benvenuto;
+
+					case 3:
+						System.out.println("Funzionalità di ricerca di una proiezione");
+						System.out.println("Cercare proiezione per intervallo di date o per altri criteri di ricerca?");
+						String ricerca = cons.readLine("Scrivere DATE per ricercare per intervallo di date, altrimenti scrivere ALTRO");
+						if(ricerca == "DATE"){
+							Object argomenti = cons.readLine("inserire titolo del film, genere, costo biglietto o combinazione dei criteri di ricerca");
+							
+							System.out.println("ecco le proiezioni trovate: ");
+							csvReader.cercaProiezione(argomenti);
+						}else if(ricerca == "ALTRO"){
+							String DataInizio = cons.readLine("inserire la data di inizio ricerca nel formato aaaa-mm-gg");
+							String DataFine = cons.readLine("inserire la data di fine ricerca nel formato aaaa-mm-gg");
+							LocalDate dataInizio = LocalDate.parse(DataInizio);
+							LocalDate dataFine = LocalDate.parse(DataFine);
+							csvReader.cercaProiezione(dataInizio, dataFine);
+						}else
+							System.out.println("digitazione non valida");
+						break function_benvenuto;
+
+					case 0:
+						System.out.println("Arrivederci!");
+					default:
+						System.out.println("scelta non valida");
+						break function_benvenuto;
+								}
+			}
 
 }
 
