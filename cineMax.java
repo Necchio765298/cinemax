@@ -172,7 +172,7 @@ public class cineMax {
 									case "Bigliettaio":
 										do{
 											
-											 alternativa;
+											int alternativa;
 											function_bigliettaio:{
 												System.out.println("cosa si desidera fare?");
 												System.out.println("1. cercare una prenotazione");
@@ -250,7 +250,7 @@ public class cineMax {
 									case "Proiezionista":
 										do{
 											
-											 alternativa;
+											int alternativa;
 											function_proiezionista:{
 												System.out.println("cosa si desidera fare?");
 												System.out.println("1. aggiungere una proiezione");
