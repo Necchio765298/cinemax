@@ -220,7 +220,8 @@ public class cineMax {
 													} 
 												   else if(alternativa == 2){
 													//visualizza una prenotazione
-													   String visProiezione = menuBigliettaio.visualizzaPrenotazione();
+													   menuBigliettaio mb = new menuBigliettaio();
+													   String visProiezione = mb.visualizzaPrenotazione();
 													   System.out.println("Film: ");
 													   Proiezione pro = new Proiezione();
 													   Film film = p.getFilm();
