@@ -36,10 +36,10 @@ public class cineMax {
 								System.out.print("Accesso consentito!");
 								ruoloUtente = Login.ruolo(login, accesso);	//ruoloUtente serve per sapere il ruolo dell'utente loggato e per accedere alle sue funzionalità
 									//creare il menu con le funzionalità di ogni utente
+								int alternativa;
 								switch(ruoloUtente){
 									case "Cliente":
 											String exit;
-											int alternativa;
 										do{	
 											function_cliente:{	
 												System.out.println("cosa si desidera fare?");
