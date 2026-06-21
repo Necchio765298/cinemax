@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.io.IOException;
 //import java.util.List;
 
-public class CineMax {
+public class cineMax {
 
 	public static void main(String[] args) throws IOException {
 		Console cons = System.console();
@@ -172,7 +172,7 @@ public class CineMax {
 									case "Bigliettaio":
 										do{
 											
-											int alternativa;
+											 alternativa;
 											function_bigliettaio:{
 												System.out.println("cosa si desidera fare?");
 												System.out.println("1. cercare una prenotazione");
@@ -250,7 +250,7 @@ public class CineMax {
 									case "Proiezionista":
 										do{
 											
-											int alternativa;
+											 alternativa;
 											function_proiezionista:{
 												System.out.println("cosa si desidera fare?");
 												System.out.println("1. aggiungere una proiezione");
@@ -377,7 +377,8 @@ public class CineMax {
 								}
 							}else{
 								System.out.println("Nome utente o password non corretti oppure non si è stati ancora registrati");
-								exit = cons.readLine("Inserire S ritentare il login, N per tornare al menù di avvio");
+								System.out.println("Inserire S per ritentare il login, N per tornare al menù di avvio");
+								exit = cons.readLine();
 								do{
 									if(exit == "S")
 										break function_login;
