@@ -222,20 +222,23 @@ public class cineMax {
 													//visualizza una prenotazione
 													   String visProiezione = menuBigliettaio.visualizzaPrenotazione();
 													   System.out.println("Film: ");
-													   Film film = Proiezione.getFilm();
+													   Proiezione pro = new Proiezione();
+													   Film film = p.getFilm();
 													   System.out.println("Codice prenotazione: ");
-													   Prenotazione.getCodice();
+													   Prenotazione pre = new Prenotazione();
+													   pre.getCodice();
 													   System.out.println("Nome e cognome cliente: ");
-													   Utente.getNome();
-													   Utente.getCognome();
+													   Utente u = new Utente();
+													   u.getNome();
+													   u.getCognome();
 													   System.out.println("Data e ora proiezione: ");
-													   Proiezione.getDataOra();
+													   pro.getDataOra();
 													   System.out.println("Numero Biglietti: ");
-													   Prenotazione.getNumeroBiglietto();
+													   pre.getNumeroBiglietto();
 													   System.out.println("Prezzo unitario: ");
-													   Proiezione.getPrezzoBiglietto();
+													   pro.getPrezzoBiglietto();
 													   System.out.println("Prezzo totale: ");
-													   Prenotazione.getCostoTotale();
+													   pre.getCostoTotale();
 
 													   System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
 													exit = cons.readLine();
