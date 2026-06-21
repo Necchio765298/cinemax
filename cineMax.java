@@ -380,6 +380,7 @@ public class cineMax {
 										break;
 								}
 							}else{
+								String exit;
 								System.out.println("Nome utente o password non corretti oppure non si è stati ancora registrati");
 								System.out.println("Inserire S per ritentare il login, N per tornare al menù di avvio");
 								exit = cons.readLine();
