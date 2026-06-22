@@ -57,9 +57,8 @@ public class csvReader{
 		FileWriter fwt = new FileWriter("../data/utenti.csv", true);
 		BufferedWriter bwt = new BufferedWriter(fwt);
 		
-		bwt.newLine();
 		bwt.write(utente.toString());
-		
+		bwt.newLine();
 		bwt.close();
 		fwt.close();
 	}

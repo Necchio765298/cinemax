@@ -11,7 +11,6 @@ public class cineMax {
 	public static void main(String[] args) throws IOException {
 		Console cons = System.console();
 		int scelta;
-
 			function_benvenuto: {
 				System.out.println("== Benvenuto su CineMax ==");
 				System.out.println("1. Login");
@@ -59,10 +58,13 @@ public class cineMax {
 												
 													System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
 													exit = cons.readLine();
-													if(exit == "S")
-														break function_cliente;
-													else if(exit == "N")
-														break function_benvenuto;
+													if(exit == "S"){
+														break;
+														GOTO function_cliente;
+													}else if(exit == "N"){
+														break;
+														GOTO function_benvenuto;
+													}
 												
 												}else if(alternativa == 2){
 													//visualizza le prenotazioni
@@ -70,10 +72,13 @@ public class cineMax {
 													
 													System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
 													exit = cons.readLine();
-													if(exit == "S")
-														break function_cliente;
-													else if(exit == "N")
-														break function_benvenuto;
+													if(exit == "S"){
+														break;
+														GOTO function_cliente;
+													}else if(exit == "N"){
+														break;
+														GOTO function_benvenuto;
+													}
 												}else if(alternativa == 3){
 													//modifica una prenotazione
 													System.out.println("Inserire i dati richiesti");
@@ -91,9 +96,7 @@ public class cineMax {
 													System.out.println("Dati relativi alla proiezione");
 													
 													String titolo = cons.readLine("Titolo: ");
-													
 													String genere = cons.readLine("Genere: ");
-													
 													String regista = cons.readLine("Regista: ");
 													
 													String Anno = cons.readLine("Anno: ");
@@ -171,12 +174,11 @@ public class cineMax {
 										break;
 									case "Bigliettaio":
 										do{
-											
-											int alternativa;
+
 											function_bigliettaio:{
 												System.out.println("cosa si desidera fare?");
 												System.out.println("1. cercare una prenotazione");
-												System.out.println("2. visualizzare una prenotazione");
+												//System.out.println("2. visualizzare una prenotazione");
 												String Alternativa = cons.readLine("Scelta: ");
 												alternativa = Integer.parseInt(Alternativa);
 											
@@ -187,6 +189,7 @@ public class cineMax {
 													System.out.println("2. nome e cognome cliente");
 													System.out.println("3. titolo film");
 													System.out.println("4. intervallo date");
+													System.out.println("5. per combinazione dei criteri di ricerca, date escluse");
 													String ricerca = cons.readLine("Scelta: ");
 
 													switch(ricerca) {
@@ -210,15 +213,28 @@ public class cineMax {
 															LocalDateTime fine = LocalDateTime.parse(Fine);
 															menuBigliettaio.cercaPrenotazione(inizio, fine);
 															break;
+														case "5":
+															System.out.println("Criteri di ricerca, NO date: ");
+															String Numero = cons.readLine("Quanti criteri di ricerca si vuole inserire? Al massimo 4: codice_prenotazione, nome, cognome, titolo ");
+															int numero = Integer.parseInt(Numero);
+															Object[] argomenti = new Object[numero];
+															for (int i= 0; i < numero; i++){
+																argomenti[i] = cons.readLine("Inserire il criterio: ");
+															}
+															menuBigliettaio.cercaPrenotazione(argomenti);
 													}
-													System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
-													exit = cons.readLine();
-													if(exit == "S")
-														break function_bigliettaio;
-													else if(exit == "N")
-														break function_benvenuto;
+														System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
+														exit = cons.readLine();
+														if(exit == "S"){
+															break;
+															GOTO function_bigliettaio;
+														}else if(exit == "N"){
+															break;
+															GOTO function_benvenuto;
+														}
 													} 
 												   else if(alternativa == 2){
+													   /*
 													//visualizza una prenotazione
 													   menuBigliettaio mb = new menuBigliettaio();
 													   String visProiezione = mb.visualizzaPrenotazione();
@@ -240,13 +256,16 @@ public class cineMax {
 													   pro.getPrezzoBiglietto();
 													   System.out.println("Prezzo totale: ");
 													   pre.getCostoTotale();
-
+														*/
 													   System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
 													exit = cons.readLine();
-													if(exit == "S")
-														break function_bigliettaio;
-													else if(exit == "N")
-														break function_benvenuto;
+													if(exit == "S"){
+														break;
+														GOTO function_bigliettaio;
+													}else if(exit == "N"){
+														break;
+														GOTO function_benvenuto;
+													}
 												   }
 											}
 										}while(alternativa != 1 && alternativa != 2);			   
@@ -254,7 +273,7 @@ public class cineMax {
 									case "Proiezionista":
 										do{
 											
-											int alternativa;
+											
 											function_proiezionista:{
 												System.out.println("cosa si desidera fare?");
 												System.out.println("1. aggiungere una proiezione");
@@ -289,10 +308,13 @@ public class cineMax {
 
 													System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
 													exit = cons.readLine();
-													if(exit == "S")
-														break function_proiezionista;
-													else if(exit == "N")
-														break function_benvenuto;
+													if(exit == "S"){
+														break;
+														GOTO function_proiezionista;
+													}else if(exit == "N"){
+														break;
+														GOTO function_benvenuto;
+													}
 												   }
 												else if(alternativa == 2){
 												//modifica proiezione
@@ -338,10 +360,13 @@ public class cineMax {
 
 													System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
 													exit = cons.readLine();
-													if(exit == "S")
-														break function_proiezionista;
-													else if(exit == "N")
-														break function_benvenuto;
+													if(exit == "S"){
+														break;
+														GOTO function_proiezionista;
+													}else if(exit == "N"){
+														break;
+														GOTO function_benvenuto;
+													}
 												   } 
 												else if(alternativa == 3){
 												//elimina proiezione
@@ -367,10 +392,13 @@ public class cineMax {
 												
 													System.out.println("restare loggati come cliente? Digitare S per rimanere loggati, N per il logout");
 													exit = cons.readLine();
-													if(exit == "S")
-														break function_proiezionista;
-													else if(exit == "N")
-														break function_benvenuto;
+													if(exit == "S"){
+														break;
+														GOTO function_proiezionista;
+													}else if(exit == "N"){
+														break;
+														GOTO function_benvenuto;
+													}
 												}		
 									
 											}		
@@ -385,10 +413,13 @@ public class cineMax {
 								System.out.println("Inserire S per ritentare il login, N per tornare al menù di avvio");
 								exit = cons.readLine();
 								do{
-									if(exit == "S")
-										break function_login;
-									else if(exit == "N")
-										break function_benvenuto;
+									if(exit == "S"){
+										break;
+										GOTO function_login;
+									}else if(exit == "N"){
+										break;
+										GOTO function_benvenuto;
+									}
 								}while(exit != "S" && exit != "N");
 							}
 						}	
@@ -404,32 +435,40 @@ public class cineMax {
 						String ruolo = cons.readLine("ruolo? scrivere Cliente, Bigliettaio o Proiezionista ");
 						Utente nuovoUtente = new Utente(nome, cognome, username, password, dataNascita, domicilio, ruolo);
 						csvReader.registraCliente(nuovoUtente);
-						break function_benvenuto;
+						GOTO function_benvenuto;
+						break;
 
 					case 3:
 						System.out.println("Funzionalità di ricerca di una proiezione");
 						System.out.println("Cercare proiezione per intervallo di date o per altri criteri di ricerca?");
 						String ricerca = cons.readLine("Scrivere DATE per ricercare per intervallo di date, altrimenti scrivere ALTRO");
 						if(ricerca == "DATE"){
-							Object argomenti = cons.readLine("inserire titolo del film, genere, costo biglietto o combinazione dei criteri di ricerca");
-							
-							System.out.println("ecco le proiezioni trovate: ");
-							csvReader.cercaProiezione(argomenti);
-						}else if(ricerca == "ALTRO"){
 							String DataInizio = cons.readLine("inserire la data di inizio ricerca nel formato aaaa-mm-gg");
 							String DataFine = cons.readLine("inserire la data di fine ricerca nel formato aaaa-mm-gg");
 							LocalDate dataInizio = LocalDate.parse(DataInizio);
 							LocalDate dataFine = LocalDate.parse(DataFine);
 							csvReader.cercaProiezione(dataInizio, dataFine);
+							GOTO function_benvenuto;
+						}else if(ricerca == "ALTRO"){
+							String Numero = cons.readLine("Quanti criteri di ricerca si vuole inserire? Al massimo per 8 criteri: data_ora_proiezione, titolo_film, genere, regista, anno, durata_minuti, eta_minima, prezzo_biglietto ");
+							int numero = Integer.parseInt(Numero);
+							Object[] argomenti = new Object[numero];
+							for (int i= 0; i < numero; i++){
+								argomenti[i] = cons.readLine("Inserire il criterio: ");
+							}
+							System.out.println("ecco le proiezioni trovate: ");
+							csvReader.cercaProiezione(argomenti);
 						}else
 							System.out.println("digitazione non valida");
-						break function_benvenuto;
+							GOTO function_benvenuto;
+							break function_benvenuto;
 
 					case 0:
 						System.out.println("Arrivederci!");
 					default:
 						System.out.println("scelta non valida");
-						break function_benvenuto;
+						GOTO function_benvenuto;
+						break;
 				}
 			}
 

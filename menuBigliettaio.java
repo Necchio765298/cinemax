@@ -20,17 +20,18 @@ private Prenotazione prenotazione;
   //METODI
   
 	//cerca prenotazione
-	public  static String cercaPrenotazione(Object... args) throws IOException{
+	public  static void cercaPrenotazione(Object... args) throws IOException{
 		FileReader frd = new FileReader("../data/prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
-		
+		String prenotazione;
 		while(!(brd.readLine().contains(args.toString()))){
-			brd.readLine();
+			prenotazione = brd.readLine();
+			System.out.println(prenotazione);
 		}
-		String prenotazione = brd.readLine();
+		
 		brd.close();
 		frd.close();
-		return prenotazione;
+		//return prenotazione;
 	}
 
 	 //cerca prenotazione per intervallo di date
@@ -48,8 +49,9 @@ private Prenotazione prenotazione;
 		frd.close();
 	}
 	
-	//visualizza la prenotazione 
+	/*visualizza la prenotazione 
 	public String visualizzaPrenotazione() throws IOException{
 		return cercaPrenotazione().toString();
-	}
+	
+	}*/
 }
