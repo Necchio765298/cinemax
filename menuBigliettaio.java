@@ -24,8 +24,7 @@ private Prenotazione prenotazione;
 		FileReader frd = new FileReader("../data/prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String prenotazione;
-		while(!(brd.readLine().contains(args.toString()))){
-			prenotazione = brd.readLine();
+		while(!((prenotazione =brd.readLine()).contains(args.toString()))){
 			System.out.println(prenotazione);
 		}
 		

@@ -38,11 +38,11 @@ public class csvReader{
 		FileReader frd = new FileReader("../data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String Date;
-		while(brd.readLine() != null) {
-			Date = brd.readLine().substring(0,10);
-			LocalDate data = LocalDate.parse(Date);
+		while((Date = brd.readLine()) != null) {
+			String Date1 = Date.substring(1,11);
+			LocalDate data = LocalDate.parse(Date1);
 			if(data.isAfter(dataInizio) && data.isBefore(dataFine))
-				System.out.println(data.toString());
+				System.out.println(Date.toString());
 		}
 		brd.close();
 		frd.close();
