@@ -188,7 +188,8 @@ public class cineMax {
 															System.out.println(" ");
 															String nome = cons.readLine("Nome: ");
 															String cognome = cons.readLine("Cognome: ");
-															menuBigliettaio.cercaPrenotazione(nome, cognome);
+															String user = nome + "," + cognome;
+															menuBigliettaio.cercaPrenotazione(user);
 															break;
 														case "3":
 															System.out.println(" ");

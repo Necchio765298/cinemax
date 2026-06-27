@@ -21,17 +21,18 @@ public class csvReader{
 	}
 	
 	//metodi
-	public static void cercaProiezione(Object... args) throws IOException{
+	public static String cercaProiezione(String args) throws IOException{
 		FileReader frd = new FileReader("../data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String proiezione;
 		while((proiezione = brd.readLine()) != null){
-			if(proiezione.contains(args.toString()))
+			if(proiezione.contains(args))
 				System.out.println(proiezione);
 			
 		}
 		brd.close();
 		frd.close();
+		return proiezione;
 	}
 	
 	public  static void cercaProiezione(LocalDate dataInizio, LocalDate dataFine) throws IOException{
