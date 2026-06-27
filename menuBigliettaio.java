@@ -24,8 +24,9 @@ private Prenotazione prenotazione;
 		FileReader frd = new FileReader("../data/prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String prenotazione;
-		while(!((prenotazione =brd.readLine()).contains(args.toString()))){
-			System.out.println(prenotazione);
+		while((prenotazione =brd.readLine()) != null){
+			if(prenotazione.contains(args.toString()))
+				System.out.println(prenotazione);
 		}
 		
 		brd.close();
@@ -38,11 +39,11 @@ private Prenotazione prenotazione;
 		FileReader frd = new FileReader("../data/prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String Date;
-		while(brd.readLine() != null) {
-			Date = brd.readLine().substring(0,10);
-			LocalDateTime data = LocalDateTime.parse(Date);
+		while((Date = brd.readLine()) != null) {
+			String Date1 = Date.substring(1,11);
+			LocalDateTime data = LocalDateTime.parse(Date1);
 			if(data.isAfter(dataInizio) && data.isBefore(dataFine))
-				System.out.println(data.toString());
+				System.out.println(Date.toString());
 		}
 		brd.close();
 		frd.close();
