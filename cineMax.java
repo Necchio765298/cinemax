@@ -233,6 +233,7 @@ public class cineMax {
 												else if(alternativa == 2){
 												//modifica proiezione
 													System.out.println(" ");
+													/*
 													System.out.println("Quale proiezione modificare? Inserire i dati della proiezione per ricercarla");
 													String titolo = cons.readLine("Titolo: ");
 													String genere = cons.readLine("Genere: ");
@@ -271,11 +272,13 @@ public class cineMax {
 													PrezzoBiglietto = cons.readLine("Prezzo biglietto: ");
 													prezzoBiglietto = Double.parseDouble(PrezzoBiglietto);
 													Proiezione nuovaProiezione = new Proiezione(film, dataOra, prezzoBiglietto);
-													menuProiezionista.modificaProiezione(vecchiaProiezione, nuovaProiezione);
+													*/
+													menuProiezionista.modificaProiezione();
 													System.out.println("La proiezione è stata modificata");
 												   } 
 												else if(alternativa == 3){
 												//elimina proiezione
+												/*
 													System.out.println(" ");
 												    System.out.println("Quale proiezione eliminare? Inserire i dati della proiezione per ricercarla");
 													String titolo = cons.readLine("Titolo: ");
@@ -295,7 +298,8 @@ public class cineMax {
 													String PrezzoBiglietto = cons.readLine("Prezzo biglietto: ");
 													double prezzoBiglietto = Double.parseDouble(PrezzoBiglietto);
 													Proiezione p = new Proiezione(film, dataOra, prezzoBiglietto);
-													menuProiezionista.eliminaProiezione(p);
+												*/
+													menuProiezionista.eliminaProiezione();
 													System.out.println("La proiezione è stata eliminata");
 												
 												}		
@@ -386,9 +390,9 @@ public class cineMax {
 								break;
 							case "9":
 								System.out.println(" ");
-								String Inizio = cons.readLine("data di inizio: ");
+								String Inizio = cons.readLine("data di inizio nel formato aaaa-mm-gg: ");
 								LocalDate inizio = LocalDate.parse(Inizio);
-								String Fine = cons.readLine("data di fine: ");
+								String Fine = cons.readLine("data di fine nel formato aaaa-mm-gg: ");
 								LocalDate fine = LocalDate.parse(Fine);
 								csvReader.cercaProiezione(inizio, fine);
 								break;

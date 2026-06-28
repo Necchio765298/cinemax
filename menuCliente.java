@@ -97,8 +97,10 @@ public class menuCliente{
 			BufferedReader brd = new BufferedReader(frd);
 			String Prenotazione;
 			while((Prenotazione = brd.readLine()) != null){
-				if(Prenotazione == prenotazione.toString())
-					bwt.write(" ");
+				if(Prenotazione == prenotazione.toString()){
+					Prenotazione = " ";
+					bwt.write(Prenotazione);
+				}
 			}
 			brd.close();
 			bwt.close();

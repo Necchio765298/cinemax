@@ -34,19 +34,6 @@ public class Proiezione {
     }
 
     public String toString(){
-		/*
-		Console cons = System.console();
-		String titolo = cons.readLine("inserire il titolo");
-		String genere = cons.readLine("inserire il genere del film");
-		String regista = cons.readLine("inserire il regista");
-		String Anno = cons.readLine("inserire l'anno");
-		int anno = Integer.parseInt(Anno);
-		String DurataMinuti = cons.readLine("inserire la durata del film");
-		int durataMinuti = Integer.parseInt(DurataMinuti);
-		String EtaMinima = cons.readLine("inseire l'età minima consentita");
-		int etaMinima = Integer.parseInt(EtaMinima);
-		Film film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
-		*/
         return dataOra+ ","+ film.toString()+ "," +prezzoBiglietto;
     }
 	
