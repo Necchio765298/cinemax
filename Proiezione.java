@@ -34,6 +34,7 @@ public class Proiezione {
     }
 
     public String toString(){
+		/*
 		Console cons = System.console();
 		String titolo = cons.readLine("inserire il titolo");
 		String genere = cons.readLine("inserire il genere del film");
@@ -45,9 +46,10 @@ public class Proiezione {
 		String EtaMinima = cons.readLine("inseire l'età minima consentita");
 		int etaMinima = Integer.parseInt(EtaMinima);
 		Film film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
+		*/
         return dataOra+ ","+ film.toString()+ "," +prezzoBiglietto;
     }
-
+	
 
 
 }
