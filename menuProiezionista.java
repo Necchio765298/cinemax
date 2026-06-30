@@ -63,7 +63,7 @@ public menuProiezionista() {
 
 	 //modifica con gli stream
 	public static void modificaProiezione() throws IOException{	
-		FileWriter fwt = new FileWriter("../data/proiezioni.csv", true);
+		FileWriter fwt = new FileWriter("../data/proiezioni.csv" );
 		BufferedWriter bwt = new BufferedWriter(fwt);
 		FileReader frd = new FileReader("../data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
@@ -86,13 +86,6 @@ public menuProiezionista() {
 		double prezzoBiglietto = Double.parseDouble(PrezzoBiglietto);
 		Proiezione vecchiaProiezione = new Proiezione(film, dataOra, prezzoBiglietto);
 		String vecchia = csvReader.cercaProiezione(vecchiaProiezione.toString());
-		do{
-			if(vecchia == brd.readLine()){
-				String proiez = brd.readLine();
-				proiez= " ";
-				bwt.write(proiez);
-			}
-		}while(brd.readLine() != null);
 		System.out.println(" ");
 		
 		System.out.println("Inserire ora i nuovi dati della proiezione");
@@ -114,8 +107,16 @@ public menuProiezionista() {
 		Proiezione nuovaProiezione = new Proiezione(film, dataOra, prezzoBiglietto);
 		
 		String nuova = nuovaProiezione.toString();
-		bwt.newLine();
-		bwt.write(nuova);
+		
+		String str;
+		while((str = brd.readLine()) != null){
+			if(str.equals(vecchia)){
+				str.replace(vecchia, nuova);
+				bwt.write(str);
+			}
+			bwt.write(str);
+		}
+
 	    bwt.close();
 		fwt.close();
 		brd.close();

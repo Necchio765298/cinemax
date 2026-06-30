@@ -350,7 +350,7 @@ public class cineMax {
 						switch(ricerca) {
 							case "1":
 								System.out.println(" ");
-								String dataora = cons.readLine("data_ora_proiezione: ");
+								String dataora = cons.readLine("data_ora_proiezione nel formato aaaa-mm-gg hh:mm:ss ");
 								csvReader.cercaProiezione(dataora);
 								break;
 							case "2":
@@ -370,22 +370,23 @@ public class cineMax {
 								break;
 							case "5":
 								System.out.println(" ");
-								String anno = cons.readLine("Anno: ");
+								String anno = "," + cons.readLine("Anno: ") +",";
+								
 								csvReader.cercaProiezione(anno);
 								break;
 							case "6":
 								System.out.println(" ");
-								String minuti = cons.readLine("Durata minuti: ");
+								String minuti = "," + cons.readLine("Durata minuti: ") +",";
 								csvReader.cercaProiezione(minuti);
 								break;
 							case "7":
 								System.out.println(" ");
-								String eta = cons.readLine("Età minima: ");
+								String eta = "," + cons.readLine("Età minima: ")+ ",";
 								csvReader.cercaProiezione(eta);
 								break;
 							case "8":
 								System.out.println(" ");
-								String prezzo = cons.readLine("Prezzo biglietto: ");
+								String prezzo = "," +cons.readLine("Prezzo biglietto: ")+ ",";
 								csvReader.cercaProiezione(prezzo);
 								break;
 							case "9":
