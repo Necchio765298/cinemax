@@ -22,6 +22,7 @@ public class csvReader{
 	
 	//metodi
 	public static String cercaProiezione(String args) throws IOException{
+		try{
 		FileReader frd = new FileReader("../data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String proiezione;
@@ -32,10 +33,15 @@ public class csvReader{
 		}
 		brd.close();
 		frd.close();
+		
+		}catch(Exception e){
+		System.out.println("Criterio inserito non valido");
+		}
 		return proiezione;
 	}
 	
 	public  static void cercaProiezione(LocalDate dataInizio, LocalDate dataFine) throws IOException{
+		try{
 		FileReader frd = new FileReader("../data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String Date;
@@ -47,14 +53,15 @@ public class csvReader{
 		}
 		brd.close();
 		frd.close();
+		}catch(Exception e){
+			System.out.println("Formato della data inserita non corretto");
+		}
 	}
 	
-	/*public String visualizzaProiezione() throws IOException{
-		return cercaProiezione(proiezione);
-	}
-	*/
+	
 	
 	public static void registraCliente(Utente utente) throws IOException{
+		try{
 		FileWriter fwt = new FileWriter("../data/utenti.csv", true);
 		BufferedWriter bwt = new BufferedWriter(fwt);
 		
@@ -62,5 +69,8 @@ public class csvReader{
 		bwt.newLine();
 		bwt.close();
 		fwt.close();
+		}catch(Exception e){
+			System.out.println("Utente non opportunamente registrato");
+		}
 	}
 }

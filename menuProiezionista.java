@@ -23,7 +23,8 @@ public menuProiezionista() {
    
    //METODI
    //aggiunge una proiezione
-   public static void aggiungiProiezione() throws IOException{		
+   public static void aggiungiProiezione() throws IOException{	
+		try{
 	    FileWriter fwt = new FileWriter("../data/proiezioni.csv", true);
 		BufferedWriter bwt = new BufferedWriter(fwt);
 		FileReader frd = new FileReader("../data/proiezioni.csv");
@@ -59,6 +60,9 @@ public menuProiezionista() {
 		
 		bwt.close();
 		fwt.close();
+		}catch(Exception e){
+			System.out.println("Un criterio inserito non è nel formato valido");
+		}
 	}
 
 	 //modifica con gli stream

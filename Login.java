@@ -27,6 +27,7 @@ public class Login{
 		BufferedReader brd = new BufferedReader(frd);
 		String persona;
 		boolean accesso = false;
+		try{
 		while((persona = brd.readLine()) != null){
 			
 			if(persona.contains(login.toString()))
@@ -34,6 +35,9 @@ public class Login{
 		}	
 		brd.close();
 		frd.close();
+		}catch(Exception e){
+			System.out.println("Un valore inserito non è nel formato valido");
+		}
 		return accesso;
 	}
 	
@@ -42,6 +46,7 @@ public class Login{
 		BufferedReader brd = new BufferedReader(frd);
 		String ruolo = "non specificato";
 		String persona;
+		try{
 		while((persona= brd.readLine()) != null){
 			if(persona.contains(login.toString())){
 				if(persona.contains("Cliente"))
@@ -54,6 +59,9 @@ public class Login{
 		}
 		brd.close();
 		frd.close();
+		}catch(Exception e){
+			System.out.println("ruolo inserito in fase di registrazione diverso da  \" Cliente \" , \" Bigliettaio \", \"Proiezionista \" ");
+		}
 		return ruolo;
 	}
 }

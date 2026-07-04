@@ -23,7 +23,8 @@ private Prenotazione prenotazione;
 	public  static String cercaPrenotazione(String args) throws IOException{
 		FileReader frd = new FileReader("../data/prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
-		String prenotazione;
+		String prenotazione = " ";
+		try{
 		while((prenotazione =brd.readLine()) != null){
 			if(prenotazione.contains(args))
 				System.out.println(prenotazione);
@@ -31,11 +32,15 @@ private Prenotazione prenotazione;
 		
 		brd.close();
 		frd.close();
+		}catch(Exception e){
+			System.out.println("Criterio inserito non valido");
+		}
 		return prenotazione;
 	}
 
 	 //cerca prenotazione per intervallo di date
 	public  static void cercaPrenotazione(LocalDateTime dataInizio, LocalDateTime dataFine) throws IOException{
+		try{
 		FileReader frd = new FileReader("../data/prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String Date;
@@ -47,11 +52,10 @@ private Prenotazione prenotazione;
 		}
 		brd.close();
 		frd.close();
+		}catch(Exception e){
+			System.out.println("Data inserita nel formato non corretto");
+		}
 	}
 	
-	/*visualizza la prenotazione 
-	public String visualizzaPrenotazione() throws IOException{
-		return cercaPrenotazione().toString();
-	
-	}*/
+
 }

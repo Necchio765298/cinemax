@@ -23,6 +23,7 @@ public class menuCliente{
 	
 	//metodi
 	public static void visualizzaPrenotazione() throws IOException{
+		try{
 		Console cons = System.console();
 		
 		FileReader frd = new FileReader("../data/prenotazioni.csv");
@@ -38,9 +39,13 @@ public class menuCliente{
 		}
 		brd.close();
 		frd.close();
+		}catch(Exception e){
+			System.out.println("Nome o cognome inseriti non corretti");
+		}
 	}
 	
 	public static void creaPrenotazione(int numeroBiglietto) throws IOException{
+		try{
 		if(numeroBiglietto < 200-numeroBiglietto){ //se numero di posti richiesti è minore del numero di posti disponibili
 			Console cons = System.console();
 			String nome = cons.readLine("inserire il prorio nome");
@@ -64,7 +69,9 @@ public class menuCliente{
 		}else{
 			System.out.print("il numero dei biglietti eccede il numero di posti disponibili");
 		}
-		
+		}catch(Exception e){
+			System.out.println("Un dato inserito non è valido");
+		}
 	}
 	
 	public static void modificaPrenotazione(Prenotazione prenotazione, LocalDateTime data) throws IOException{
