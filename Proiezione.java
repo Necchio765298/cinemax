@@ -4,8 +4,7 @@ import java.io.Console;
 
 /**
  * Rappresenta una proiezione cinematografica programmata dal cinema.
- * La classe memorizza il film proiettato, la data e l'ora della
- * proiezione e il prezzo del biglietto.
+ * La classe memorizza il film proiettato, la data e l'ora della proiezione e il prezzo del biglietto.
  * @author 
  */
 public class Proiezione {
@@ -69,15 +68,11 @@ public class Proiezione {
     }
 
 	/**
- * Restituisce una rappresentazione testuale della proiezione,
- * utilizzata per la visualizzazione delle informazioni e per
- * la memorizzazione dei dati nel file csv.
+ * Restituisce una rappresentazione testuale della proiezione, utilizzata per la visualizzazione delle informazioni e per la memorizzazione dei dati nel file csv.
  * @return una stringa contenente i dati della proiezione
  */
     public String toString(){
         return dataOra+ ","+ film.toString()+ "," +prezzoBiglietto;
     }
-	
-
 
 }
