@@ -6,8 +6,20 @@ import java.time.LocalDateTime;
 import java.io.IOException;
 //import java.util.List;
 
+/**
+ * Classe principale dell'applicazione.
+ * Contiene il metodo main(), responsabile dell'avvio del programma, della gestione del menu principale e dell'interazione con l'utente.
+ * In base alle operazioni selezionate, richiama le funzionalità implementate nelle altre classi del progetto.
+ * @author
+ */
 public class cineMax {
 
+	/**
+ * Avvia l'applicazione e gestisce il flusso principale del programma.
+ * Visualizza il menu iniziale, acquisisce le scelte dell'utente, gestisce l'autenticazione e richiama le funzionalità disponibili per il ruolo selezionato.
+ * @param args argomenti passati dalla riga di comando
+ * @throws IOException se si verifica un errore durante la lettura o la scrittura dei file
+ */
 	public static void main(String[] args) throws IOException {
 		Console cons = System.console();
 		int scelta;
