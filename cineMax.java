@@ -17,7 +17,7 @@ public class cineMax {
 	/**
  * Avvia l'applicazione e gestisce il flusso principale del programma.
  * Visualizza il menu iniziale, acquisisce le scelte dell'utente, gestisce l'autenticazione e richiama le funzionalità disponibili per il ruolo selezionato.
- * @param args argomenti passati dalla riga di comando
+ * @param <args> argomenti passati dalla riga di comando
  * @throws IOException se si verifica un errore durante la lettura o la scrittura dei file
  */
 	public static void main(String[] args) throws IOException {
