@@ -6,7 +6,6 @@ import java.util.UUID;
  * per una determinata proiezione cinematografica.
  * La classe memorizza il codice identificativo, l'utente,
  * la proiezione e il numero di biglietti acquistati.
- *
  * @author 
  */
 public class Prenotazione {
