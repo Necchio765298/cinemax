@@ -18,12 +18,12 @@ public class Login{
 	/** Password associata all'utente. */
 	String password;
 
+	//costruttore
 	/**
  * Costruisce un nuovo oggetto Login.
- * @param username nome utente
- * @param password password dell'utente
+ * @param <username> nome utente
+ * @param <password> password dell'utente
  */
-	//costruttore
 	public Login(String username, String password){
 		this.username = username;
 		this.password = password;
@@ -41,9 +41,9 @@ public class Login{
 
 	/**
  * Verifica la validità delle credenziali inserite confrontandole con quelle memorizzate nel file degli utenti.
- * @param login oggetto contenente le credenziali da verificare
+ * @param <login> oggetto contenente le credenziali da verificare
  * @return true se l'autenticazione va a buon fine, false altrimenti
- * @throws IOException se si verifica un errore durante la lettura del file
+ * @throws <IOException> se si verifica un errore durante la lettura del file
  */
 	public static boolean login(Login login) throws IOException{
 		FileReader frd = new FileReader("../data/utenti.csv");
@@ -66,10 +66,10 @@ public class Login{
 
 	/**
  * Restituisce il ruolo associato all'utente autenticato.
- * @param login oggetto contenente le credenziali dell'utente
- * @param accesso esito dell'autenticazione
+ * @param <login> oggetto contenente le credenziali dell'utente
+ * @param <accesso> esito dell'autenticazione
  * @return il ruolo dell'utente
- * @throws IOException se si verifica un errore durante la lettura del file
+ * @throws <IOException> se si verifica un errore durante la lettura del file
  */
 	public static String ruolo(Login login, boolean accesso) throws IOException{
 		FileReader frd = new FileReader("../data/utenti.csv");
