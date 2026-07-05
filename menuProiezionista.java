@@ -8,21 +8,33 @@ import java.io.BufferedWriter;
 import java.io.Console;
 import java.time.LocalDateTime;
 
-
+/**
+ * Gestisce le funzionalità riservate agli utenti con ruolo di proiezionista. 
+ * La classe consente l'inserimento, la modifica e l'eliminazione delle proiezioni cinematografiche.
+ * @author
+ */
  public class menuProiezionista {
-  //CAMPI
- 
+  
+	 //CAMPI
+ /** Proiezione gestita dal menu del proiezionista. */
  private Proiezione proiezione;
  
 
   //COSTRUTTORE
+/**
+ * Costruisce un nuovo oggetto menuProiezionista.
+ */
 public menuProiezionista() {
 	this.proiezione = proiezione;
 }
    
    
    //METODI
-   //aggiunge una proiezione
+  /**
+ * Aggiunge una nuova proiezione al sistema acquisendo i dati necessari e verificandone la validità prima della memorizzazione.
+ * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
+ */
+	 //aggiunge una proiezione
    public static void aggiungiProiezione() throws IOException{	
 		try{
 	    FileWriter fwt = new FileWriter("../data/proiezioni.csv", true);
@@ -65,6 +77,10 @@ public menuProiezionista() {
 		}
 	}
 
+	 /**
+ * Modifica i dati di una proiezione già presente nel sistema.
+ * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
+ */
 	 //modifica con gli stream
 	public static void modificaProiezione() throws IOException{	
 		FileWriter fwt = new FileWriter("../data/proiezioni.csv" );
@@ -127,6 +143,10 @@ public menuProiezionista() {
 		frd.close();
 	}
 
+	 /**
+ * Elimina una proiezione dal sistema aggiornando il file delle proiezioni.
+ * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
+ */
 	 //elimina con gli stream
 	public static void eliminaProiezione() throws IOException {
 		FileWriter fwt = new FileWriter("../data/proiezioni.csv");
