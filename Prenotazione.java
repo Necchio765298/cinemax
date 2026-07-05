@@ -2,10 +2,8 @@
 import java.util.UUID;
 
 /**
- * Rappresenta una prenotazione effettuata da un utente
- * per una determinata proiezione cinematografica.
- * La classe memorizza il codice identificativo, l'utente,
- * la proiezione e il numero di biglietti acquistati.
+ * Rappresenta una prenotazione effettuata da un utente per una determinata proiezione cinematografica.
+ * La classe memorizza il codice identificativo, l'utente, la proiezione e il numero di biglietti acquistati.
  * @author 
  */
 public class Prenotazione {
@@ -22,9 +20,9 @@ public class Prenotazione {
     /**
  * Costruisce una nuova prenotazione.
  * Il codice identificativo viene generato automaticamente.
- * @param utente utente che effettua la prenotazione
- * @param proiezione proiezione selezionata
- * @param numeroBiglietto numero di biglietti acquistati
+ * @param <utente> utente che effettua la prenotazione
+ * @param <proiezione> proiezione selezionata
+ * @param <numeroBiglietto> numero di biglietti acquistati
  */
     public Prenotazione(Utente utente , Proiezione proiezione , int numeroBiglietto){
         this.codice = UUID.randomUUID().toString().substring(0,8).toUpperCase();
@@ -35,7 +33,7 @@ public class Prenotazione {
 
     /**
  * Modifica la proiezione associata alla prenotazione.
- * @param proiezione nuova proiezione
+ * @param <proiezione> nuova proiezione
  */
     public void setProiezione(Proiezione proiezione) {
         this.proiezione = proiezione;
@@ -43,7 +41,7 @@ public class Prenotazione {
 
     /**
  * Modifica il numero di biglietti della prenotazione.
- * @param numeroBiglietto nuovo numero di biglietti
+ * @param <numeroBiglietto> nuovo numero di biglietti
  */
     public void setNumeroBiglietto(int numeroBiglietto) {
         this.numeroBiglietto = numeroBiglietto;
@@ -90,17 +88,12 @@ public class Prenotazione {
     }
 
     /**
- * Restituisce una rappresentazione testuale della prenotazione,
- * utilizzata per la visualizzazione delle informazioni e per
- * la memorizzazione dei dati nel file csv.
+ * Restituisce una rappresentazione testuale della prenotazione, utilizzata per la visualizzazione delle informazioni e per la memorizzazione dei dati nel file csv.
  * @return una stringa contenente i dati della prenotazione
  */
     public String toString() {
         return proiezione.getDataOra() +"," + utente.getNome() +"," + utente.getCognome() +"," + proiezione.getFilm().getTitolo() +"," +  numeroBiglietto + ","+ codice;
     }
-
-
-
 
 
 }

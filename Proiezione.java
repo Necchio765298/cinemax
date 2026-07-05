@@ -4,8 +4,7 @@ import java.io.Console;
 
 /**
  * Rappresenta una proiezione cinematografica programmata dal cinema.
- * La classe memorizza il film proiettato, la data e l'ora della
- * proiezione e il prezzo del biglietto.
+ * La classe memorizza il film proiettato, la data e l'ora della proiezione e il prezzo del biglietto.
  * @author 
  */
 public class Proiezione {
@@ -18,9 +17,9 @@ public class Proiezione {
 
 	/**
  * Costruisce una nuova proiezione.
- * @param film film associato alla proiezione
- * @param dataOra data e ora della proiezione
- * @param prezzoBiglietto prezzo del biglietto
+ * @param <film> film associato alla proiezione
+ * @param <dataOra> data e ora della proiezione
+ * @param <prezzoBiglietto> prezzo del biglietto
  */
     public Proiezione(Film film, LocalDateTime dataOra , double prezzoBiglietto){
         this.film = film;
@@ -54,7 +53,7 @@ public class Proiezione {
 
 	/**
  * Modifica la data e l'ora della proiezione.
- * @param nuova data e ora della proiezione
+ * @param <dataOra> nuova data e ora della proiezione
  */
     public void setDataOra(LocalDateTime dataOra){
         this.dataOra=dataOra;
@@ -62,22 +61,18 @@ public class Proiezione {
 
 	/**
  * Modifica il prezzo del biglietto della proiezione.
- * @param nuovo prezzo del biglietto
+ * @param <prezzoBiglietto> nuovo prezzo del biglietto
  */
     public void setPrezzoBiglietto(double prezzoBiglietto){
         this.prezzoBiglietto = prezzoBiglietto;
     }
 
 	/**
- * Restituisce una rappresentazione testuale della proiezione,
- * utilizzata per la visualizzazione delle informazioni e per
- * la memorizzazione dei dati nel file csv.
+ * Restituisce una rappresentazione testuale della proiezione, utilizzata per la visualizzazione delle informazioni e per la memorizzazione dei dati nel file csv.
  * @return una stringa contenente i dati della proiezione
  */
     public String toString(){
         return dataOra+ ","+ film.toString()+ "," +prezzoBiglietto;
     }
-	
-
 
 }

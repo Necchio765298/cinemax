@@ -21,12 +21,12 @@ public class Film {
 
     /**
  * Costruisce un nuovo film.
- * @param titolo titolo del film
- * @param genere genere del film
- * @param regista regista del film
- * @param anno anno di uscita
- * @param durataMinuti durata del film in minuti
- * @param etaMinima età minima consigliata
+ * @param <titolo> titolo del film
+ * @param <genere> genere del film
+ * @param <regista> regista del film
+ * @param <anno anno> di uscita
+ * @param <durataMinuti> durata del film in minuti
+ * @param <etaMinima> età minima consigliata
  */
 
     public Film(String titolo,String genere,String regista,int anno,int durataMinuti,int etaMinima){
@@ -87,9 +87,7 @@ public class Film {
     }
 
     /**
- * Restituisce una rappresentazione testuale dell'oggetto Film,
- * utilizzata per la visualizzazione delle informazioni e per
- * la memorizzazione dei dati nel file csv.
+ * Restituisce una rappresentazione testuale dell'oggetto Film, utilizzata per la visualizzazione delle informazioni e per la memorizzazione dei dati nel file csv.
  * @return la rappresentazione testuale del film
  */
     @Override
