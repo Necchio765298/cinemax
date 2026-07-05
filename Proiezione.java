@@ -17,9 +17,9 @@ public class Proiezione {
 
 	/**
  * Costruisce una nuova proiezione.
- * @param film film associato alla proiezione
- * @param dataOra data e ora della proiezione
- * @param prezzoBiglietto prezzo del biglietto
+ * @param <film> film associato alla proiezione
+ * @param <dataOra> data e ora della proiezione
+ * @param <prezzoBiglietto> prezzo del biglietto
  */
     public Proiezione(Film film, LocalDateTime dataOra , double prezzoBiglietto){
         this.film = film;
@@ -53,7 +53,7 @@ public class Proiezione {
 
 	/**
  * Modifica la data e l'ora della proiezione.
- * @param nuova data e ora della proiezione
+ * @param <dataOra> nuova data e ora della proiezione
  */
     public void setDataOra(LocalDateTime dataOra){
         this.dataOra=dataOra;
@@ -61,7 +61,7 @@ public class Proiezione {
 
 	/**
  * Modifica il prezzo del biglietto della proiezione.
- * @param nuovo prezzo del biglietto
+ * @param <prezzoBiglietto> nuovo prezzo del biglietto
  */
     public void setPrezzoBiglietto(double prezzoBiglietto){
         this.prezzoBiglietto = prezzoBiglietto;
