@@ -2,10 +2,8 @@
 import java.util.UUID;
 
 /**
- * Rappresenta una prenotazione effettuata da un utente
- * per una determinata proiezione cinematografica.
- * La classe memorizza il codice identificativo, l'utente,
- * la proiezione e il numero di biglietti acquistati.
+ * Rappresenta una prenotazione effettuata da un utente per una determinata proiezione cinematografica.
+ * La classe memorizza il codice identificativo, l'utente, la proiezione e il numero di biglietti acquistati.
  * @author 
  */
 public class Prenotazione {
@@ -90,17 +88,12 @@ public class Prenotazione {
     }
 
     /**
- * Restituisce una rappresentazione testuale della prenotazione,
- * utilizzata per la visualizzazione delle informazioni e per
- * la memorizzazione dei dati nel file csv.
+ * Restituisce una rappresentazione testuale della prenotazione, utilizzata per la visualizzazione delle informazioni e per la memorizzazione dei dati nel file csv.
  * @return una stringa contenente i dati della prenotazione
  */
     public String toString() {
         return utente.getNome() +"," + utente.getCognome() +"," + proiezione.getFilm().getTitolo() +"," + proiezione.getDataOra() +","+ numeroBiglietto + ","+ codice;
     }
-
-
-
 
 
 }
