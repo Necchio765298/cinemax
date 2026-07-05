@@ -43,7 +43,7 @@ public class csvReader{
  * Ricerca una o più proiezioni nel file csv in base ai criteri di ricerca specificati.
  * @param <args> criteri utilizzati per la ricerca
  * @return le proiezioni trovate sotto forma di stringa
- * @throws IOException se si verifica un errore durante la lettura del file
+ * @throws <IOException> se si verifica un errore durante la lettura del file
  */
 	public static String cercaProiezione(String args) throws IOException{
 		try{
@@ -68,7 +68,7 @@ public class csvReader{
  * Ricerca le proiezioni comprese in un determinato intervallo di date.
  * @param <dataInizio> data iniziale dell'intervallo
  * @param <dataFine> data finale dell'intervallo
- * @throws IOException se si verifica un errore durante la lettura del file
+ * @throws <IOException> se si verifica un errore durante la lettura del file
  */
 	public  static void cercaProiezione(LocalDate dataInizio, LocalDate dataFine) throws IOException{
 		try{
@@ -92,7 +92,7 @@ public class csvReader{
 	/**
  * Registra un nuovo utente nel file csv.
  * @param <utente> utente da registrare
- * @throws IOException se si verifica un errore durante la scrittura del file
+ * @throws <IOException> se si verifica un errore durante la scrittura del file
  */
 	public static void registraCliente(Utente utente) throws IOException{
 		try{
