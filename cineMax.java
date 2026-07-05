@@ -66,7 +66,7 @@ public class cineMax {
 											}else if(alternativa == 3){
 												//modifica una prenotazione
 												System.out.println(" ");
-												System.out.println("Inserire i dati richiesti");
+												System.out.println("Inserire i dati richiesti della prenotazione da modificare");
 												System.out.println("Dati relativi all'utente");
 												String nome = cons.readLine("Nome? ");
 												String cognome = cons.readLine("Cognome?");
@@ -95,7 +95,7 @@ public class cineMax {
 												
 												Film film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
 												
-												String DataOra = cons.readLine("Data e ora della proiezione nel formato AAAA-MM-GGTHH-MM-SS ");
+												String DataOra = cons.readLine("Data e ora della proiezione prenotata nel formato AAAA-MM-GGTHH-MM-SS ");
 												LocalDateTime dataOra = LocalDateTime.parse(DataOra);
 												
 												String PrezzoBiglietto = cons.readLine("Prezzo biglietto: ");
@@ -103,15 +103,13 @@ public class cineMax {
 												Proiezione proiezione = new Proiezione(film, dataOra, prezzoBiglietto);
 												
 												System.out.println(" ");
-												String NumeroBiglietto = cons.readLine("Quanti biglietti si desidera acquistare? ");
+												String NumeroBiglietto = cons.readLine("Quanti biglietti ha acquistato? ");
 												int numeroBiglietto = Integer.parseInt(NumeroBiglietto);
 												
 												System.out.println(" ");
-												System.out.println("Modifica prenotazione ");
 												Prenotazione prenotazione = new Prenotazione(utente, proiezione, numeroBiglietto);
-												String Data = cons.readLine("Inserire la data nel formato aaaa-mm-ggThh:mm:ss di modifica della prenotazione");
-												LocalDateTime data = LocalDateTime.parse(Data);
-												menuCliente.modificaPrenotazione(prenotazione, data);
+												
+												menuCliente.modificaPrenotazione(prenotazione, dataOra);
 												
 											}else if(alternativa == 4){
 												//elimina una prenotazione

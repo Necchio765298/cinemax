@@ -96,7 +96,7 @@ public class Prenotazione {
  * @return una stringa contenente i dati della prenotazione
  */
     public String toString() {
-        return utente.getNome() +"," + utente.getCognome() +"," + proiezione.getFilm().getTitolo() +"," + proiezione.getDataOra() +","+ numeroBiglietto + ","+ codice;
+        return proiezione.getDataOra() +"," + utente.getNome() +"," + utente.getCognome() +"," + proiezione.getFilm().getTitolo() +"," +  numeroBiglietto + ","+ codice;
     }
 
 

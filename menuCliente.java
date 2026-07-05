@@ -1,6 +1,8 @@
 //package bin;
 import java.lang.Integer;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.io.File;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -74,26 +76,76 @@ public class menuCliente{
 		}
 	}
 	
-	public static void modificaPrenotazione(Prenotazione prenotazione, LocalDateTime data) throws IOException{
-		if((prenotazione.getProiezione().getDataOra().isAfter(LocalDateTime.now())) &&  (data.isAfter(LocalDateTime.now()))){
-			FileWriter fwt = new FileWriter("prenotazioni.csv");
+	public static void modificaPrenotazione(Prenotazione prenotazioneVecchia, LocalDateTime dataVecchia) throws IOException{
+		Console cons = System.console();
+		System.out.println("Inserire i dati relativi alla prenotazione che si intende confermare");
+		System.out.println("Dati relativi all'utente");
+		String nome = cons.readLine("Nome? ");
+		String cognome = cons.readLine("Cognome?");
+		String username = cons.readLine("Username? ");
+		String password = cons.readLine("Password? ");
+		String DataNascita = cons.readLine("Data di nascita nel formato AAAA-MM-GG");
+		LocalDate dataNascita = LocalDate.parse(DataNascita);
+		String domicilio = cons.readLine("Domicilio? ");
+		String ruolo = "Cliente";
+		Utente utente = new Utente(nome, cognome, username, password, dataNascita, domicilio, ruolo);
+		System.out.println(" ");
+		System.out.println("Dati relativi alla proiezione");
+		
+		String titolo = cons.readLine("Titolo: ");
+		String genere = cons.readLine("Genere: ");
+		String regista = cons.readLine("Regista: ");
+		String Anno = cons.readLine("Anno: ");
+		int anno = Integer.parseInt(Anno);
+		String DurataMinuti = cons.readLine("Durata in minuti: ");
+		int durataMinuti = Integer.parseInt(DurataMinuti);
+		String EtaMinima = cons.readLine("Età minima: ");
+		int etaMinima = Integer.parseInt(EtaMinima);
+		
+		Film film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
+		
+		String DataNuova = cons.readLine("Data e ora della nuova proiezione nel formato AAAA-MM-GGTHH-MM-SS ");
+		LocalDateTime dataNuova = LocalDateTime.parse(DataNuova);
+		String PrezzoBiglietto = cons.readLine("Prezzo biglietto: ");
+		double prezzoBiglietto = Double.parseDouble(PrezzoBiglietto);
+		Proiezione proiezione = new Proiezione(film, dataNuova, prezzoBiglietto);
+		
+		System.out.println(" ");
+		String NumeroBiglietto = cons.readLine("Quanti biglietti si desidera acquistare? ");
+		int numeroBiglietto = Integer.parseInt(NumeroBiglietto);
+		
+		System.out.println(" ");
+		System.out.println("Modifica prenotazione ");
+		Prenotazione prenotazioneNuova = new Prenotazione(utente, proiezione, numeroBiglietto);
+		
+		try{
+		if((dataVecchia.isAfter(LocalDateTime.now())) &&  (dataNuova.isAfter(LocalDateTime.now()))){
+			
+			File temp = File.createTempFile("pro", "csv");
+			File vecchio = new File("../data/prenotazioni.csv");
+			FileWriter fwt = new FileWriter("pro.csv", true);
 			BufferedWriter bwt = new BufferedWriter(fwt);
-			FileReader frd = new FileReader("prenotazioni.csv");
+			FileReader frd = new FileReader("../data/prenotazioni.csv");
 			BufferedReader brd = new BufferedReader(frd);
 			
-			String Prenotazione;
+			String Prenotazione = " ";
 			while((Prenotazione = brd.readLine()) != null){
-				if(Prenotazione == prenotazione.toString()){
-					prenotazione.getProiezione().setDataOra(data);
-					bwt.write(prenotazione.toString());
-				}
+				if(!(Prenotazione.equals(prenotazioneVecchia.toString())))
+					bwt.write(Prenotazione);
+				else
+					bwt.write(prenotazioneNuova.toString());
 			}
+			vecchio.delete();
+			temp.renameTo(vecchio);
 			brd.close();
 			bwt.close();
 			frd.close();
 			fwt.close();
 		}else
 			System.out.println("la data vecchia e quella inserita sono antecedenti la data odierna");
+		}catch(Exception e){
+			System.out.println("Un campo dei precedenti richiesti non è stato compilato correttamente");
+		}
 	}
 	
 	public static void eliminaPrenotazione(Prenotazione prenotazione) throws IOException{
