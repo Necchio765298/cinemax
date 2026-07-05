@@ -9,19 +9,35 @@ import java.io.BufferedWriter;
 import java.io.Console;
 import java.util.UUID;
 
+/**
+ * Gestisce le funzionalità riservate agli utenti con ruolo di cliente. 
+ * La classe consente la creazione, la visualizzazione, la modifica e l'eliminazione delle prenotazioni.
+ * @author
+ */
 public class menuCliente{
 	
 	//campi
+	/** Utente che utilizza il menu cliente. */
 	private Utente utente;
+	/** Prenotazione gestita dal cliente. */
 	private Prenotazione prenotazione;
 	
 	//costruttore
+	/**
+ * Costruisce un nuovo oggetto MenuCliente.
+ * @param <utente> utente che utilizza il menu
+ * @param <prenotazione> prenotazione associata al cliente
+ */
 	public menuCliente(Utente utente, Prenotazione prenotazione){
 		this.utente = utente;
 		this.prenotazione = prenotazione;
 	}
 	
 	//metodi
+	/**
+ * Visualizza le prenotazioni associate al cliente.
+ * @throws <IOException> se si verifica un errore durante la lettura del file
+ */
 	public static void visualizzaPrenotazione() throws IOException{
 		try{
 		Console cons = System.console();
@@ -43,7 +59,12 @@ public class menuCliente{
 			System.out.println("Nome o cognome inseriti non corretti");
 		}
 	}
-	
+
+	/**
+ * Crea una nuova prenotazione verificando la disponibilità dei posti nella sala cinematografica.
+ * @param <numeroBiglietto> numero di biglietti richiesti
+ * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
+ */
 	public static void creaPrenotazione(int numeroBiglietto) throws IOException{
 		try{
 		if(numeroBiglietto < 200-numeroBiglietto){ //se numero di posti richiesti è minore del numero di posti disponibili
@@ -73,7 +94,13 @@ public class menuCliente{
 			System.out.println("Un dato inserito non è valido");
 		}
 	}
-	
+
+	/**
+ * Modifica una prenotazione esistente.
+ * @param <prenotazione> prenotazione da modificare
+ * @param <data> nuova data e ora della proiezione
+ * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
+ */
 	public static void modificaPrenotazione(Prenotazione prenotazione, LocalDateTime data) throws IOException{
 		if((prenotazione.getProiezione().getDataOra().isAfter(LocalDateTime.now())) &&  (data.isAfter(LocalDateTime.now()))){
 			FileWriter fwt = new FileWriter("prenotazioni.csv");
@@ -95,7 +122,12 @@ public class menuCliente{
 		}else
 			System.out.println("la data vecchia e quella inserita sono antecedenti la data odierna");
 	}
-	
+
+	/**
+ * Elimina una prenotazione dal sistema.
+ * @param <prenotazione> prenotazione da eliminare
+ * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
+ */
 	public static void eliminaPrenotazione(Prenotazione prenotazione) throws IOException{
 		if(prenotazione.getProiezione().getDataOra().compareTo(LocalDateTime.now())>0){
 			FileWriter fwt = new FileWriter("../data/prenotazioni.csv");
