@@ -24,13 +24,13 @@ private String ruolo;
 
 /**
  * Costruisce un nuovo utente.
- * @param nome nome dell'utente
- * @param cognome cognome dell'utente
- * @param username username dell'utente
- * @param password password dell'utente
- * @param dataNascita data di nascita dell'utente
- * @param domicilio domicilio dell'utente
- * @param ruolo ruolo dell'utente
+ * @param <nome> nome dell'utente
+ * @param <cognome> cognome dell'utente
+ * @param <username> username dell'utente
+ * @param <password> password dell'utente
+ * @param <dataNascita> data di nascita dell'utente
+ * @param <domicilio> domicilio dell'utente
+ * @param <ruolo> ruolo dell'utente
  */
     public Utente(String nome , String cognome , String username , String password , LocalDate dataNascita , String domicilio , String ruolo ){
         this.nome=nome;
