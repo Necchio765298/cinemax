@@ -24,7 +24,7 @@ public class menuCliente{
 	
 	//costruttore
 	/**
- * Costruisce un nuovo oggetto MenuCliente.
+ * Costruisce un nuovo oggetto menuCliente.
  * @param <utente> utente che utilizza il menu
  * @param <prenotazione> prenotazione associata al cliente
  */
