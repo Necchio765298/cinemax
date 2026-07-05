@@ -2,7 +2,6 @@
 /**
  * Rappresenta un film presente nel catalogo del cinema.
  * La classe memorizza le informazioni principali di ciascun film.
- *
  *  @author
  */
 
@@ -22,7 +21,6 @@ public class Film {
 
     /**
  * Costruisce un nuovo film.
- *
  * @param titolo titolo del film
  * @param genere genere del film
  * @param regista regista del film
@@ -42,7 +40,6 @@ public class Film {
    
     /**
  * Restituisce il titolo del film.
- *
  * @return il titolo del film
  */
     public String getTitolo(){
@@ -51,7 +48,6 @@ public class Film {
 
     /**
  * Restituisce il genere del film.
- *
  * @return il genere del film
  */
     public String getGenere(){
@@ -60,7 +56,6 @@ public class Film {
 
     /**
  * Restituisce il regista del film.
- *
  * @return il regista del film
  */
     public String getRegista(){
@@ -69,7 +64,6 @@ public class Film {
 
     /**
  * Restituisce l'anno del film.
- *
  * @return l'anno del film
  */
     public int getAnno(){
@@ -78,7 +72,6 @@ public class Film {
 
     /**
  * Restituisce la durata in minuti del film.
- *
  * @return la durata in minuti del film
  */
     public int getDurataMinuti(){
@@ -87,7 +80,6 @@ public class Film {
 
     /**
  * Restituisce l'età minima del film.
- *
  * @return l'età minima del film
  */
     public int getEtaMinima(){
@@ -98,7 +90,6 @@ public class Film {
  * Restituisce una rappresentazione testuale dell'oggetto Film,
  * utilizzata per la visualizzazione delle informazioni e per
  * la memorizzazione dei dati nel file CSV.
- *
  * @return la rappresentazione testuale del film
  */
     @Override
