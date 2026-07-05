@@ -10,7 +10,6 @@ import java.io.IOException;
  * Gestisce l'autenticazione degli utenti dell'applicazione.
  * La classe verifica le credenziali di accesso e determina
  * il ruolo associato all'utente.
- *
  * @author 
  */
 public class Login{
@@ -22,7 +21,6 @@ public class Login{
 
 	/**
  * Costruisce un nuovo oggetto Login.
- *
  * @param username nome utente
  * @param password password dell'utente
  */
@@ -36,7 +34,6 @@ public class Login{
 
 	/**
  * Restituisce una rappresentazione testuale dell'oggetto Login.
- *
  * @return una stringa contenente le informazioni dell'oggetto
  */
 	public String toString(){
@@ -46,7 +43,6 @@ public class Login{
 	/**
  * Verifica la validità delle credenziali inserite confrontandole
  * con quelle memorizzate nel file degli utenti.
- *
  * @param login oggetto contenente le credenziali da verificare
  * @return true se l'autenticazione va a buon fine, false altrimenti
  * @throws IOException se si verifica un errore durante la lettura del file
@@ -72,7 +68,6 @@ public class Login{
 
 	/**
  * Restituisce il ruolo associato all'utente autenticato.
- *
  * @param login oggetto contenente le credenziali dell'utente
  * @param accesso esito dell'autenticazione
  * @return il ruolo dell'utente
