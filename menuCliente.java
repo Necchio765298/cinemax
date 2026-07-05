@@ -149,8 +149,8 @@ public class menuCliente{
 		
 		try{
 		if((dataVecchia.isAfter(LocalDateTime.now())) &&  (dataNuova.isAfter(LocalDateTime.now()))){
-			
-			File temp = File.createTempFile("pro", "csv");
+			File file = new File("../data");
+			File temp = File.createTempFile("pro", "csv", file);
 			File vecchio = new File("../data/prenotazioni.csv");
 			FileWriter fwt = new FileWriter(temp, true);
 			BufferedWriter bwt = new BufferedWriter(fwt);
@@ -159,10 +159,13 @@ public class menuCliente{
 			
 			String Prenotazione = " ";
 			while((Prenotazione = brd.readLine()) != null){
-				if(!(Prenotazione.equals(prenotazioneVecchia.toString())))
+				if(!(Prenotazione.equals(prenotazioneVecchia.toString()))){
 					bwt.write(Prenotazione);
-				else
+					bwt.newLine();
+				}else{
 					bwt.write(prenotazioneNuova.toString());
+					bwt.newLine();
+				}
 			}
 			vecchio.delete();
 			temp.renameTo(vecchio);
