@@ -8,8 +8,7 @@ import java.io.IOException;
 
 /**
  * Gestisce l'autenticazione degli utenti dell'applicazione.
- * La classe verifica le credenziali di accesso e determina
- * il ruolo associato all'utente.
+ * La classe verifica le credenziali di accesso e determina il ruolo associato all'utente.
  * @author 
  */
 public class Login{
@@ -41,8 +40,7 @@ public class Login{
 	}
 
 	/**
- * Verifica la validità delle credenziali inserite confrontandole
- * con quelle memorizzate nel file degli utenti.
+ * Verifica la validità delle credenziali inserite confrontandole con quelle memorizzate nel file degli utenti.
  * @param login oggetto contenente le credenziali da verificare
  * @return true se l'autenticazione va a buon fine, false altrimenti
  * @throws IOException se si verifica un errore durante la lettura del file
