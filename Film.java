@@ -7,11 +7,17 @@
  */
 
 public class Film {
+    /** Titolo del film. */
     private String titolo ;
+    /** Genere del film. */
     private String genere;
+    /** Regista del film. */
     private String regista;
+    /** Anno di uscita del film. */
     private int anno;
+    /** Durata in minuti del film. */
     private int durataMinuti;
+    /** Età minima del film. */
     private int etaMinima;
 
     /**
