@@ -92,7 +92,7 @@ public class Prenotazione {
     /**
  * Restituisce una rappresentazione testuale della prenotazione,
  * utilizzata per la visualizzazione delle informazioni e per
- * la memorizzazione dei dati nel file CSV.
+ * la memorizzazione dei dati nel file csv.
  * @return una stringa contenente i dati della prenotazione
  */
     public String toString() {
