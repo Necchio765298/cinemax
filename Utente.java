@@ -3,8 +3,7 @@ import java.time.LocalDate;
 
 /**
  * Rappresenta un utente registrato all'interno dell'applicazione.
- * La classe memorizza le informazioni anagrafiche, le credenziali
- * di accesso e il ruolo associato all'utente.
+ * La classe memorizza le informazioni anagrafiche, le credenziali di accesso e il ruolo associato all'utente.
  * @author 
  */
 public class Utente {
@@ -107,9 +106,7 @@ private String ruolo;
     }
 
 	/**
- * Restituisce una rappresentazione testuale dell'oggetto Utente,
- * utilizzata per la visualizzazione delle informazioni e per
- * la memorizzazione dei dati nel file csv.
+ * Restituisce una rappresentazione testuale dell'oggetto Utente, utilizzata per la visualizzazione delle informazioni e per la memorizzazione dei dati nel file csv.
  * @return una stringa contenente i dati dell'utente
  */
     @Override
