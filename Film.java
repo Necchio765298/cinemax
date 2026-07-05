@@ -89,7 +89,7 @@ public class Film {
     /**
  * Restituisce una rappresentazione testuale dell'oggetto Film,
  * utilizzata per la visualizzazione delle informazioni e per
- * la memorizzazione dei dati nel file CSV.
+ * la memorizzazione dei dati nel file csv.
  * @return la rappresentazione testuale del film
  */
     @Override
