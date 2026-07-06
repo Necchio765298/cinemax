@@ -8,8 +8,7 @@ import java.io.BufferedWriter;
 import java.io.Console;
 import java.time.LocalDateTime;
 
-/**
- * Gestisce le funzionalità riservate agli utenti con ruolo di proiezionista. 
+/** Gestisce le funzionalità riservate agli utenti con ruolo di proiezionista. 
  * La classe consente l'inserimento, la modifica e l'eliminazione delle proiezioni cinematografiche.
  * @author
  */
@@ -21,8 +20,7 @@ import java.time.LocalDateTime;
  
 
   //COSTRUTTORE
-/**
- * Costruisce un nuovo oggetto menuProiezionista.
+/** Costruisce un nuovo oggetto menuProiezionista.
  */
 public menuProiezionista() {
 	this.proiezione = proiezione;
@@ -30,8 +28,7 @@ public menuProiezionista() {
    
    
    //METODI
-  /**
- * Aggiunge una nuova proiezione al sistema acquisendo i dati necessari e verificandone la validità prima della memorizzazione.
+  /** Aggiunge una nuova proiezione al sistema acquisendo i dati necessari e verificandone la validità prima della memorizzazione.
  * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
  */
 	 //aggiunge una proiezione
@@ -77,8 +74,7 @@ public menuProiezionista() {
 		}
 	}
 
-	 /**
- * Modifica i dati di una proiezione già presente nel sistema.
+	 /** Modifica i dati di una proiezione già presente nel sistema.
  * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
  */
 	 //modifica con gli stream
@@ -143,8 +139,7 @@ public menuProiezionista() {
 		frd.close();
 	}
 
-	 /**
- * Elimina una proiezione dal sistema aggiornando il file delle proiezioni.
+	 /** Elimina una proiezione dal sistema aggiornando il file delle proiezioni.
  * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
  */
 	 //elimina con gli stream
@@ -187,6 +182,4 @@ public menuProiezionista() {
 		brd.close();
 		frd.close();
 	}
-
 }
-   
