@@ -7,8 +7,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 
-/**
- * Gestisce le operazioni di lettura e scrittura dei file csvcutilizzati dall'applicazione per la memorizzazione dei dati.
+/** Gestisce le operazioni di lettura e scrittura dei file csvcutilizzati dall'applicazione per la memorizzazione dei dati.
  * La classe permette di ricercare le proiezioni e di registrare nuovi utenti, interagendo con i file csv del progetto.
  * @author
  */
@@ -21,16 +20,14 @@ public class csvReader{
 	private Utente utente;
 	
 	//costruttori
-	/**
- * Costruisce un nuovo oggetto CSVReader per la gestione delle operazioni relative alle proiezioni.
+	/** Costruisce un nuovo oggetto CSVReader per la gestione delle operazioni relative alle proiezioni.
  * @param <proiezione> proiezione da ricercare
  */
 	public csvReader(String proiezione){
 		this.proiezione = proiezione;
 	}
 
-	/**
- * Costruisce un nuovo oggetto CSVReader per la gestione delle operazioni relative agli utenti.
+	/** Costruisce un nuovo oggetto CSVReader per la gestione delle operazioni relative agli utenti.
  * @param <utente> utente da registrare
  */
 	public csvReader(Utente utente){
@@ -39,8 +36,7 @@ public class csvReader{
 	
 	//metodi
 	
-	/**
- * Ricerca una o più proiezioni nel file csv in base ai criteri di ricerca specificati.
+	/** Ricerca una o più proiezioni nel file csv in base ai criteri di ricerca specificati.
  * @param <args> criteri utilizzati per la ricerca
  * @return le proiezioni trovate sotto forma di stringa
  * @throws <IOException> se si verifica un errore durante la lettura del file
@@ -64,8 +60,7 @@ public class csvReader{
 		return proiezione;
 	}
 
-	/**
- * Ricerca le proiezioni comprese in un determinato intervallo di date.
+	/** Ricerca le proiezioni comprese in un determinato intervallo di date.
  * @param <dataInizio> data iniziale dell'intervallo
  * @param <dataFine> data finale dell'intervallo
  * @throws <IOException> se si verifica un errore durante la lettura del file
@@ -89,8 +84,7 @@ public class csvReader{
 	}
 	
 	
-	/**
- * Registra un nuovo utente nel file csv.
+	/** Registra un nuovo utente nel file csv.
  * @param <utente> utente da registrare
  * @throws <IOException> se si verifica un errore durante la scrittura del file
  */
