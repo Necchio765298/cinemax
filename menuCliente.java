@@ -11,8 +11,7 @@ import java.io.BufferedWriter;
 import java.io.Console;
 import java.util.UUID;
 
-/**
- * Gestisce le funzionalità riservate agli utenti con ruolo di cliente. 
+/** Gestisce le funzionalità riservate agli utenti con ruolo di cliente. 
  * La classe consente la creazione, la visualizzazione, la modifica e l'eliminazione delle prenotazioni.
  * @author
  */
@@ -25,8 +24,7 @@ public class menuCliente{
 	private Prenotazione prenotazione;
 	
 	//costruttore
-	/**
- * Costruisce un nuovo oggetto menuCliente.
+	/** Costruisce un nuovo oggetto menuCliente.
  * @param <utente> utente che utilizza il menu
  * @param <prenotazione> prenotazione associata al cliente
  */
@@ -36,8 +34,7 @@ public class menuCliente{
 	}
 	
 	//metodi
-	/**
- * Visualizza le prenotazioni associate al cliente.
+	/** Visualizza le prenotazioni associate al cliente.
  * @throws <IOException> se si verifica un errore durante la lettura del file
  */
 	public static void visualizzaPrenotazione() throws IOException{
@@ -62,8 +59,7 @@ public class menuCliente{
 		}
 	}
 
-	/**
- * Crea una nuova prenotazione verificando la disponibilità dei posti nella sala cinematografica.
+	/** Crea una nuova prenotazione verificando la disponibilità dei posti nella sala cinematografica.
  * @param <numeroBiglietto> numero di biglietti richiesti
  * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
  */
@@ -97,8 +93,7 @@ public class menuCliente{
 		}
 	}
 
-	/**
- * Modifica una prenotazione esistente. Il metodo richiede di 
+	/** Modifica una prenotazione esistente. Il metodo richiede di 
  * inserire una nuova prenotazione che vada a sostiuire quella esistente.
  * @param <prenotazione> prenotazione da modificare
  * @param <data> vecchia data e ora della prenotazione
@@ -181,8 +176,7 @@ public class menuCliente{
 	}
 			
 
-	/**
- * Elimina una prenotazione dal sistema.
+	/** Elimina una prenotazione dal sistema.
  * @param <prenotazione> prenotazione da eliminare
  * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
  */
