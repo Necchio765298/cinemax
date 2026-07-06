@@ -1,8 +1,7 @@
 //package bin;
 import java.time.LocalDate;
 
-/**
- * Rappresenta un utente registrato all'interno dell'applicazione.
+/** Rappresenta un utente registrato all'interno dell'applicazione.
  * La classe memorizza le informazioni anagrafiche, le credenziali di accesso e il ruolo associato all'utente.
  * @author 
  */
@@ -22,8 +21,7 @@ private String domicilio;
 /** Ruolo dell'utente all'interno dell'applicazione. */
 private String ruolo;
 
-/**
- * Costruisce un nuovo utente.
+/** Costruisce un nuovo utente.
  * @param <nome> nome dell'utente
  * @param <cognome> cognome dell'utente
  * @param <username> username dell'utente
@@ -43,8 +41,7 @@ private String ruolo;
     }
 
 
-/**
- * Restituisce il nome dell'utente.
+/** Restituisce il nome dell'utente.
  * @return il nome dell'utente
  */
     public String getNome() {
@@ -52,8 +49,7 @@ private String ruolo;
     }
 
 
-/**
- * Restituisce il cognome dell'utente.
+/** Restituisce il cognome dell'utente.
  * @return il cognome dell'utente
  */
     public String getCognome() {
@@ -61,8 +57,7 @@ private String ruolo;
     }
 
 
-/**
- * Restituisce lo username dell'utente.
+/** Restituisce lo username dell'utente.
  * @return lo username dell'utente
  */
     public String getUsername() {
@@ -70,8 +65,7 @@ private String ruolo;
     }
 
 
-/**
- * Restituisce la password dell'utente.
+/** Restituisce la password dell'utente.
  * @return la password dell'utente
  */
     public String getPassword() {
@@ -79,8 +73,7 @@ private String ruolo;
     }
 
 
-/**
- * Restituisce la data di nascita dell'utente.
+/** Restituisce la data di nascita dell'utente.
  * @return la data di nascita dell'utente
  */
     public LocalDate getDataNascita() {
@@ -88,8 +81,7 @@ private String ruolo;
     }
 
 
-/**
- * Restituisce il domicilio dell'utente.
+/** Restituisce il domicilio dell'utente.
  * @return il domicilio dell'utente
  */
     public String getDomicilio() {
@@ -97,21 +89,18 @@ private String ruolo;
     }
 
 
-/**
- * Restituisce il ruolo associato all'utente.
+/** Restituisce il ruolo associato all'utente.
  * @return il ruolo dell'utente
  */
     public String getRuolo() {
         return ruolo;
     }
 
-	/**
- * Restituisce una rappresentazione testuale dell'oggetto Utente, utilizzata per la visualizzazione delle informazioni e per la memorizzazione dei dati nel file csv.
+	/** Restituisce una rappresentazione testuale dell'oggetto Utente, utilizzata per la visualizzazione delle informazioni e per la memorizzazione dei dati nel file csv.
  * @return una stringa contenente i dati dell'utente
  */
     @Override
     public String toString(){
 		return nome + ","+ cognome + ","+ username+"," + password +"," + dataNascita +"," +domicilio +"," +ruolo;
     }
-
 }
