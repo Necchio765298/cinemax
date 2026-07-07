@@ -1,4 +1,4 @@
-//package bin;
+package cinemax;
 
 import java.io.Console;
 import java.time.LocalDate;

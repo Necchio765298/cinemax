@@ -1,4 +1,4 @@
-//package bin;
+package cinemax;
 import java.util.UUID;
 
 /** Rappresenta una prenotazione effettuata da un utente per una determinata proiezione cinematografica.
@@ -28,6 +28,24 @@ public class Prenotazione {
         this.proiezione=proiezione;
         this.numeroBiglietto=numeroBiglietto;
     }
+	public static void registraPrenotazione(Prenotazione prenotazione) throw IOException{
+		FileWriter fwt = new FileWriter("../data/prenotazioni.csv", true);
+		BufferedWriter bwt = new BufferedWriter(fwt);
+		bwt.write(prenotazione);
+		bwt.newLine();
+		bwt.close();
+		fwt.close();
+	}
+	String titolo, String dataOra){
+		String codice = UUID.randomUUID().toString().substring(0,8).toUpperCase(); 
+		String prenotazione = DataOra+"," + nome+","+ cognome+","  + titolo +","  +  numeroBiglietto +"," + codice;
+		Prenotazione prenotazione=new Prenotazione(
+			Utente.getUtente(idUtente),
+			titolo, 
+			dataOra,
+		Prenotazione.registraPrenotazione(prenotazione);
+		System.out.println("la prenotazione è stata registrata");
+	}
 
     /** Modifica la proiezione associata alla prenotazione.
  * @param <proiezione> nuova proiezione
@@ -84,6 +102,14 @@ public class Prenotazione {
     public String toString() {
         return proiezione.getDataOra() +"," + utente.getNome() +"," + utente.getCognome() +"," + proiezione.getFilm().getTitolo() +"," +  numeroBiglietto + ","+ codice;
     }
-
+	public boolean equals(Object obj) throw RuntimeException{
+		if(obj instanceof Prenotazione){
+			p=(Prenotazione) obj;
+			if(p.getCodice()==this.codice && p.getUtente()== this.utente && p.getProiezione() == this.proiezione && p.getNumeroBiglietto() == this.numeroBiglietto){
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

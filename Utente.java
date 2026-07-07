@@ -1,11 +1,14 @@
-//package bin;
-import java.time.LocalDate;
+package cinemax;
 
+import java.time.LocalDate;
+import java.time.DateTimeFormatter;
 /** Rappresenta un utente registrato all'interno dell'applicazione.
  * La classe memorizza le informazioni anagrafiche, le credenziali di accesso e il ruolo associato all'utente.
  * @author 
  */
 public class Utente {
+	/** codice identificativo dell'utente */
+private long ID;
     /** Nome dell'utente. */
 private String nome;
 /** Cognome dell'utente. */
@@ -22,6 +25,7 @@ private String domicilio;
 private String ruolo;
 
 /** Costruisce un nuovo utente.
+ * @param <ID> identificativo dell'utente
  * @param <nome> nome dell'utente
  * @param <cognome> cognome dell'utente
  * @param <username> username dell'utente
@@ -30,17 +34,53 @@ private String ruolo;
  * @param <domicilio> domicilio dell'utente
  * @param <ruolo> ruolo dell'utente
  */
-    public Utente(String nome , String cognome , String username , String password , LocalDate dataNascita , String domicilio , String ruolo ){
-        this.nome=nome;
-        this .cognome = cognome ;
+    public Utente(long ID, String nome , String cognome , String username = null, String password = null, LocalDate dataNascita = null, String domicilio = null, String ruolo = null){
+        this.ID=ID;
+		this.nome=nome;
+        this.cognome = cognome ;
         this.username = username ;
         this.password=password;
         this.dataNascita=dataNascita;
         this.domicilio=domicilio;
         this.ruolo=ruolo;
     }
-
-
+	
+	/** 
+	* @param <id> identificativo dell'utente
+	* Il metodo restituisce un utente dato come
+	* valore di ingresso il suo codice identificativo; nel caso
+	* l'utente non venga trovato, il metodo solleva un'eccezione opportuna
+	*/
+	public static Utente getUtente(long id) throws UtenteNonEsistenteException, IOException{
+		
+		FileReader frd = new FileReader("../data/utenti.csv");
+		BufferedReader br = new BufferedReader(frd);
+		String riga;
+		while ((riga = br.readLine()) != null) {
+			String[] dati = riga.split(",");
+			if(dati[0]==id){
+				return new Utente(id, dati[1], dati[2], dati[3], dati[4], LocalDate LocalDate.parse(dati[5], DateTimeFormatter.ofPattern("yyyy-MMM-dd")),dati[6],dati[7]);
+			}
+			throw new UtenteNonEsistenteException(id);
+		}
+	}
+	/** Registra un nuovo utente nel file csv.
+	 * @param <utente> utente da registrare
+	 * @throws <IOException> se si verifica un errore durante la scrittura del file
+	 */
+	public static void registra(Utente utente) throws IOException{
+		try{
+			FileWriter fwt = new FileWriter("../data/utenti.csv", true);
+			BufferedWriter bwt = new BufferedWriter(fwt);
+			
+			bwt.write(utente.toString());
+			bwt.newLine();
+			bwt.close();
+			fwt.close();
+		}catch(Exception e){
+			System.out.println("Utente non opportunamente registrato");
+		}
+	}
 /** Restituisce il nome dell'utente.
  * @return il nome dell'utente
  */
@@ -101,6 +141,6 @@ private String ruolo;
  */
     @Override
     public String toString(){
-		return nome + ","+ cognome + ","+ username+"," + password +"," + dataNascita +"," +domicilio +"," +ruolo;
+		return id+","+nome + ","+ cognome + ","+ username+"," + password +"," + dataNascita +"," +domicilio +"," +ruolo;
     }
 }

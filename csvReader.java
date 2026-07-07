@@ -1,4 +1,4 @@
-//package bin;
+package cinemax;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -84,21 +84,5 @@ public class csvReader{
 	}
 	
 	
-	/** Registra un nuovo utente nel file csv.
- * @param <utente> utente da registrare
- * @throws <IOException> se si verifica un errore durante la scrittura del file
- */
-	public static void registraCliente(Utente utente) throws IOException{
-		try{
-		FileWriter fwt = new FileWriter("../data/utenti.csv", true);
-		BufferedWriter bwt = new BufferedWriter(fwt);
-		
-		bwt.write(utente.toString());
-		bwt.newLine();
-		bwt.close();
-		fwt.close();
-		}catch(Exception e){
-			System.out.println("Utente non opportunamente registrato");
-		}
-	}
+	
 }

@@ -1,4 +1,4 @@
-//package bin;
+package cinemax;
 import java.time.LocalDateTime;
 import java.io.Console;
 
@@ -7,6 +7,7 @@ import java.io.Console;
  * @author 
  */
 public class Proiezione {
+	private long ID;
    /** Film associato alla proiezione. */
 	private Film film;
     /** Data e ora della proiezione. */

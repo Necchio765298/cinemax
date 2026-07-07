@@ -1,4 +1,4 @@
-//package bin;
+package cinemax;
 import java.lang.Integer;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
@@ -72,19 +72,7 @@ public class menuCliente{
 			String titolo = cons.readLine("inserire titolo del film");
 			String DataOra = cons.readLine("inserire la data nel formato aaaa-mm-ggThh:mm:ss");
 			//String NumBiglietto = cons.readLine("inserire il numero di biglietti da acquistare");
-			
-			String codice = UUID.randomUUID().toString().substring(0,8).toUpperCase(); 
-
-			String prenotazione = DataOra+"," + nome+","+ cognome+","  + titolo +","  +  numeroBiglietto +"," + codice;
-
-			FileWriter fwt = new FileWriter("../data/prenotazioni.csv", true);
-			BufferedWriter bwt = new BufferedWriter(fwt);
-			bwt.write(prenotazione);
-			bwt.newLine();
-			
-			System.out.println("la prenotazione è stata registrata");
-			bwt.close();
-			fwt.close();
+			Prenotazione.crea(nome, cognome, titolo, DataOra);
 		}else{
 			System.out.print("il numero dei biglietti eccede il numero di posti disponibili");
 		}
@@ -145,8 +133,9 @@ public class menuCliente{
 		try{
 		if((dataVecchia.isAfter(LocalDateTime.now())) &&  (dataNuova.isAfter(LocalDateTime.now()))){
 			File file = new File("../data");
-			File temp = File.createTempFile("pro", "csv", file);
+			File temp = File.createTempFile("pro", ".csv", file);
 			File vecchio = new File("../data/prenotazioni.csv");
+			try{
 			FileWriter fwt = new FileWriter(temp, true);
 			BufferedWriter bwt = new BufferedWriter(fwt);
 			FileReader frd = new FileReader("../data/prenotazioni.csv");
@@ -156,11 +145,13 @@ public class menuCliente{
 			while((Prenotazione = brd.readLine()) != null){
 				if(!(Prenotazione.equals(prenotazioneVecchia.toString()))){
 					bwt.write(Prenotazione);
-					bwt.newLine();
 				}else{
 					bwt.write(prenotazioneNuova.toString());
-					bwt.newLine();
 				}
+				bwt.newLine();
+			}
+			}catch(Exception e){
+				System.err.println(e.getMessage());
 			}
 			vecchio.delete();
 			temp.renameTo(vecchio);
