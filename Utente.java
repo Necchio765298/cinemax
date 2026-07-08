@@ -45,11 +45,9 @@ private String ruolo;
         this.ruolo=ruolo;
     }
 	
-	/** 
+	/** Restituisce un utente dato come valore di ingresso il suo codice identificativo; se l'utente non viene trovato, il metodo solleva un'eccezione opportuna.
 	* @param <id> identificativo dell'utente
-	* Il metodo restituisce un utente dato come
-	* valore di ingresso il suo codice identificativo; nel caso
-	* l'utente non venga trovato, il metodo solleva un'eccezione opportuna
+	* @return l'utente
 	*/
 	public static Utente getUtente(long id) throws UtenteNonEsistenteException, IOException{
 		
