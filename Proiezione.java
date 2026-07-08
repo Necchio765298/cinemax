@@ -159,7 +159,42 @@ public class Proiezione {
 	public String getTitolo(){
 		return titolo;
 	}
+	
+    /** Restituisce il genere del film.
+ * @return il genere del film
+ */
+    public String getGenere(){
+        return genere;
+    }
 
+    /** Restituisce il regista del film.
+ * @return il regista del film
+ */
+    public String getRegista(){
+        return regista;
+    }
+
+    /** Restituisce l'anno del film.
+ * @return l'anno del film
+ */
+    public int getAnno(){
+        return anno;
+    }
+
+    /** Restituisce la durata in minuti del film.
+ * @return la durata in minuti del film
+ */
+    public int getDurataMinuti(){
+        return durataMinuti;
+    }
+
+    /** Restituisce l'età minima del film.
+ * @return l'età minima del film
+ */
+    public int getEtaMinima(){
+        return etaMinima;
+    }
+	
 	/** Restituisce una rappresentazione testuale della proiezione, utilizzata per la visualizzazione delle informazioni e per la memorizzazione dei dati nel file csv.
  * @return una stringa contenente i dati della proiezione
  */
