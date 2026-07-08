@@ -7,8 +7,9 @@ import java.io.Console;
  * @author 
  */
 public class Proiezione {
-	private long ID;
-   /** Film associato alla proiezione. */
+     /** Codice identificativo dell'utente */
+	 private long ID;
+    /** Film associato alla proiezione. */
 	private Film film;
     /** Data e ora della proiezione. */
 	private LocalDateTime dataOra;
@@ -67,5 +68,4 @@ public class Proiezione {
     public String toString(){
         return dataOra+ ","+ film.toString()+ "," +prezzoBiglietto;
     }
-
 }
