@@ -6,7 +6,6 @@ import java.util.UUID;
  * @author 
  */
 public class Prenotazione {
-
     /** Codice identificativo della prenotazione. */
     private String codice;
    /** Utente che ha effettuato la prenotazione. */
@@ -28,7 +27,12 @@ public class Prenotazione {
         this.proiezione=proiezione;
         this.numeroBiglietto=numeroBiglietto;
     }
-	public static void registraPrenotazione(Prenotazione prenotazione) throw IOException{
+
+	/** Registra una prenotazione nel file csv delle prenotazioni.
+ * @param <prenotazione> prenotazione da registrare
+ * @throws <IOException> se si verifica un errore durante la scrittura del file
+ */
+	public static void registraPrenotazione(Prenotazione prenotazione) throws IOException{
 		FileWriter fwt = new FileWriter("../data/prenotazioni.csv", true);
 		BufferedWriter bwt = new BufferedWriter(fwt);
 		bwt.write(prenotazione);
@@ -36,7 +40,13 @@ public class Prenotazione {
 		bwt.close();
 		fwt.close();
 	}
-	String titolo, String dataOra){
+
+	/** Registra una prenotazione relativa alla proiezione individuata dal titolo del film e dalla data e ora della proiezione.
+ * @param <titolo> titolo del film
+ * @param <dataOra> data e ora della proiezione
+ * @throws <IOException> se si verifica un errore durante la gestione del file
+ */
+	public static void registraPrenotazione(String titolo, String dataOra) throws IOException {
 		String codice = UUID.randomUUID().toString().substring(0,8).toUpperCase(); 
 		String prenotazione = DataOra+"," + nome+","+ cognome+","  + titolo +","  +  numeroBiglietto +"," + codice;
 		Prenotazione prenotazione=new Prenotazione(
@@ -102,7 +112,7 @@ public class Prenotazione {
     public String toString() {
         return proiezione.getDataOra() +"," + utente.getNome() +"," + utente.getCognome() +"," + proiezione.getFilm().getTitolo() +"," +  numeroBiglietto + ","+ codice;
     }
-	public boolean equals(Object obj) throw RuntimeException{
+	public boolean equals(Object obj) throws RuntimeException{
 		if(obj instanceof Prenotazione){
 			p=(Prenotazione) obj;
 			if(p.getCodice()==this.codice && p.getUtente()== this.utente && p.getProiezione() == this.proiezione && p.getNumeroBiglietto() == this.numeroBiglietto){
