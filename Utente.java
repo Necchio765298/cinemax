@@ -7,9 +7,9 @@ import java.time.DateTimeFormatter;
  * @author 
  */
 public class Utente {
-	/** codice identificativo dell'utente */
+/** Codice identificativo dell'utente */
 private long ID;
-    /** Nome dell'utente. */
+/** Nome dell'utente. */
 private String nome;
 /** Cognome dell'utente. */
 private String cognome;
