@@ -12,7 +12,7 @@ import java.io.BufferedWriter;
  */
 public class Proiezione {
      /** Data e ora della proiezione. Questo campo è l'identificativo della proiezione 
-	*dal momento che in una certo orario ho una sola proiezione che viene riprodotta. */
+	*dal momento che in un certo orario ho una sola proiezione che viene riprodotta. */
 	private LocalDateTime dataOra;
     
 	/** Titolo del film. */
@@ -27,7 +27,6 @@ public class Proiezione {
     private int durataMinuti;
     /** Età minima del film. */
     private int etaMinima;
-	
     /** Prezzo del biglietto della proiezione. */
 	private double prezzoBiglietto;
 	
@@ -35,12 +34,12 @@ public class Proiezione {
 
 	/** Costruisce una nuova proiezione.
  * @param <dataOra> data e ora della proiezione
- * @param
- * @param
- * @param
- * @param
- * @param
- * @param
+ * @param <titolo> titolo del film
+ * @param <genere> genere del film
+ * @param <regista> regista del film
+ * @param <anno anno> di uscita
+ * @param <durataMinuti> durata del film in minuti
+ * @param <etaMinima> età minima consigliata
  * @param <prezzoBiglietto> prezzo del biglietto
  */
     public Proiezione(LocalDateTime dataOra, String titolo, String genere, String regista, int anno, int durataMinuti, int etaMinima, double prezzoBiglietto){
@@ -57,9 +56,9 @@ public class Proiezione {
 /**
 * Il metodo consente di ottenere un oggetto di tipo Proiezione fornendo come argomento un oggetto di tipo LocalDateTime.
 * Il metodo è utile per creare un parametro formale di tipo Proiezione da fornire in argomento al costruttore della classe Prenotazione.
-* @param ldt è la data e l'ora associata alla proiezione da ricercare
+* @param <ldt> la data e l'ora associata alla proiezione da ricercare
 * @return una Proiezione
-* @throw ProiezioneNonEsistenteException se la proiezione ricercata non esiste.
+* @throws ProiezioneNonEsistenteException se la proiezione ricercata non esiste.
 */
 	public static Proiezione getProiezione(LocalDateTime ldt){
 		FileReader frd = new FileReader("../data/proiezioni.csv");
