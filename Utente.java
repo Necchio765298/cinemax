@@ -45,9 +45,11 @@ private String ruolo;
         this.ruolo=ruolo;
     }
 	
-	/** Restituisce un utente dato come valore di ingresso il suo codice identificativo; se l'utente non viene trovato, il metodo solleva un'eccezione opportuna.
+	/** Il metodo consente di ottenere un oggetto di tipo Utente specificandone il codice identificativo; se l'utente non viene trovato, il metodo solleva un'eccezione opportuna.
+	* Il metodo è utile per creare un parametro formale di tipo Utente fornito in argomento al costruttore della classe Prenotazione.
 	* @param <id> identificativo dell'utente
 	* @return l'utente
+	* @throw UtenteNonEsistenteException se l'utente non è stato ancora registrato.
 	*/
 	public static Utente getUtente(long id) throws UtenteNonEsistenteException, IOException{
 		
@@ -57,7 +59,7 @@ private String ruolo;
 		while ((riga = br.readLine()) != null) {
 			String[] dati = riga.split(",");
 			if(dati[0]==id){
-				return new Utente(id, dati[1], dati[2], dati[3], dati[4], LocalDate LocalDate.parse(dati[5], DateTimeFormatter.ofPattern("yyyy-MMM-dd")),dati[6],dati[7]);
+				return new Utente(id, dati[1], dati[2], dati[3], dati[4], LocalDate LocalDate.parse(dati[5], DateTimeFormatter.ofPattern("yyyy-MM-dd")),dati[6],dati[7]);
 			}
 			throw new UtenteNonEsistenteException(id);
 		}
@@ -66,7 +68,7 @@ private String ruolo;
 	 * @param <utente> utente da registrare
 	 * @throws <IOException> se si verifica un errore durante la scrittura del file
 	 */
-	public static void registra(Utente utente) throws IOException{
+	public static void registraUtente(Utente utente) throws IOException{
 		try{
 			FileWriter fwt = new FileWriter("../data/utenti.csv", true);
 			BufferedWriter bwt = new BufferedWriter(fwt);
@@ -79,6 +81,11 @@ private String ruolo;
 			System.out.println("Utente non opportunamente registrato");
 		}
 	}
+	
+	public long getID(){
+		return ID;
+	}
+	
 /** Restituisce il nome dell'utente.
  * @return il nome dell'utente
  */

@@ -28,6 +28,7 @@ public class Prenotazione {
         this.numeroBiglietto=numeroBiglietto;
     }
 
+
 	/** Registra una prenotazione nel file csv delle prenotazioni.
  * @param <prenotazione> prenotazione da registrare
  * @throws <IOException> se si verifica un errore durante la scrittura del file
@@ -35,27 +36,64 @@ public class Prenotazione {
 	public static void registraPrenotazione(Prenotazione prenotazione) throws IOException{
 		FileWriter fwt = new FileWriter("../data/prenotazioni.csv", true);
 		BufferedWriter bwt = new BufferedWriter(fwt);
-		bwt.write(prenotazione);
+		bwt.write(prenotazione.toString());
+		System.out.println("la prenotazione è stata registrata");
 		bwt.newLine();
 		bwt.close();
 		fwt.close();
 	}
 
-	/** Registra una prenotazione relativa alla proiezione individuata dal titolo del film e dalla data e ora della proiezione.
- * @param <titolo> titolo del film
- * @param <dataOra> data e ora della proiezione
- * @throws <IOException> se si verifica un errore durante la gestione del file
+		 /** Ricerca una prenotazione in base ai criteri specificati.
+ * @param arg criteri utilizzati per la ricerca
+ * @return la prenotazione trovata sotto forma di stringa
+ * @throws <IOException> se si verifica un errore durante la lettura del file
  */
-	public static void registraPrenotazione(String titolo, String dataOra) throws IOException {
-		String codice = UUID.randomUUID().toString().substring(0,8).toUpperCase(); 
-		String prenotazione = DataOra+"," + nome+","+ cognome+","  + titolo +","  +  numeroBiglietto +"," + codice;
-		Prenotazione prenotazione=new Prenotazione(
-			Utente.getUtente(idUtente),
-			titolo, 
-			dataOra,
-		Prenotazione.registraPrenotazione(prenotazione);
-		System.out.println("la prenotazione è stata registrata");
+	//cerca prenotazione
+	public static Prenotazione cercaPrenotazione(Object arg) throws IOException{
+		FileReader frd = new FileReader("../data/prenotazioni.csv");
+		BufferedReader brd = new BufferedReader(frd);
+		String prenotazione = " ";
+		try{
+		while((prenotazione =brd.readLine()) != null){
+			String[] dati = riga.split(",");
+			if(prenotazione.contains(arg))
+				Proiezione p = Proiezione.getProiezione(LocalDateTime LocalDateTime.parse(dati[0]));
+				Utente u = Utente.getUtente((long) Integer.parseInt(dati[1]));
+				return new Prenotazione(u, p, dati[5]);
+		}
+		
+		brd.close();
+		frd.close();
+		}catch(Exception e){
+			System.out.println("Criterio inserito non valido");
+		}
+		return prenotazione;
 	}
+
+	 /** Ricerca le prenotazioni comprese in un determinato intervallo di date e orari.
+ * @param <dataInizio> data e ora di inizio dell'intervallo
+ * @param <dataFine> data e ora di fine dell'intervallo
+ * @throws <IOException> se si verifica un errore durante la lettura del file
+ */
+	 //cerca prenotazione per intervallo di date
+	public static Prenotazione cercaPrenotazione(LocalDateTime dataInizio, LocalDateTime dataFine) throws IOException{
+		try{
+		FileReader frd = new FileReader("../data/prenotazioni.csv");
+		BufferedReader brd = new BufferedReader(frd);
+		String Date;
+		while((Date = brd.readLine()) != null) {
+			String Date1 = Date.substring(0,19);
+			LocalDateTime data = LocalDateTime.parse(Date1);
+			if(data.isAfter(dataInizio) && data.isBefore(dataFine))
+				System.out.println(Date.toString());
+		}
+		brd.close();
+		frd.close();
+		}catch(Exception e){
+			System.out.println("Data inserita nel formato non corretto");
+		}
+	}
+
 
     /** Modifica la proiezione associata alla prenotazione.
  * @param <proiezione> nuova proiezione
@@ -110,8 +148,9 @@ public class Prenotazione {
  * @return una stringa contenente i dati della prenotazione
  */
     public String toString() {
-        return proiezione.getDataOra() +"," + utente.getNome() +"," + utente.getCognome() +"," + proiezione.getFilm().getTitolo() +"," +  numeroBiglietto + ","+ codice;
+        return proiezione.getDataOra() +"," + utente.getID() + "," +utente.getNome() +"," + utente.getCognome() +"," + proiezione.getTitolo() +"," +  numeroBiglietto + ","+ codice;
     }
+	 
 	public boolean equals(Object obj) throws RuntimeException{
 		if(obj instanceof Prenotazione){
 			p=(Prenotazione) obj;

@@ -5,6 +5,8 @@
  */
 
 public class Film {
+	/** codice identificativo del film */
+	private long id;
     /** Titolo del film. */
     private String titolo ;
     /** Genere del film. */
@@ -27,7 +29,8 @@ public class Film {
  * @param <etaMinima> età minima consigliata
  */
 
-    public Film(String titolo,String genere,String regista,int anno,int durataMinuti,int etaMinima){
+    public Film(long id, String titolo,String genere,String regista,int anno,int durataMinuti,int etaMinima){
+		this.id = id;
         this.titolo=titolo;
         this.genere=genere;
         this.regista=regista;
@@ -36,6 +39,23 @@ public class Film {
         this.etaMinima=etaMinima;
     }
    
+   /** Restituisce il film associato alla proiezione.
+ * @return il film della proiezione
+ */
+    public Film getFilm(long id){
+		FileReader frd = new FileReader("../data/utenti.csv");
+		BufferedReader br = new BufferedReader(frd);
+		String riga;
+		while ((riga = br.readLine()) != null) {
+			String[] dati = riga.split(",");
+			if(dati[0]==id){
+				return new Film(id, dati[1], dati[2], dati[3], dati[4], LocalDate LocalDate.parse(dati[5], DateTimeFormatter.ofPattern("yyyy-MMM-dd")),dati[6],dati[7]);
+			}
+			throw new UtenteNonEsistenteException(id);
+		}
+        return film;
+    }
+	
     /** Restituisce il titolo del film.
  * @return il titolo del film
  */

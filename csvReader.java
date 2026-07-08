@@ -36,52 +36,7 @@ public class csvReader{
 	
 	//metodi
 	
-	/** Ricerca una o più proiezioni nel file csv in base ai criteri di ricerca specificati.
- * @param <args> criteri utilizzati per la ricerca
- * @return le proiezioni trovate sotto forma di stringa
- * @throws <IOException> se si verifica un errore durante la lettura del file
- */
-	public static String cercaProiezione(String args) throws IOException{
-		try{
-		FileReader frd = new FileReader("../data/proiezioni.csv");
-		BufferedReader brd = new BufferedReader(frd);
-		String proiezione;
-		while((proiezione = brd.readLine()) != null){
-			if(proiezione.contains(args))
-				System.out.println(proiezione);
-			
-		}
-		brd.close();
-		frd.close();
-		
-		}catch(Exception e){
-		System.out.println("Criterio inserito non valido");
-		}
-		return proiezione;
-	}
 
-	/** Ricerca le proiezioni comprese in un determinato intervallo di date.
- * @param <dataInizio> data iniziale dell'intervallo
- * @param <dataFine> data finale dell'intervallo
- * @throws <IOException> se si verifica un errore durante la lettura del file
- */
-	public  static void cercaProiezione(LocalDate dataInizio, LocalDate dataFine) throws IOException{
-		try{
-		FileReader frd = new FileReader("../data/proiezioni.csv");
-		BufferedReader brd = new BufferedReader(frd);
-		String Date;
-		while((Date = brd.readLine()) != null) {
-			String Date1 = Date.substring(1,11);
-			LocalDate data = LocalDate.parse(Date1);
-			if(data.isAfter(dataInizio) && data.isBefore(dataFine))
-				System.out.println(Date.toString());
-		}
-		brd.close();
-		frd.close();
-		}catch(Exception e){
-			System.out.println("Formato della data inserita non corretto");
-		}
-	}
 	
 	
 	

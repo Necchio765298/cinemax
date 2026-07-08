@@ -334,7 +334,7 @@ public class cineMax {
 						String domicilio = cons.readLine("domicilio? ");
 						String ruolo = cons.readLine("ruolo? scrivere Cliente, Bigliettaio o Proiezionista ");
 						Utente nuovoUtente = new Utente(nome, cognome, username, password, dataNascita, domicilio, ruolo);
-						csvReader.registraCliente(nuovoUtente);
+						csvReader.registraUtente(nuovoUtente);
 						break;
 
 					case 3:
