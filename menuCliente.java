@@ -37,25 +37,16 @@ public class menuCliente{
 	/** Visualizza le prenotazioni associate al cliente.
  * @throws <IOException> se si verifica un errore durante la lettura del file
  */
-	public static void visualizzaPrenotazione() throws IOException{
+	public static void visualizzaPrenotazione(long id) throws IOException{
 		try{
-		Console cons = System.console();
-		
-		FileReader frd = new FileReader("../data/prenotazioni.csv");
-		BufferedReader brd = new BufferedReader(frd);
-		
-		String nome = cons.readLine("inserire il nome del cliente per cui cercare le prenotazioni associate");
-		String cognome = cons.readLine("inserire adesso il cognome");
-		String prenotazione;
-		while((prenotazione = brd.readLine()) != null){
+			Prenotazione p = Prenotazione.cercaPrenotazione(id);
+			String prenotazione = p.toString();
 			
-			if(prenotazione.contains(nome) && prenotazione.contains(cognome))
-				System.out.println(prenotazione);
-		}
-		brd.close();
-		frd.close();
+			brd.close();
+			frd.close();
+			System.out.println("Prenotazione trovata: "+ prenotazione);
 		}catch(Exception e){
-			System.out.println("Nome o cognome inseriti non corretti");
+			e.getMessage();
 		}
 	}
 
@@ -63,19 +54,22 @@ public class menuCliente{
  * @param <numeroBiglietto> numero di biglietti richiesti
  * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
  */
-	public static void creaPrenotazione(int numeroBiglietto) throws IOException{
+	public static Prenotazione creaPrenotazione(LocalDateTime orario) throws IOException{
 		try{
-		if(numeroBiglietto < 200-numeroBiglietto){ //se numero di posti richiesti è minore del numero di posti disponibili
 			Console cons = System.console();
-			String nome = cons.readLine("inserire il prorio nome");
-			String cognome = cons.readLine("inserire il proprio cognome");
-			String titolo = cons.readLine("inserire titolo del film");
-			String DataOra = cons.readLine("inserire la data nel formato aaaa-mm-ggThh:mm:ss");
-			//String NumBiglietto = cons.readLine("inserire il numero di biglietti da acquistare");
-			Prenotazione.crea(nome, cognome, titolo, DataOra);
-		}else{
-			System.out.print("il numero dei biglietti eccede il numero di posti disponibili");
-		}
+			String id = cons.readLine("inserire il proprio codice identificativo");
+			long identificativo =(long) Integer.parseInt(id);
+			Utente u = Utente.getUtente(identificativo);
+			Proiezione p = Proiezione.getProiezione(orario);
+			String biglietti = cons.readLine("Inserire il numero dei biglietti da acquistare: ")
+			int numeroBiglietto = Integer.parseInt(biglietti);
+			if(numeroBiglietto < 200-numeroBiglietto){ //se numero di posti richiesti è minore del numero di posti disponibili	
+				Prenotazione prenotazione =  new Prenotazione(u, p, numeroBiglietto);
+				Prenotazione.registraPrenotazione(prenotazione);
+				return prenotazione;
+			}else{
+				System.out.print("il numero dei biglietti eccede il numero di posti disponibili");
+			}
 		}catch(Exception e){
 			System.out.println("Un dato inserito non è valido");
 		}
@@ -88,47 +82,10 @@ public class menuCliente{
  * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
  */
 	
-	public static void modificaPrenotazione(Prenotazione prenotazioneVecchia, LocalDateTime dataVecchia) throws IOException{
-		Console cons = System.console();
-		System.out.println("Inserire i dati relativi alla prenotazione che si intende confermare");
-		System.out.println("Dati relativi all'utente");
-		String nome = cons.readLine("Nome? ");
-		String cognome = cons.readLine("Cognome?");
-		String username = cons.readLine("Username? ");
-		String password = cons.readLine("Password? ");
-		String DataNascita = cons.readLine("Data di nascita nel formato AAAA-MM-GG");
-		LocalDate dataNascita = LocalDate.parse(DataNascita);
-		String domicilio = cons.readLine("Domicilio? ");
-		String ruolo = "Cliente";
-		Utente utente = new Utente(nome, cognome, username, password, dataNascita, domicilio, ruolo);
-		System.out.println(" ");
-		System.out.println("Dati relativi alla proiezione");
+	public static void modificaPrenotazione(LocalDateTime dataVecchia, LocalDateTime dataNuova) throws IOException{
+		Prenotazione preVecchia = Prenotazione.cercaPrenotazione(dataVecchia);
 		
-		String titolo = cons.readLine("Titolo: ");
-		String genere = cons.readLine("Genere: ");
-		String regista = cons.readLine("Regista: ");
-		String Anno = cons.readLine("Anno: ");
-		int anno = Integer.parseInt(Anno);
-		String DurataMinuti = cons.readLine("Durata in minuti: ");
-		int durataMinuti = Integer.parseInt(DurataMinuti);
-		String EtaMinima = cons.readLine("Età minima: ");
-		int etaMinima = Integer.parseInt(EtaMinima);
-		
-		Film film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
-		
-		String DataNuova = cons.readLine("Data e ora della nuova proiezione nel formato AAAA-MM-GGTHH-MM-SS ");
-		LocalDateTime dataNuova = LocalDateTime.parse(DataNuova);
-		String PrezzoBiglietto = cons.readLine("Prezzo biglietto: ");
-		double prezzoBiglietto = Double.parseDouble(PrezzoBiglietto);
-		Proiezione proiezione = new Proiezione(film, dataNuova, prezzoBiglietto);
-		
-		System.out.println(" ");
-		String NumeroBiglietto = cons.readLine("Quanti biglietti si desidera acquistare? ");
-		int numeroBiglietto = Integer.parseInt(NumeroBiglietto);
-		
-		System.out.println(" ");
-		System.out.println("Modifica prenotazione ");
-		Prenotazione prenotazioneNuova = new Prenotazione(utente, proiezione, numeroBiglietto);
+		Prenotazione preNuova = creaPrenotazione(dataNuova);
 		
 		try{
 		if((dataVecchia.isAfter(LocalDateTime.now())) &&  (dataNuova.isAfter(LocalDateTime.now()))){
@@ -143,22 +100,22 @@ public class menuCliente{
 			
 			String Prenotazione = " ";
 			while((Prenotazione = brd.readLine()) != null){
-				if(!(Prenotazione.equals(prenotazioneVecchia.toString()))){
-					bwt.write(Prenotazione);
+				if(!((preVecchia.toString()).equals(preNuova.toString()))){
+					bwt.write(preVecchia.toString());
 				}else{
-					bwt.write(prenotazioneNuova.toString());
+					bwt.write(preNuova.toString());
 				}
 				bwt.newLine();
 			}
 			}catch(Exception e){
 				System.err.println(e.getMessage());
 			}
-			vecchio.delete();
-			temp.renameTo(vecchio);
 			brd.close();
 			bwt.close();
 			frd.close();
 			fwt.close();
+			vecchio.delete();
+			temp.renameTo(vecchio);
 		}else
 			System.out.println("la data vecchia e quella inserita sono antecedenti la data odierna");
 		}catch(Exception e){

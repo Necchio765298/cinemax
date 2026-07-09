@@ -54,9 +54,9 @@ private String ruolo;
 	public static Utente getUtente(long id) throws UtenteNonEsistenteException, IOException{
 		
 		FileReader frd = new FileReader("../data/utenti.csv");
-		BufferedReader br = new BufferedReader(frd);
+		BufferedReader brd = new BufferedReader(frd);
 		String riga;
-		while ((riga = br.readLine()) != null) {
+		while ((riga = brd.readLine()) != null) {
 			String[] dati = riga.split(",");
 			if(dati[0]==id){
 				return new Utente(id, dati[1], dati[2], dati[3], dati[4], LocalDate LocalDate.parse(dati[5], DateTimeFormatter.ofPattern("yyyy-MM-dd")),dati[6],dati[7]);

@@ -37,7 +37,7 @@ public class Proiezione {
  * @param <titolo> titolo del film
  * @param <genere> genere del film
  * @param <regista> regista del film
- * @param <anno anno> di uscita
+ * @param anno anno di uscita
  * @param <durataMinuti> durata del film in minuti
  * @param <etaMinima> età minima consigliata
  * @param <prezzoBiglietto> prezzo del biglietto
@@ -63,14 +63,15 @@ public class Proiezione {
 	public static Proiezione getProiezione(LocalDateTime ldt){
 		FileReader frd = new FileReader("../data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
-		String riga;
-		while ((riga = brd.readLine()) != null) {
-			String[] dati = riga.split(",");
+		String proiezione;
+		while ((proiezione = brd.readLine()) != null) {
+			String[] dati = proiezione.split(",");
 			if(dati[0]==ldt){
 				return new Proiezione(ldt, dati[1], dati[2], dati[3], int Integer.parseInt(dati[4]), int Integer.parseInt(dati[5]), int Integer.parseInt(dati[6]), double Double.parseDouble(dati[7]));
 			}
 			throw new ProiezioneNonEsistenteException(ldt);
 		}
+	}
 
 /** Ricerca una o più proiezioni nel file csv in base ai criteri di ricerca specificati.
 * Il metodo riceve in argomento dati di tipo String, LocalDateTime e double.
@@ -115,8 +116,8 @@ public class Proiezione {
 		BufferedReader brd = new BufferedReader(frd);
 		String Date;
 		while((Date = brd.readLine()) != null) {
-			String Date1 = Date.substring(1,11);
-			LocalDate data = LocalDate.parse(Date1);
+			String[] dati = riga.split(",");
+			LocalDate data = LocalDate.parse(dati[0]);
 			if(data.isAfter(dataInizio) && data.isBefore(dataFine))
 				return new Proiezione(dati[0], dati[1], dati[2], dati[3], int Integer.parseInt(dati[4]), int Integer.parseInt(dati[5]), int Integer.parseInt(dati[6]), double Double.parseDouble(dati[7]));
 		}
@@ -201,4 +202,14 @@ public class Proiezione {
     public String toString(){
         return dataOra+ ","+ titolo + "," + genere + "," + regista + "," + anno+ "," + durataMinuti+ "," + etaMinima+ "," +prezzoBiglietto;
     }
+	
+	public boolean equals(Object obj) throws RuntimeException{
+		if(obj instanceof Proiezione){
+			p=(Proiezione) obj;
+			if(p.getDataOra()==this.dataOra && p.getTitolo()== this.titolo && p.getGenere() == this.genere && p.getRegista() == this.regista && p.getAnno()==this.anno && p.durataMinuti()== this.durataMinuti && p.getEtaMinima() == this.etaMinima && p.getPrezzoBiglietto() == this.prezzoBiglietto){
+				return true;
+			}
+		}
+		return false;
+	}
 }

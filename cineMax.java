@@ -64,62 +64,26 @@ public class cineMax {
 											if(alternativa == 1){
 												//crea nuova prenotazione
 												System.out.println(" ");
-												System.out.println("quanti biglietti si desidera acquistare?");
-												String Biglietti = cons.readLine("Numero: ");
-												int biglietti = Integer.parseInt(Biglietti);
-												menuCliente.creaPrenotazione(biglietti);
+												System.out.println("A che data e ora prenotare?");
+												String DataOra = cons.readLine("Data e ora della proiezione da prenotare nel formato AAAA-MM-GGTHH-MM-SS ");
+												LocalDateTime dataOra = LocalDateTime.parse(DataOra);
+												menuCliente.creaPrenotazione(dataOra);
 											
 											}else if(alternativa == 2){
 												//visualizza le prenotazioni
-												menuCliente.visualizzaPrenotazione();
+												String id = cons.readLine("inserire il proprio codice identificativo");
+												long identificativo =(long) Integer.parseInt(id);
+												menuCliente.visualizzaPrenotazione(identificativo);
 												
 											}else if(alternativa == 3){
 												//modifica una prenotazione
 												System.out.println(" ");
-												System.out.println("Inserire i dati richiesti della prenotazione da modificare");
-												System.out.println("Dati relativi all'utente");
-												String nome = cons.readLine("Nome? ");
-												String cognome = cons.readLine("Cognome?");
-												username = cons.readLine("Username? ");
-												password = cons.readLine("Password? ");
-												String DataNascita = cons.readLine("Data di nascita nel formato AAAA-MM-GG");
-												LocalDate dataNascita = LocalDate.parse(DataNascita);
-												String domicilio = cons.readLine("Domicilio? ");
-												String ruolo = "Cliente";
-												Utente utente = new Utente(nome, cognome, username, password, dataNascita, domicilio, ruolo);
-												System.out.println(" ");
-												System.out.println("Dati relativi alla proiezione");
 												
-												String titolo = cons.readLine("Titolo: ");
-												String genere = cons.readLine("Genere: ");
-												String regista = cons.readLine("Regista: ");
-												
-												String Anno = cons.readLine("Anno: ");
-												int anno = Integer.parseInt(Anno);
-												
-												String DurataMinuti = cons.readLine("Durata in minuti: ");
-												int durataMinuti = Integer.parseInt(DurataMinuti);
-												
-												String EtaMinima = cons.readLine("Età minima: ");
-												int etaMinima = Integer.parseInt(EtaMinima);
-												
-												Film film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
-												
-												String DataOra = cons.readLine("Data e ora della proiezione prenotata nel formato AAAA-MM-GGTHH-MM-SS ");
-												LocalDateTime dataOra = LocalDateTime.parse(DataOra);
-												
-												String PrezzoBiglietto = cons.readLine("Prezzo biglietto: ");
-												double prezzoBiglietto = Double.parseDouble(PrezzoBiglietto);
-												Proiezione proiezione = new Proiezione(film, dataOra, prezzoBiglietto);
-												
-												System.out.println(" ");
-												String NumeroBiglietto = cons.readLine("Quanti biglietti ha acquistato? ");
-												int numeroBiglietto = Integer.parseInt(NumeroBiglietto);
-												
-												System.out.println(" ");
-												Prenotazione prenotazione = new Prenotazione(utente, proiezione, numeroBiglietto);
-												
-												menuCliente.modificaPrenotazione(prenotazione, dataOra);
+												String vecchia = cons.readLine("Data e ora della proiezione prenotata nel formato AAAA-MM-GGTHH-MM-SS ");
+												LocalDateTime dataVecchia = LocalDateTime.parse(vecchia);
+												String nuova = cons.readLine("Data e ora della proiezione da prenotare nel formato AAAA-MM-GGTHH-MM-SS ");
+												LocalDateTime dataNuova = LocalDateTime.parse(nuova);
+												menuCliente.modificaPrenotazione(dataVecchia, dataNuova);
 												
 											}else if(alternativa == 4){
 												//elimina una prenotazione

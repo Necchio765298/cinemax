@@ -1,4 +1,4 @@
-//package bin;
+package cinemax;
 
 import java.io.IOException;
 import java.io.FileReader;
@@ -28,18 +28,10 @@ public menuProiezionista() {
    
    
    //METODI
-  /** Aggiunge una nuova proiezione al sistema acquisendo i dati necessari e verificandone la validità prima della memorizzazione.
- * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
- */
-	 //aggiunge una proiezione
-   public static void aggiungiProiezione() throws IOException{	
-		try{
-	    FileWriter fwt = new FileWriter("../data/proiezioni.csv", true);
-		BufferedWriter bwt = new BufferedWriter(fwt);
-		FileReader frd = new FileReader("../data/proiezioni.csv");
-		BufferedReader brd = new BufferedReader(frd);
+   
+	public static Proiezione creaProiezione(){
 		Console cons = System.console();
-		System.out.println("Inserire dati del film");
+		System.out.println("Inserire i dati ");
 		String titolo = cons.readLine("Titolo: ");
 		String genere = cons.readLine("Genere: ");
 		String regista = cons.readLine("Regista: ");
@@ -49,16 +41,28 @@ public menuProiezionista() {
 		int durataMinuti = Integer.parseInt(DurataMinuti);
 		String EtaMinima = cons.readLine("Età minima: ");
 		int etaMinima = Integer.parseInt(EtaMinima);
-		Film film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
-		
-		System.out.println(" ");
-		System.out.println("Inserire dati della proiezione");
-		
+				
 		String DataOra = cons.readLine("Data e ora della proiezione nel formato AAAA-MM-GGTHH-MM-SS ");
 		LocalDateTime dataOra = LocalDateTime.parse(DataOra);
 		String PrezzoBiglietto = cons.readLine("Prezzo biglietto: ");
 		double prezzoBiglietto = Double.parseDouble(PrezzoBiglietto);
-		Proiezione p = new Proiezione(film, dataOra, prezzoBiglietto);
+		Proiezione p = new Proiezione(dataOra, titolo, genere, regista, anno, durataMinuti, etaMinima, prezzoBiglietto);
+	}
+	   
+   
+  /** Aggiunge una nuova proiezione al sistema acquisendo i dati necessari e verificandone la validità prima della memorizzazione.
+ * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
+ */
+ 
+	 //aggiunge una proiezione
+   public static void aggiungiProiezione() throws IOException{	
+		try{
+	    FileWriter fwt = new FileWriter("../data/proiezioni.csv", true);
+		BufferedWriter bwt = new BufferedWriter(fwt);
+		FileReader frd = new FileReader("../data/proiezioni.csv");
+		BufferedReader brd = new BufferedReader(frd);
+		
+		Proiezione p = creaProiezione();
 		String proiezione;
 		while((proiezione = brd.readLine()) != null){
 			if (proiezione.contains(p.toString()))
@@ -69,6 +73,7 @@ public menuProiezionista() {
 		
 		bwt.close();
 		fwt.close();
+		return p;
 		}catch(Exception e){
 			System.out.println("Un criterio inserito non è nel formato valido");
 		}
@@ -78,65 +83,44 @@ public menuProiezionista() {
  * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
  */
 	 //modifica con gli stream
-	public static void modificaProiezione() throws IOException{	
-		FileWriter fwt = new FileWriter("../data/proiezioni.csv" );
-		BufferedWriter bwt = new BufferedWriter(fwt);
-		FileReader frd = new FileReader("../data/proiezioni.csv");
-		BufferedReader brd = new BufferedReader(frd);
-		Console cons = System.console();
-		System.out.println("Quale proiezione modificare? Inserire i dati della proiezione per ricercarla");
-		String titolo = cons.readLine("Titolo: ");
-		String genere = cons.readLine("Genere: ");
-		String regista = cons.readLine("Regista: ");
-		String Anno = cons.readLine("Anno: ");
-		int anno = Integer.parseInt(Anno);
-		String DurataMinuti = cons.readLine("Durata in minuti: ");
-		int durataMinuti = Integer.parseInt(DurataMinuti);
-		String EtaMinima = cons.readLine("Età minima: ");
-		int etaMinima = Integer.parseInt(EtaMinima);
-		Film film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
+	public static void modificaProiezione(LocalDateTime orario) throws IOException{	
 		
-		String DataOra = cons.readLine("Data e ora della proiezione nel formato AAAA-MM-GGTHH-MM-SS ");
-		LocalDateTime dataOra = LocalDateTime.parse(DataOra);
-		String PrezzoBiglietto = cons.readLine("Prezzo biglietto: ");
-		double prezzoBiglietto = Double.parseDouble(PrezzoBiglietto);
-		Proiezione vecchiaProiezione = new Proiezione(film, dataOra, prezzoBiglietto);
-		String vecchia = csvReader.cercaProiezione(vecchiaProiezione.toString());
-		System.out.println(" ");
 		
-		System.out.println("Inserire ora i nuovi dati della proiezione");
-		titolo = cons.readLine("Titolo: ");
-		genere = cons.readLine("Genere: ");
-		regista = cons.readLine("Regista: ");
-		Anno = cons.readLine("Anno: ");
-		anno = Integer.parseInt(Anno);
-		DurataMinuti = cons.readLine("Durata in minuti: ");
-		durataMinuti = Integer.parseInt(DurataMinuti);
-		EtaMinima = cons.readLine("Età minima: ");
-		etaMinima = Integer.parseInt(EtaMinima);
-		film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
-		
-		DataOra = cons.readLine("Data e ora della proiezione nel formato AAAA-MM-GGTHH-MM-SS ");
-		dataOra = LocalDateTime.parse(DataOra);
-		PrezzoBiglietto = cons.readLine("Prezzo biglietto: ");
-		prezzoBiglietto = Double.parseDouble(PrezzoBiglietto);
-		Proiezione nuovaProiezione = new Proiezione(film, dataOra, prezzoBiglietto);
-		
-		String nuova = nuovaProiezione.toString();
-		
-		String str;
-		while((str = brd.readLine()) != null){
-			if(str.equals(vecchia)){
-				str.replace(vecchia, nuova);
-				bwt.write(str);
+		try{
+		if(/*se non ci sono ancora prenotazioni per la proiezione da modificare */){
+			File file = new File("../data");
+			File temp = File.createTempFile("pro", ".csv", file);
+			File vecchio = new File("../data/proiezioni.csv");
+			try{
+				FileWriter fwt = new FileWriter(temp, true);
+				BufferedWriter bwt = new BufferedWriter(fwt);
+				FileReader frd = new FileReader("../data/prenotazioni.csv");
+				BufferedReader brd = new BufferedReader(frd);
+				
+				Proiezione proVecchia = Proiezione.getProiezione(orario);
+				Proiezione proNuova = creaProiezione();
+			
+				if(!(proVecchia).equals(proNuova.)){
+					bwt.write(proVecchia.toString());
+				}else{
+					bwt.write(proNuova.toString());
+				}
+				bwt.newLine();
+			
+			}catch(Exception e){
+				System.err.println(e.getMessage());
 			}
-			bwt.write(str);
-		}
-
-	    bwt.close();
-		fwt.close();
-		brd.close();
-		frd.close();
+			brd.close();
+			bwt.close();
+			frd.close();
+			fwt.close();
+			vecchio.delete();
+			temp.renameTo(vecchio);
+		}else
+			System.out.println("ci sono prenotazioni per la proiezione da modificare");
+		}catch(Exception e){
+			e.getMessage();
+		}	
 	}
 
 	 /** Elimina una proiezione dal sistema aggiornando il file delle proiezioni.

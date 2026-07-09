@@ -55,7 +55,7 @@ public class Prenotazione {
 		String prenotazione = " ";
 		try{
 		while((prenotazione =brd.readLine()) != null){
-			String[] dati = riga.split(",");
+			String[] dati = prenotazione.split(",");
 			if(prenotazione.contains(arg))
 				Proiezione p = Proiezione.getProiezione(LocalDateTime LocalDateTime.parse(dati[0]));
 				Utente u = Utente.getUtente((long) Integer.parseInt(dati[1]));
@@ -65,9 +65,8 @@ public class Prenotazione {
 		brd.close();
 		frd.close();
 		}catch(Exception e){
-			System.out.println("Criterio inserito non valido");
+			System.out.println("Dato inserito non valido");
 		}
-		return prenotazione;
 	}
 
 	 /** Ricerca le prenotazioni comprese in un determinato intervallo di date e orari.
@@ -116,24 +115,10 @@ public class Prenotazione {
         return codice;
     }
 
-    /** Restituisce l'utente associato alla prenotazione.
- * @return l'utente della prenotazione
- */
-    public Utente getUtente() {
-        return utente;
-    }
-
-    /** Restituisce la proiezione associata alla prenotazione.
- * @return la proiezione della prenotazione
- */
-    public Proiezione getProiezione() {
-        return proiezione;
-    }
-
     /** Restituisce il numero di biglietti acquistati.
  * @return il numero di biglietti
  */
-    public int getNumeroBiglietto() {
+    public int getNumeroBiglietto() {	
         return numeroBiglietto;
     }
 
