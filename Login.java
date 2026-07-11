@@ -1,4 +1,4 @@
-//package bin;
+package cinemax;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -41,7 +41,7 @@ public class Login{
  * @return true se l'autenticazione va a buon fine, false altrimenti
  * @throws <IOException> se si verifica un errore durante la lettura del file
  */
-	public static boolean login(Login login) throws IOException{
+	public static boolean login(Login login) throws UtenteNonEsistenteException, IOException{
 		FileReader frd = new FileReader("../data/utenti.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String persona;
@@ -88,5 +88,18 @@ public class Login{
 			System.out.println("ruolo inserito in fase di registrazione diverso da  \" Cliente \" , \" Bigliettaio \", \"Proiezionista \" ");
 		}
 		return ruolo;
+	}
+	
+	public static long getIdUtente(Login login) throws UtenteNonEsistenteException, IOException{
+		FileReader frd = new FileReader("../data/utenti.csv");
+		BufferedReader brd = new BufferedReader(frd);
+		String riga;
+		while ((riga = brd.readLine()) != null) {
+			String[] dati = riga.split(",");
+			if(riga.contains(login.toString())){
+				return dati[0];
+			}
+			throw new UtenteNonEsistenteException(id);
+		}
 	}
 }

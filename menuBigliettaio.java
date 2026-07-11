@@ -1,4 +1,4 @@
-//package bin;
+package cinemax;
 
 import java.io.IOException;
 import java.io.FileReader;

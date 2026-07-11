@@ -82,31 +82,29 @@ public menuProiezionista() {
 	 /** Modifica i dati di una proiezione già presente nel sistema.
  * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
  */
-	 //modifica con gli stream
 	public static void modificaProiezione(LocalDateTime orario) throws IOException{	
-		
-		
 		try{
-		if(/*se non ci sono ancora prenotazioni per la proiezione da modificare */){
+		if(Prenotazione.cercaPrenotazione(orario) == null){
 			File file = new File("../data");
 			File temp = File.createTempFile("pro", ".csv", file);
 			File vecchio = new File("../data/proiezioni.csv");
 			try{
 				FileWriter fwt = new FileWriter(temp, true);
 				BufferedWriter bwt = new BufferedWriter(fwt);
-				FileReader frd = new FileReader("../data/prenotazioni.csv");
+				FileReader frd = new FileReader("../data/proiezioni.csv");
 				BufferedReader brd = new BufferedReader(frd);
 				
 				Proiezione proVecchia = Proiezione.getProiezione(orario);
 				Proiezione proNuova = creaProiezione();
-			
-				if(!(proVecchia).equals(proNuova.)){
-					bwt.write(proVecchia.toString());
-				}else{
-					bwt.write(proNuova.toString());
+				String linea;
+				while((line = brd.readLine())!= null){
+					if(!(proVecchia).equals(proNuova.)){
+						bwt.write(linea);
+					}else{
+						bwt.write(proNuova.toString());
+					}
+					bwt.newLine();
 				}
-				bwt.newLine();
-			
 			}catch(Exception e){
 				System.err.println(e.getMessage());
 			}
@@ -117,7 +115,7 @@ public menuProiezionista() {
 			vecchio.delete();
 			temp.renameTo(vecchio);
 		}else
-			System.out.println("ci sono prenotazioni per la proiezione da modificare");
+			System.out.println("ci sono prenotazioni per la proiezione da modificare, pertanto non è possibile modificarla");
 		}catch(Exception e){
 			e.getMessage();
 		}	
@@ -127,43 +125,39 @@ public menuProiezionista() {
  * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
  */
 	 //elimina con gli stream
-	public static void eliminaProiezione() throws IOException {
-		FileWriter fwt = new FileWriter("../data/proiezioni.csv");
-		BufferedWriter bwt = new BufferedWriter(fwt);
-		FileReader frd = new FileReader("../data/proiezioni.csv");
-		BufferedReader brd = new BufferedReader(frd);
-		Console cons = System.console();
-		System.out.println("Quale proiezione eliminare? Inserire i dati della proiezione per ricercarla");
-		String titolo = cons.readLine("Titolo: ");
-		String genere = cons.readLine("Genere: ");
-		String regista = cons.readLine("Regista: ");
-		String Anno = cons.readLine("Anno: ");
-		int anno = Integer.parseInt(Anno);
-		String DurataMinuti = cons.readLine("Durata in minuti: ");
-		int durataMinuti = Integer.parseInt(DurataMinuti);
-		String EtaMinima = cons.readLine("Età minima: ");
-		int etaMinima = Integer.parseInt(EtaMinima);
-		Film film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
-		
-		String DataOra = cons.readLine("Data e ora della proiezione nel formato AAAA-MM-GGTHH-MM-SS ");
-		LocalDateTime dataOra = LocalDateTime.parse(DataOra);
-		
-		String PrezzoBiglietto = cons.readLine("Prezzo biglietto: ");
-		double prezzoBiglietto = Double.parseDouble(PrezzoBiglietto);
-		Proiezione proiezioneDaEliminare = new Proiezione(film, dataOra, prezzoBiglietto);
-		String proiezionedaeliminare = csvReader.cercaProiezione(proiezioneDaEliminare.toString());
-		do{
-			if(proiezionedaeliminare == brd.readLine()){
-				String proiez = brd.readLine();
-				proiez= " ";
-				bwt.write(proiez);
+	public static void eliminaProiezione(LocalDateTime orario) throws IOException {
+		try{
+		if(Prenotazione.cercaPrenotazione(orario) == null){
+			File file = new File("../data");
+			File temp = File.createTempFile("pro", ".csv", file);
+			File vecchio = new File("../data/proiezioni.csv");
+			try{
+				FileWriter fwt = new FileWriter(temp, true);
+				BufferedWriter bwt = new BufferedWriter(fwt);
+				FileReader frd = new FileReader("../data/proiezioni.csv");
+				BufferedReader brd = new BufferedReader(frd);
+				
+				Proiezione proDelete = Proiezione.getProiezione(orario);
+				String linea;
+				while((linea = brd.readLine())!= null){
+					if(!(proDelete.toString()).equals(linea)){
+						bwt.write(linea);
+					}
+					bwt.newLine();
+				}
+			}catch(Exception e){
+				System.err.println(e.getMessage());
 			}
-		}while(brd.readLine() != null);
-		System.out.println(" ");
-		
-		bwt.close();
-		fwt.close(); 
-		brd.close();
-		frd.close();
+			brd.close();
+			bwt.close();
+			frd.close();
+			fwt.close();
+			vecchio.delete();
+			temp.renameTo(vecchio);
+		}else
+			System.out.println("ci sono prenotazioni per la proiezione da cancellare, pertanto non è possibile eliminarla");
+		}catch(Exception e){
+			e.getMessage();
+		}	
 	}
 }

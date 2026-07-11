@@ -40,13 +40,13 @@ public class cineMax {
 							username = cons.readLine("inserire il proprio nome utente: ");
 							password = cons.readLine("inserire la password: ");
 							Login login = new Login(username, password);
-							
 							accesso = Login.login(login);
+							long id = Login.getIdUtente(login)
 							if(accesso == true){
 								System.out.print("Accesso consentito!");
 								System.out.println(" ");
 								ruoloUtente = Login.ruolo(login, accesso);	//ruoloUtente serve per sapere il ruolo dell'utente loggato e per accedere alle sue funzionalità
-									//creare il menu con le funzionalità di ogni utente
+									
 								int alternativa;
 								switch(ruoloUtente){
 									case "Cliente":
@@ -71,9 +71,8 @@ public class cineMax {
 											
 											}else if(alternativa == 2){
 												//visualizza le prenotazioni
-												String id = cons.readLine("inserire il proprio codice identificativo");
-												long identificativo =(long) Integer.parseInt(id);
-												menuCliente.visualizzaPrenotazione(identificativo);
+												
+												menuCliente.visualizzaPrenotazione(id);
 												
 											}else if(alternativa == 3){
 												//modifica una prenotazione

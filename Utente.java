@@ -113,7 +113,7 @@ private String ruolo;
 /** Restituisce la password dell'utente.
  * @return la password dell'utente
  */
-    public String getPassword() {
+    private String getPassword() {
         return password;
     }
 

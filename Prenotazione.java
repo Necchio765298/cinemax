@@ -6,7 +6,7 @@ import java.util.UUID;
  * @author 
  */
 public class Prenotazione {
-    /** Codice identificativo della prenotazione. */
+    /** Codice identificativo della prenotazione. Identifica univocamente una prenotazione */
     private String codice;
    /** Utente che ha effettuato la prenotazione. */
     private Utente utente;
@@ -56,14 +56,16 @@ public class Prenotazione {
 		try{
 		while((prenotazione =brd.readLine()) != null){
 			String[] dati = prenotazione.split(",");
+			Prenotazione pre = null;
 			if(prenotazione.contains(arg))
 				Proiezione p = Proiezione.getProiezione(LocalDateTime LocalDateTime.parse(dati[0]));
 				Utente u = Utente.getUtente((long) Integer.parseInt(dati[1]));
-				return new Prenotazione(u, p, dati[5]);
+				pre = new Prenotazione(u, p, dati[5]);
+				
 		}
-		
 		brd.close();
 		frd.close();
+		return pre;
 		}catch(Exception e){
 			System.out.println("Dato inserito non valido");
 		}

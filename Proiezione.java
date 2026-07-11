@@ -128,6 +128,12 @@ public class Proiezione {
 		}
 	}
 	
+	public String visualizzaProiezione(Object... args){
+		Proiezione p = Proiezione.cercaProiezione(args);
+		return p.toString();
+	}
+		
+	
 	
 	/** Restituisce la data e l'ora della proiezione.
  * @return la data e l'ora della proiezione

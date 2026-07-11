@@ -66,6 +66,7 @@ public class menuCliente{
 			if(numeroBiglietto < 200-numeroBiglietto){ //se numero di posti richiesti è minore del numero di posti disponibili	
 				Prenotazione prenotazione =  new Prenotazione(u, p, numeroBiglietto);
 				Prenotazione.registraPrenotazione(prenotazione);
+				System.out.println("Il codice della prenotazione è "+ prenotazione.getCodice());
 				return prenotazione;
 			}else{
 				System.out.print("il numero dei biglietti eccede il numero di posti disponibili");
@@ -82,31 +83,71 @@ public class menuCliente{
  * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
  */
 	
-	public static void modificaPrenotazione(LocalDateTime dataVecchia, LocalDateTime dataNuova) throws IOException{
-		Prenotazione preVecchia = Prenotazione.cercaPrenotazione(dataVecchia);
-		
-		Prenotazione preNuova = creaPrenotazione(dataNuova);
-		
+	public static void modificaPrenotazione(LocalDateTime dataVecchia, LocalDateTime dataNuova, String codice) throws IOException{	
 		try{
-		if((dataVecchia.isAfter(LocalDateTime.now())) &&  (dataNuova.isAfter(LocalDateTime.now()))){
-			File file = new File("../data");
-			File temp = File.createTempFile("pro", ".csv", file);
-			File vecchio = new File("../data/prenotazioni.csv");
-			try{
-			FileWriter fwt = new FileWriter(temp, true);
-			BufferedWriter bwt = new BufferedWriter(fwt);
-			FileReader frd = new FileReader("../data/prenotazioni.csv");
-			BufferedReader brd = new BufferedReader(frd);
-			
-			String Prenotazione = " ";
-			while((Prenotazione = brd.readLine()) != null){
-				if(!((preVecchia.toString()).equals(preNuova.toString()))){
-					bwt.write(preVecchia.toString());
-				}else{
-					bwt.write(preNuova.toString());
+			if((dataVecchia.isAfter(LocalDateTime.now())) &&  (dataNuova.isAfter(LocalDateTime.now()))){
+				File file = new File("../data");
+				File temp = File.createTempFile("pre", ".csv", file);
+				File vecchio = new File("../data/prenotazioni.csv");
+				try{
+					FileWriter fwt = new FileWriter(temp, true);
+					BufferedWriter bwt = new BufferedWriter(fwt);
+					FileReader frd = new FileReader("../data/prenotazioni.csv");
+					BufferedReader brd = new BufferedReader(frd);
+					
+					Prenotazione preVecchia = Prenotazione.cercaPrenotazione(codice);
+					Prenotazione preNuova = munuCliente.creaPrenotazione(dataNuova);
+					String linea;
+					while((linea = brd.readLine())!= null){
+						if(!(preVecchia.toString()).equals(linea)){
+							bwt.write(linea);
+						}else{
+						bwt.write(preNuova.toString());
+						}
+						bwt.newLine();
+					}
+				}catch(Exception e){
+					System.err.println(e.getMessage());
 				}
-				bwt.newLine();
-			}
+				brd.close();
+				bwt.close();
+				frd.close();
+				fwt.close();
+				vecchio.delete();
+				temp.renameTo(vecchio);
+			}else
+				System.out.println("La data vecchia o quella nuova non sono successive alla data odierna, pertanto non è possibile modificare la prenotazione");
+		}catch(Exception e){
+			e.getMessage();
+		}	
+	}
+			
+
+	/** Elimina una prenotazione dal sistema.
+ * @param <prenotazione> prenotazione da eliminare
+ * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
+ */
+	public static void eliminaPrenotazione(LocalDateTime dataVecchia, String codice) throws IOException{
+		
+			try{
+		if(dataVecchia.compareTo(LocalDateTime.now())>0){
+			File file = new File("../data");
+			File temp = File.createTempFile("pre", ".csv", file);
+			File vecchio = new File("../data/proiezioni.csv");
+			try{
+				FileWriter fwt = new FileWriter(temp, true);
+				BufferedWriter bwt = new BufferedWriter(fwt);
+				FileReader frd = new FileReader("../data/prenotazioni.csv");
+				BufferedReader brd = new BufferedReader(frd);
+				
+				Prenotazione preDelete = Prenotazione.cercaPrenotazione(codice);
+				String linea;
+				while((linea = brd.readLine())!= null){
+					if(!(preDelete.toString()).equals(linea)){
+						bwt.write(linea);
+					}
+					bwt.newLine();
+				}
 			}catch(Exception e){
 				System.err.println(e.getMessage());
 			}
@@ -117,36 +158,10 @@ public class menuCliente{
 			vecchio.delete();
 			temp.renameTo(vecchio);
 		}else
-			System.out.println("la data vecchia e quella inserita sono antecedenti la data odierna");
+			System.out.println("La data della prenotazione è antecedente la data odierna, pertanto non è stato possibile eliminarla");
 		}catch(Exception e){
-			System.out.println("Un campo dei precedenti richiesti non è stato compilato correttamente");
-		}
+			e.getMessage();
+		}	
 	}
-			
-
-	/** Elimina una prenotazione dal sistema.
- * @param <prenotazione> prenotazione da eliminare
- * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
- */
-	public static void eliminaPrenotazione(Prenotazione prenotazione) throws IOException{
-		if(prenotazione.getProiezione().getDataOra().compareTo(LocalDateTime.now())>0){
-			FileWriter fwt = new FileWriter("../data/prenotazioni.csv");
-			BufferedWriter bwt = new BufferedWriter(fwt);
-			FileReader frd = new FileReader("../data/prenotazioni.csv");
-			BufferedReader brd = new BufferedReader(frd);
-			String Prenotazione;
-			while((Prenotazione = brd.readLine()) != null){
-				if(Prenotazione == prenotazione.toString()){
-					Prenotazione = " ";
-					bwt.write(Prenotazione);
-				}
-			}
-			brd.close();
-			bwt.close();
-			frd.close();
-			fwt.close();
-		}else{
-			System.out.println("la data della proiezione non è successiva alla data odierna");
-		}
 	}
 }
