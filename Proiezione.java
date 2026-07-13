@@ -14,7 +14,6 @@ public class Proiezione {
      /** Data e ora della proiezione. Questo campo è l'identificativo della proiezione 
 	*dal momento che in un certo orario ho una sola proiezione che viene riprodotta. */
 	private LocalDateTime dataOra;
-    
 	/** Titolo del film. */
     private String titolo ;
     /** Genere del film. */
