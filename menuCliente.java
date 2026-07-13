@@ -34,7 +34,9 @@ public class menuCliente{
 	}
 	
 	//metodi
-	/** Visualizza le prenotazioni associate al cliente.
+
+	/** Visualizza le prenotazioni associate all'utente specificato.
+ * @param <id> identificativo dell'utente
  * @throws <IOException> se si verifica un errore durante la lettura del file
  */
 	public static void visualizzaPrenotazione(long id) throws IOException{
@@ -50,9 +52,10 @@ public class menuCliente{
 		}
 	}
 
-	/** Crea una nuova prenotazione verificando la disponibilità dei posti nella sala cinematografica.
- * @param <numeroBiglietto> numero di biglietti richiesti
- * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
+	/** Crea una nuova prenotazione per la proiezione prevista nell'orario specificato verificando la disponibilità dei posti nella sala cinematografica
+ * @param <orario> data e ora della proiezione
+ * @return la prenotazione creata
+ * @throws <IOExceptio> se si verifica un errore durante la gestione del file
  */
 	public static Prenotazione creaPrenotazione(LocalDateTime orario) throws IOException{
 		try{
@@ -76,10 +79,10 @@ public class menuCliente{
 		}
 	}
 
-	/** Modifica una prenotazione esistente. Il metodo richiede di 
- * inserire una nuova prenotazione che vada a sostiuire quella esistente.
- * @param <prenotazione> prenotazione da modificare
- * @param <data> vecchia data e ora della prenotazione
+	/** Modifica la data e l'ora di una prenotazione esistente
+ * @param <dataVecchia> data e ora della proiezione originaria
+ * @param <dataNuova> nuova data e ora della proiezione
+ * @param <codice> codice identificativo della prenotazione
  * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
  */
 	
@@ -123,9 +126,10 @@ public class menuCliente{
 	}
 			
 
-	/** Elimina una prenotazione dal sistema.
- * @param <prenotazione> prenotazione da eliminare
- * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
+	/** Elimina una prenotazione dal sistema
+ * @param <dataVecchia> data e ora della proiezione della prenotazione da eliminare
+ * @param <codice> codice identificativo della prenotazione
+ * @throws <IOException> se si verifica un errore durante la gestione del file
  */
 	public static void eliminaPrenotazione(LocalDateTime dataVecchia, String codice) throws IOException{
 		
