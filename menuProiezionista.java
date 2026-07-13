@@ -28,7 +28,10 @@ public menuProiezionista() {
    
    
    //METODI
-   
+
+ /** Crea una nuova proiezione utilizzando i dati inseriti
+ * @return la proiezione creata
+ */
 	public static Proiezione creaProiezione(){
 		Console cons = System.console();
 		System.out.println("Inserire i dati ");
@@ -79,8 +82,9 @@ public menuProiezionista() {
 		}
 	}
 
-	 /** Modifica i dati di una proiezione già presente nel sistema.
- * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
+	 /** Modifica i dati di una proiezione già presente nel sistema individuata dalla data e ora specificate
+ * @param <orario> data e ora della proiezione da modificare
+ * @throws <IOException> se si verifica un errore durante la gestione del file
  */
 	public static void modificaProiezione(LocalDateTime orario) throws IOException{	
 		try{
@@ -121,8 +125,9 @@ public menuProiezionista() {
 		}	
 	}
 
-	 /** Elimina una proiezione dal sistema aggiornando il file delle proiezioni.
- * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
+	 /** Elimina una proiezione dal sistema individuata dalla data e ora specificate
+ * @param <orario> data e ora della proiezione da eliminare
+ * @throws <IOException> se si verifica un errore durante la la gestione del file
  */
 	 //elimina con gli stream
 	public static void eliminaProiezione(LocalDateTime orario) throws IOException {
