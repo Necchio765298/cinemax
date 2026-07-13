@@ -139,7 +139,7 @@ public class Prenotazione {
     }
 
 	/** Confronta l'oggetto corrente con un altro oggetto per verificarne l'uguaglianza.
- * @param <object> oggetto da confrontare con la prenotazione corrente
+ * @param <obj> oggetto da confrontare con la prenotazione corrente
  * @return {@code true} se i due oggetti sono considerati uguali, {@code false} altrimenti
  * @throws <RuntimeException> se si verifica un errore durante il confronto
  */
