@@ -44,7 +44,7 @@ public class Prenotazione {
 	}
 
 		 /** Ricerca una prenotazione in base ai criteri specificati.
- * @param arg criteri utilizzati per la ricerca
+ * @param <arg> criteri utilizzati per la ricerca
  * @return la prenotazione trovata sotto forma di stringa
  * @throws <IOException> se si verifica un errore durante la lettura del file
  */
@@ -137,7 +137,12 @@ public class Prenotazione {
     public String toString() {
         return proiezione.getDataOra() +"," + utente.getID() + "," +utente.getNome() +"," + utente.getCognome() +"," + proiezione.getTitolo() +"," +  numeroBiglietto + ","+ codice;
     }
-	 
+
+	/** Confronta l'oggetto corrente con un altro oggetto per verificarne l'uguaglianza.
+ * @param <object> oggetto da confrontare con la prenotazione corrente
+ * @return {@code true} se i due oggetti sono considerati uguali, {@code false} altrimenti
+ * @throws <RuntimeException> se si verifica un errore durante il confronto
+ */
 	public boolean equals(Object obj) throws RuntimeException{
 		if(obj instanceof Prenotazione){
 			p=(Prenotazione) obj;
