@@ -36,7 +36,7 @@ public class Proiezione {
  * @param <titolo> titolo del film
  * @param <genere> genere del film
  * @param <regista> regista del film
- * @param anno anno di uscita
+ * @param <anno> anno di uscita
  * @param <durataMinuti> durata del film in minuti
  * @param <etaMinima> età minima consigliata
  * @param <prezzoBiglietto> prezzo del biglietto
@@ -57,7 +57,7 @@ public class Proiezione {
 * Il metodo è utile per creare un parametro formale di tipo Proiezione da fornire in argomento al costruttore della classe Prenotazione.
 * @param <ldt> la data e l'ora associata alla proiezione da ricercare
 * @return una Proiezione
-* @throws ProiezioneNonEsistenteException se la proiezione ricercata non esiste.
+* @throws <ProiezioneNonEsistenteException> se la proiezione ricercata non esiste.
 */
 	public static Proiezione getProiezione(LocalDateTime ldt){
 		FileReader frd = new FileReader("../data/proiezioni.csv");
@@ -126,7 +126,11 @@ public class Proiezione {
 			System.out.println("Formato della data inserita non corretto");
 		}
 	}
-	
+
+	/** Restituisce una rappresentazione testuale della proiezione.
+ * @param <args> criteri utilizzati per individuare la proiezione
+ * @return una stringa contenente le informazioni della proiezione
+ */
 	public String visualizzaProiezione(Object... args){
 		Proiezione p = Proiezione.cercaProiezione(args);
 		return p.toString();
@@ -207,7 +211,12 @@ public class Proiezione {
     public String toString(){
         return dataOra+ ","+ titolo + "," + genere + "," + regista + "," + anno+ "," + durataMinuti+ "," + etaMinima+ "," +prezzoBiglietto;
     }
-	
+
+	/** Confronta l'oggetto corrente con un altro oggetto per verificarne l'uguaglianza.
+ * @param <obj> oggetto da confrontare con la proiezione corrente
+ * @return {@code true} se i due oggetti sono considerati uguali, {@code false} altrimenti
+ * @throws <RuntimeException> se si verifica un errore durante il confronto
+ */
 	public boolean equals(Object obj) throws RuntimeException{
 		if(obj instanceof Proiezione){
 			p=(Proiezione) obj;
