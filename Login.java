@@ -40,6 +40,7 @@ public class Login{
  * @param <login> oggetto contenente le credenziali da verificare
  * @return true se l'autenticazione va a buon fine, false altrimenti
  * @throws <IOException> se si verifica un errore durante la lettura del file
+ * @throws <UtenteNonEsistenteException> se l'utente non è presente nel sistema
  */
 	public static boolean login(Login login) throws UtenteNonEsistenteException, IOException{
 		FileReader frd = new FileReader("../data/utenti.csv");
@@ -89,7 +90,14 @@ public class Login{
 		}
 		return ruolo;
 	}
-	
+
+	/** Restituisce l'identificativo univoco dell'utente autenticato.
+ * Il metodo ricerca l'utente nel file CSV e ne restituisce l'ID.
+ * @param <login> credenziali dell'utente da ricercare
+ * @return l'identificativo dell'utente
+ * @throws <UtenteNonEsistenteException> se l'utente non è presente nel sistema
+ * @throws <IOException> se si verifica un errore durante la lettura del file
+ */
 	public static long getIdUtente(Login login) throws UtenteNonEsistenteException, IOException{
 		FileReader frd = new FileReader("../data/utenti.csv");
 		BufferedReader brd = new BufferedReader(frd);
