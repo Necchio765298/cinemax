@@ -49,7 +49,8 @@ private String ruolo;
 	* Il metodo è utile per creare un parametro formale di tipo Utente fornito in argomento al costruttore della classe Prenotazione.
 	* @param <id> identificativo dell'utente
 	* @return l'utente
-	* @throw UtenteNonEsistenteException se l'utente non è stato ancora registrato.
+	* @throws <UtenteNonEsistenteException> se l'utente non è stato ancora registrato
+	* @throws <IOException> se si verifica un errore durante la scrittura del file
 	*/
 	public static Utente getUtente(long id) throws UtenteNonEsistenteException, IOException{
 		
@@ -81,7 +82,10 @@ private String ruolo;
 			System.out.println("Utente non opportunamente registrato");
 		}
 	}
-	
+
+	/** Restituisce il codice identificativo dell'utente.
+    * @return il codice identificativo dell'utente
+    */
 	public long getID(){
 		return ID;
 	}
