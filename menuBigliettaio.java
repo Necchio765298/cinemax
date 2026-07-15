@@ -24,13 +24,9 @@ public menuBigliettaio() {
    this.prenotazione = prenotazione;
    }
    
-  //METODI
-
-
-	
-/** Visualizza le informazioni della prenotazione individuata.
- * @return una stringa contenente i dati della prenotazione
- * @throws <IOException> se si verifica un errore durante la lettura del file
+  //METODI	
+/** Visualizza le informazioni relative a una prenotazione.
+ * @throws <IOException> se si verifica un errore durante la gestione del file
  */
 public static void visualizzaPrenotazione(){
 	}
