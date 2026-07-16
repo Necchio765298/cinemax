@@ -1,5 +1,9 @@
 package cinemax;
 import java.util.UUID;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 /** Rappresenta una prenotazione effettuata da un utente per una determinata proiezione cinematografica.
  * La classe memorizza il codice identificativo, l'utente, la proiezione e il numero di biglietti acquistati.
@@ -42,59 +46,6 @@ public class Prenotazione {
 		bwt.close();
 		fwt.close();
 	}
-
-		 /** Ricerca una prenotazione in base ai criteri specificati.
- * @param <arg> criteri utilizzati per la ricerca
- * @return la prenotazione trovata sotto forma di stringa
- * @throws <IOException> se si verifica un errore durante la lettura del file
- */
-	//cerca prenotazione
-	public static Prenotazione cercaPrenotazione(Object arg) throws IOException{
-		FileReader frd = new FileReader("../data/prenotazioni.csv");
-		BufferedReader brd = new BufferedReader(frd);
-		String prenotazione = " ";
-		try{
-		while((prenotazione =brd.readLine()) != null){
-			String[] dati = prenotazione.split(",");
-			Prenotazione pre = null;
-			if(prenotazione.contains(arg))
-				Proiezione p = Proiezione.getProiezione(LocalDateTime LocalDateTime.parse(dati[0]));
-				Utente u = Utente.getUtente((long) Integer.parseInt(dati[1]));
-				pre = new Prenotazione(u, p, dati[5]);
-				
-		}
-		brd.close();
-		frd.close();
-		return pre;
-		}catch(Exception e){
-			System.out.println("Dato inserito non valido");
-		}
-	}
-
-	 /** Ricerca le prenotazioni comprese in un determinato intervallo di date e orari.
- * @param <dataInizio> data e ora di inizio dell'intervallo
- * @param <dataFine> data e ora di fine dell'intervallo
- * @throws <IOException> se si verifica un errore durante la lettura del file
- */
-	 //cerca prenotazione per intervallo di date
-	public static Prenotazione cercaPrenotazione(LocalDateTime dataInizio, LocalDateTime dataFine) throws IOException{
-		try{
-		FileReader frd = new FileReader("../data/prenotazioni.csv");
-		BufferedReader brd = new BufferedReader(frd);
-		String Date;
-		while((Date = brd.readLine()) != null) {
-			String Date1 = Date.substring(0,19);
-			LocalDateTime data = LocalDateTime.parse(Date1);
-			if(data.isAfter(dataInizio) && data.isBefore(dataFine))
-				System.out.println(Date.toString());
-		}
-		brd.close();
-		frd.close();
-		}catch(Exception e){
-			System.out.println("Data inserita nel formato non corretto");
-		}
-	}
-
 
     /** Modifica la proiezione associata alla prenotazione.
  * @param <proiezione> nuova proiezione
@@ -145,8 +96,8 @@ public class Prenotazione {
  */
 	public boolean equals(Object obj) throws RuntimeException{
 		if(obj instanceof Prenotazione){
-			p=(Prenotazione) obj;
-			if(p.getCodice()==this.codice && p.getUtente()== this.utente && p.getProiezione() == this.proiezione && p.getNumeroBiglietto() == this.numeroBiglietto){
+			Prenotazione p=(Prenotazione) obj;
+			if(p.getCodice()==this.codice && Utente.getUtente()== this.utente && Proiezione.getProiezione() == this.proiezione && p.getNumeroBiglietto() == this.numeroBiglietto){
 				return true;
 			}
 		}

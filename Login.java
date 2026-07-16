@@ -105,7 +105,7 @@ public class Login{
 		while ((riga = brd.readLine()) != null) {
 			String[] dati = riga.split(",");
 			if(riga.contains(login.toString())){
-				return dati[0];
+				return (long) Integer.parseInt(dati[0]);
 			}
 			throw new UtenteNonEsistenteException(id);
 		}

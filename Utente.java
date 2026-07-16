@@ -1,7 +1,14 @@
 package cinemax;
 
 import java.time.LocalDate;
-import java.time.DateTimeFormatter;
+import java.time.format.DateTimeFormatter;
+import java.lang.Math;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+
 /** Rappresenta un utente registrato all'interno dell'applicazione.
  * La classe memorizza le informazioni anagrafiche, le credenziali di accesso e il ruolo associato all'utente.
  * @author 
@@ -34,8 +41,8 @@ private String ruolo;
  * @param <domicilio> domicilio dell'utente
  * @param <ruolo> ruolo dell'utente
  */
-    public Utente(long ID, String nome , String cognome , String username = null, String password = null, LocalDate dataNascita = null, String domicilio = null, String ruolo = null){
-        this.ID=ID;
+    public Utente(String nome, String cognome, String username, String password, LocalDate dataNascita, String domicilio, String ruolo){
+        this.ID= (long) Math.random();
 		this.nome=nome;
         this.cognome = cognome ;
         this.username = username ;
@@ -59,8 +66,8 @@ private String ruolo;
 		String riga;
 		while ((riga = brd.readLine()) != null) {
 			String[] dati = riga.split(",");
-			if(dati[0]==id){
-				return new Utente(id, dati[1], dati[2], dati[3], dati[4], LocalDate LocalDate.parse(dati[5], DateTimeFormatter.ofPattern("yyyy-MM-dd")),dati[6],dati[7]);
+			if(((long)Integer.parseInt(dati[0]))==id){
+				return new Utente(dati[1], dati[2], dati[3], dati[4], LocalDate.parse(dati[5], DateTimeFormatter.ofPattern("yyyy-MM-dd")), dati[6], dati[7]);
 			}
 			throw new UtenteNonEsistenteException(id);
 		}
@@ -150,6 +157,6 @@ private String ruolo;
  */
     @Override
     public String toString(){
-		return id+","+nome + ","+ cognome + ","+ username+"," + password +"," + dataNascita +"," +domicilio +"," +ruolo;
+		return getID()+","+nome + ","+ cognome + ","+ username+"," + password +"," + dataNascita +"," +domicilio +"," +ruolo;
     }
 }

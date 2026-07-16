@@ -41,7 +41,7 @@ public class cineMax {
 							password = cons.readLine("inserire la password: ");
 							Login login = new Login(username, password);
 							accesso = Login.login(login);
-							long id = Login.getIdUtente(login)
+							long id = Login.getIdUtente(login);
 							if(accesso == true){
 								System.out.print("Accesso consentito!");
 								System.out.println(" ");
@@ -82,50 +82,16 @@ public class cineMax {
 												LocalDateTime dataVecchia = LocalDateTime.parse(vecchia);
 												String nuova = cons.readLine("Data e ora della proiezione da prenotare nel formato AAAA-MM-GGTHH-MM-SS ");
 												LocalDateTime dataNuova = LocalDateTime.parse(nuova);
-												menuCliente.modificaPrenotazione(dataVecchia, dataNuova);
+												String codice = cons.readLine("Inserire il codice della prenotazione: ");
+												menuCliente.modificaPrenotazione(dataVecchia, dataNuova, codice);
 												
 											}else if(alternativa == 4){
 												//elimina una prenotazione
-												System.out.println(" ");
-												System.out.println("Inserire i dati richiesti");
-												System.out.println("Dati relativi all'utente");
-												String nome = cons.readLine("Nome? ");
-												String cognome = cons.readLine("Cognome?");
-												username = cons.readLine("Username? ");
-												password = cons.readLine("Password? ");
-												String DataNascita = cons.readLine("Data di nascita nel formato AAAA-MM-GG");
-												LocalDate dataNascita = LocalDate.parse(DataNascita);
-												String domicilio = cons.readLine("Domicilio? ");
-												String ruolo = "Cliente";
-												Utente utente = new Utente(nome, cognome, username, password, dataNascita, domicilio, ruolo);
-												
-												System.out.println(" ");
-												System.out.println("Dati relativi alla proiezione");
-												String titolo = cons.readLine("Titolo: ");
-												String genere = cons.readLine("Genere: ");
-												String regista = cons.readLine("Regista: ");
-												String Anno = cons.readLine("Anno: ");
-												int anno = Integer.parseInt(Anno);
-												String DurataMinuti = cons.readLine("Durata in minuti: ");
-												int durataMinuti = Integer.parseInt(DurataMinuti);
-												String EtaMinima = cons.readLine("Età minima: ");
-												int etaMinima = Integer.parseInt(EtaMinima);
-												Film film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
-												
-												String DataOra = cons.readLine("Data e ora della proiezione nel formato AAAA-MM-GGTHH-MM-SS ");
-												LocalDateTime dataOra = LocalDateTime.parse(DataOra);
-												String PrezzoBiglietto = cons.readLine("Prezzo biglietto: ");
-												double prezzoBiglietto = Double.parseDouble(PrezzoBiglietto);
-												Proiezione proiezione = new Proiezione(film, dataOra, prezzoBiglietto);
-												
-												System.out.println(" ");
-												String NumeroBiglietto = cons.readLine("Inserire il numero dei biglietti acquistati per questa prenotazione ");
-												int numeroBiglietto = Integer.parseInt(NumeroBiglietto);
-												
-												System.out.println(" ");
-												Prenotazione prenotazione = new Prenotazione(utente, proiezione, numeroBiglietto);
+												String vecchia = cons.readLine("Data e ora della proiezione prenotata nel formato AAAA-MM-GGTHH-MM-SS ");
+												LocalDateTime dataVecchia = LocalDateTime.parse(vecchia);
+												String codice = cons.readLine("Inserire il codice della prenotazione: ");
 												System.out.println("La prenotazione verrà eliminata");
-												menuCliente.eliminaPrenotazione(prenotazione);
+												menuCliente.eliminaPrenotazione(dataVecchia, codice);
 											}
 										}while(alternativa != 0);	
 										break;
@@ -175,12 +141,8 @@ public class cineMax {
 															LocalDateTime fine = LocalDateTime.parse(Fine);
 															menuBigliettaio.cercaPrenotazione(inizio, fine);
 															break;
-														
-													}
-														
+													}		
 												} 
-												   
-											
 										}while(alternativa != 0);			   
 										break;
 									case "Proiezionista":
@@ -194,85 +156,21 @@ public class cineMax {
 												String Alternativa = cons.readLine("Scelta: ");
 												alternativa = Integer.parseInt(Alternativa);
 
-												if(alternativa == 1){
-													//aggiunge proiezione
-													
+												if(alternativa == 1){	
 													menuProiezionista.aggiungiProiezione();
 													System.out.println("La proiezione è stata aggiunta");
-
 												   }
 												else if(alternativa == 2){
-												//modifica proiezione
-													System.out.println(" ");
-													/*
-													System.out.println("Quale proiezione modificare? Inserire i dati della proiezione per ricercarla");
-													String titolo = cons.readLine("Titolo: ");
-													String genere = cons.readLine("Genere: ");
-													String regista = cons.readLine("Regista: ");
-													String Anno = cons.readLine("Anno: ");
-													int anno = Integer.parseInt(Anno);
-													String DurataMinuti = cons.readLine("Durata in minuti: ");
-													int durataMinuti = Integer.parseInt(DurataMinuti);
-													String EtaMinima = cons.readLine("Età minima: ");
-													int etaMinima = Integer.parseInt(EtaMinima);
-													Film film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
-													
-													String DataOra = cons.readLine("Data e ora della proiezione nel formato AAAA-MM-GGTHH-MM-SS ");
+													String DataOra = cons.readLine("Data e ora della proiezione da modificare nel formato AAAA-MM-GGTHH-MM-SS ");
 													LocalDateTime dataOra = LocalDateTime.parse(DataOra);
-													String PrezzoBiglietto = cons.readLine("Prezzo biglietto: ");
-													double prezzoBiglietto = Double.parseDouble(PrezzoBiglietto);
-													Proiezione vecchiaProiezione = new Proiezione(film, dataOra, prezzoBiglietto);
-													
-													System.out.println(" ");
-													
-													System.out.println("Inserire ora i nuovi dati della proiezione");
-													titolo = cons.readLine("Titolo: ");
-													genere = cons.readLine("Genere: ");
-													regista = cons.readLine("Regista: ");
-													Anno = cons.readLine("Anno: ");
-													anno = Integer.parseInt(Anno);
-													DurataMinuti = cons.readLine("Durata in minuti: ");
-													durataMinuti = Integer.parseInt(DurataMinuti);
-													EtaMinima = cons.readLine("Età minima: ");
-													etaMinima = Integer.parseInt(EtaMinima);
-													film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
-													
-													DataOra = cons.readLine("Data e ora della proiezione nel formato AAAA-MM-GGTHH-MM-SS ");
-													dataOra = LocalDateTime.parse(DataOra);
-													
-													PrezzoBiglietto = cons.readLine("Prezzo biglietto: ");
-													prezzoBiglietto = Double.parseDouble(PrezzoBiglietto);
-													Proiezione nuovaProiezione = new Proiezione(film, dataOra, prezzoBiglietto);
-													*/
-													menuProiezionista.modificaProiezione();
+													menuProiezionista.modificaProiezione(dataOra);
 													System.out.println("La proiezione è stata modificata");
 												   } 
 												else if(alternativa == 3){
-												//elimina proiezione
-												/*
-													System.out.println(" ");
-												    System.out.println("Quale proiezione eliminare? Inserire i dati della proiezione per ricercarla");
-													String titolo = cons.readLine("Titolo: ");
-													String genere = cons.readLine("Genere: ");
-													String regista = cons.readLine("Regista: ");
-													String Anno = cons.readLine("Anno: ");
-													int anno = Integer.parseInt(Anno);
-													String DurataMinuti = cons.readLine("Durata in minuti: ");
-													int durataMinuti = Integer.parseInt(DurataMinuti);
-													String EtaMinima = cons.readLine("Età minima: ");
-													int etaMinima = Integer.parseInt(EtaMinima);
-													Film film = new Film(titolo, genere, regista, anno, durataMinuti, etaMinima);
-													
 													String DataOra = cons.readLine("Data e ora della proiezione nel formato AAAA-MM-GGTHH-MM-SS ");
 													LocalDateTime dataOra = LocalDateTime.parse(DataOra);
-													
-													String PrezzoBiglietto = cons.readLine("Prezzo biglietto: ");
-													double prezzoBiglietto = Double.parseDouble(PrezzoBiglietto);
-													Proiezione p = new Proiezione(film, dataOra, prezzoBiglietto);
-												*/
-													menuProiezionista.eliminaProiezione();
+													menuProiezionista.eliminaProiezione(dataOra);
 													System.out.println("La proiezione è stata eliminata");
-												
 												}		
 											
 										}while(alternativa != 0);
@@ -297,7 +195,7 @@ public class cineMax {
 						String domicilio = cons.readLine("domicilio? ");
 						String ruolo = cons.readLine("ruolo? scrivere Cliente, Bigliettaio o Proiezionista ");
 						Utente nuovoUtente = new Utente(nome, cognome, username, password, dataNascita, domicilio, ruolo);
-						csvReader.registraUtente(nuovoUtente);
+						Utente.registraUtente(nuovoUtente);
 						break;
 
 					case 3:
@@ -322,43 +220,43 @@ public class cineMax {
 							case "1":
 								System.out.println(" ");
 								String dataora = cons.readLine("data_ora_proiezione nel formato aaaa-mm-gg hh:mm:ss ");
-								csvReader.cercaProiezione(dataora);
+								Proiezione.cercaProiezione(dataora);
 								break;
 							case "2":
 								System.out.println(" ");
 								String titolo = cons.readLine("titolo: ");
-								csvReader.cercaProiezione(titolo);
+								Proiezione.cercaProiezione(titolo);
 								break;
 							case "3":
 								System.out.println(" ");
 								String genere = cons.readLine("Genere: ");
-								csvReader.cercaProiezione(genere);
+								Proiezione.cercaProiezione(genere);
 								break;
 							case "4":
 								System.out.println(" ");
 								String regista = cons.readLine("Regista: ");
-								csvReader.cercaProiezione(regista);
+								Proiezione.cercaProiezione(regista);
 								break;
 							case "5":
 								System.out.println(" ");
 								String anno = "," + cons.readLine("Anno: ") +",";
 								
-								csvReader.cercaProiezione(anno);
+								Proiezione.cercaProiezione(anno);
 								break;
 							case "6":
 								System.out.println(" ");
 								String minuti = "," + cons.readLine("Durata minuti: ") +",";
-								csvReader.cercaProiezione(minuti);
+								Proiezione.cercaProiezione(minuti);
 								break;
 							case "7":
 								System.out.println(" ");
 								String eta = "," + cons.readLine("Età minima: ")+ ",";
-								csvReader.cercaProiezione(eta);
+								Proiezione.cercaProiezione(eta);
 								break;
 							case "8":
 								System.out.println(" ");
 								String prezzo = "," +cons.readLine("Prezzo biglietto: ")+ ",";
-								csvReader.cercaProiezione(prezzo);
+								Proiezione.cercaProiezione(prezzo);
 								break;
 							case "9":
 								System.out.println(" ");
@@ -366,7 +264,7 @@ public class cineMax {
 								LocalDate inizio = LocalDate.parse(Inizio);
 								String Fine = cons.readLine("data di fine nel formato aaaa-mm-gg: ");
 								LocalDate fine = LocalDate.parse(Fine);
-								csvReader.cercaProiezione(inizio, fine);
+								Proiezione.cercaProiezione(inizio, fine);
 								break;
 						}
 						break;

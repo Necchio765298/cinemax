@@ -3,6 +3,7 @@ package cinemax;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.File;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.Console;
@@ -65,7 +66,7 @@ public menuProiezionista() {
 		FileReader frd = new FileReader("../data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		
-		Proiezione p = creaProiezione();
+		Proiezione p = menuProiezionista.creaProiezione();
 		String proiezione;
 		while((proiezione = brd.readLine()) != null){
 			if (proiezione.contains(p.toString()))
@@ -76,7 +77,6 @@ public menuProiezionista() {
 		
 		bwt.close();
 		fwt.close();
-		return p;
 		}catch(Exception e){
 			System.out.println("Un criterio inserito non è nel formato valido");
 		}
@@ -88,21 +88,21 @@ public menuProiezionista() {
  */
 	public static void modificaProiezione(LocalDateTime orario) throws IOException{	
 		try{
-		if(Prenotazione.cercaPrenotazione(orario) == null){
+		if(menuBigliettaio.cercaPrenotazione(orario) == null){
 			File file = new File("../data");
 			File temp = File.createTempFile("pro", ".csv", file);
 			File vecchio = new File("../data/proiezioni.csv");
-			try{
+			
 				FileWriter fwt = new FileWriter(temp, true);
 				BufferedWriter bwt = new BufferedWriter(fwt);
 				FileReader frd = new FileReader("../data/proiezioni.csv");
 				BufferedReader brd = new BufferedReader(frd);
-				
+			try{	
 				Proiezione proVecchia = Proiezione.getProiezione(orario);
 				Proiezione proNuova = creaProiezione();
 				String linea;
-				while((line = brd.readLine())!= null){
-					if(!(proVecchia).equals(proNuova.)){
+				while((linea = brd.readLine())!= null){
+					if(!(proVecchia).equals(proNuova)){
 						bwt.write(linea);
 					}else{
 						bwt.write(proNuova.toString());
@@ -132,16 +132,16 @@ public menuProiezionista() {
 	 //elimina con gli stream
 	public static void eliminaProiezione(LocalDateTime orario) throws IOException {
 		try{
-		if(Prenotazione.cercaPrenotazione(orario) == null){
+		if(menuBigliettaio.cercaPrenotazione(orario) == null){
 			File file = new File("../data");
 			File temp = File.createTempFile("pro", ".csv", file);
 			File vecchio = new File("../data/proiezioni.csv");
-			try{
+			
 				FileWriter fwt = new FileWriter(temp, true);
 				BufferedWriter bwt = new BufferedWriter(fwt);
 				FileReader frd = new FileReader("../data/proiezioni.csv");
 				BufferedReader brd = new BufferedReader(frd);
-				
+			try{	
 				Proiezione proDelete = Proiezione.getProiezione(orario);
 				String linea;
 				while((linea = brd.readLine())!= null){

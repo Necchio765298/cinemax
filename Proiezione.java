@@ -1,10 +1,12 @@
 package cinemax;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.io.Console;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 
 /** Rappresenta una proiezione cinematografica programmata dal cinema.
  * La classe memorizza il film proiettato, la data e l'ora della proiezione e il prezzo del biglietto.
@@ -65,8 +67,8 @@ public class Proiezione {
 		String proiezione;
 		while ((proiezione = brd.readLine()) != null) {
 			String[] dati = proiezione.split(",");
-			if(dati[0]==ldt){
-				return new Proiezione(ldt, dati[1], dati[2], dati[3], int Integer.parseInt(dati[4]), int Integer.parseInt(dati[5]), int Integer.parseInt(dati[6]), double Double.parseDouble(dati[7]));
+			if(LocalDateTime.parse(dati[0])== ldt){
+				return new Proiezione(ldt, dati[1], dati[2], dati[3], Integer.parseInt(dati[4]), Integer.parseInt(dati[5]), Integer.parseInt(dati[6]), Double.parseDouble(dati[7]));
 			}
 			throw new ProiezioneNonEsistenteException(ldt);
 		}
@@ -90,11 +92,12 @@ public class Proiezione {
 					p = (String) arg;
 				else
 					p= (double) arg;
-				String proiezione;
-				while((proiezione = brd.readLine()) != null){
+				String riga;
+				
+				while((riga = brd.readLine()) != null){
 					String[] dati = riga.split(",");
 					if(((dati[1] || dati[2]) == p ) || (dati[7] == p))
-						return new Proiezione(dati[0], dati[1], dati[2], dati[3], int Integer.parseInt(dati[4]), int Integer.parseInt(dati[5]), int Integer.parseInt(dati[6]), double Double.parseDouble(dati[7]));
+						return new Proiezione(dati[0], dati[1], dati[2], dati[3], Integer.parseInt(dati[4]), Integer.parseInt(dati[5]), Integer.parseInt(dati[6]), Double.parseDouble(dati[7]));
 				}
 			}
 			brd.close();
@@ -113,12 +116,12 @@ public class Proiezione {
 		try{
 		FileReader frd = new FileReader("../data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
-		String Date;
-		while((Date = brd.readLine()) != null) {
+		String riga;
+		while((riga = brd.readLine()) != null) {
 			String[] dati = riga.split(",");
 			LocalDate data = LocalDate.parse(dati[0]);
 			if(data.isAfter(dataInizio) && data.isBefore(dataFine))
-				return new Proiezione(dati[0], dati[1], dati[2], dati[3], int Integer.parseInt(dati[4]), int Integer.parseInt(dati[5]), int Integer.parseInt(dati[6]), double Double.parseDouble(dati[7]));
+				return new Proiezione(LocalDateTime.parse(dati[0]), dati[1], dati[2], dati[3], Integer.parseInt(dati[4]), Integer.parseInt(dati[5]), Integer.parseInt(dati[6]), Double.parseDouble(dati[7]));
 		}
 		brd.close();
 		frd.close();
@@ -219,8 +222,8 @@ public class Proiezione {
  */
 	public boolean equals(Object obj) throws RuntimeException{
 		if(obj instanceof Proiezione){
-			p=(Proiezione) obj;
-			if(p.getDataOra()==this.dataOra && p.getTitolo()== this.titolo && p.getGenere() == this.genere && p.getRegista() == this.regista && p.getAnno()==this.anno && p.durataMinuti()== this.durataMinuti && p.getEtaMinima() == this.etaMinima && p.getPrezzoBiglietto() == this.prezzoBiglietto){
+			Proiezione p=(Proiezione) obj;
+			if(p.getDataOra()==this.dataOra && p.getTitolo()== this.titolo && p.getGenere() == this.genere && p.getRegista() == this.regista && p.getAnno()==this.anno && p.getDurataMinuti()== this.durataMinuti && p.getEtaMinima() == this.etaMinima && p.getPrezzoBiglietto() == this.prezzoBiglietto){
 				return true;
 			}
 		}

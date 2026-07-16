@@ -41,11 +41,9 @@ public class menuCliente{
  */
 	public static void visualizzaPrenotazione(long id) throws IOException{
 		try{
-			Prenotazione p = Prenotazione.cercaPrenotazione(id);
+			Prenotazione p = menuBigliettaio.cercaPrenotazione(id);
 			String prenotazione = p.toString();
 			
-			brd.close();
-			frd.close();
 			System.out.println("Prenotazione trovata: "+ prenotazione);
 		}catch(Exception e){
 			e.getMessage();
@@ -64,7 +62,7 @@ public class menuCliente{
 			long identificativo =(long) Integer.parseInt(id);
 			Utente u = Utente.getUtente(identificativo);
 			Proiezione p = Proiezione.getProiezione(orario);
-			String biglietti = cons.readLine("Inserire il numero dei biglietti da acquistare: ")
+			String biglietti = cons.readLine("Inserire il numero dei biglietti da acquistare: ");
 			int numeroBiglietto = Integer.parseInt(biglietti);
 			if(numeroBiglietto < 200-numeroBiglietto){ //se numero di posti richiesti è minore del numero di posti disponibili	
 				Prenotazione prenotazione =  new Prenotazione(u, p, numeroBiglietto);
@@ -92,14 +90,14 @@ public class menuCliente{
 				File file = new File("../data");
 				File temp = File.createTempFile("pre", ".csv", file);
 				File vecchio = new File("../data/prenotazioni.csv");
-				try{
+				
 					FileWriter fwt = new FileWriter(temp, true);
 					BufferedWriter bwt = new BufferedWriter(fwt);
 					FileReader frd = new FileReader("../data/prenotazioni.csv");
 					BufferedReader brd = new BufferedReader(frd);
-					
-					Prenotazione preVecchia = Prenotazione.cercaPrenotazione(codice);
-					Prenotazione preNuova = munuCliente.creaPrenotazione(dataNuova);
+				try{	
+					Prenotazione preVecchia = menuBigliettaio.cercaPrenotazione(codice);
+					Prenotazione preNuova = menuCliente.creaPrenotazione(dataNuova);
 					String linea;
 					while((linea = brd.readLine())!= null){
 						if(!(preVecchia.toString()).equals(linea)){
@@ -138,13 +136,13 @@ public class menuCliente{
 			File file = new File("../data");
 			File temp = File.createTempFile("pre", ".csv", file);
 			File vecchio = new File("../data/proiezioni.csv");
-			try{
+			
 				FileWriter fwt = new FileWriter(temp, true);
 				BufferedWriter bwt = new BufferedWriter(fwt);
 				FileReader frd = new FileReader("../data/prenotazioni.csv");
 				BufferedReader brd = new BufferedReader(frd);
-				
-				Prenotazione preDelete = Prenotazione.cercaPrenotazione(codice);
+			try{	
+				Prenotazione preDelete = menuBigliettaio.cercaPrenotazione(codice);
 				String linea;
 				while((linea = brd.readLine())!= null){
 					if(!(preDelete.toString()).equals(linea)){
@@ -167,5 +165,5 @@ public class menuCliente{
 			e.getMessage();
 		}	
 	}
-	}
+	
 }
