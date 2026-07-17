@@ -86,19 +86,14 @@ public class Proiezione {
 			FileReader frd = new FileReader("../data/proiezioni.csv");
 			BufferedReader brd = new BufferedReader(frd);
 			if(arg instanceof LocalDateTime){
-				p = (LocalDateTime) arg;
+				LocalDateTime p = (LocalDateTime) arg;
 				Proiezione.getProiezione(p);
 			}else{
-				if(arg instanceof String)
-					p = (String) arg;
-				else
-					p= (double) arg;
 				String riga;
-				
 				while((riga = brd.readLine()) != null){
-					String[] dati = riga.split(",");
-					if(((dati[1] || dati[2]) == p ) || (dati[7] == p))
-						return new Proiezione(dati[0], dati[1], dati[2], dati[3], Integer.parseInt(dati[4]), Integer.parseInt(dati[5]), Integer.parseInt(dati[6]), Double.parseDouble(dati[7]));
+					String[] dati = riga.split(","); 
+					if((dati[1].equals(arg)) || (dati[2].equals(arg)) || (dati[3].equals(arg)) || (dati[4]==arg) || (dati[5]==arg) || (dati[6]==arg) || (dati[7]==arg))
+						return new Proiezione(LocalDateTime.parse(dati[0]), dati[1], dati[2], dati[3], Integer.parseInt(dati[4]), Integer.parseInt(dati[5]), Integer.parseInt(dati[6]), Double.parseDouble(dati[7]));
 				}
 			}
 			brd.close();

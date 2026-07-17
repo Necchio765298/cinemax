@@ -19,7 +19,7 @@ public class cineMax {
  * @param <args> argomenti passati dalla riga di comando
  * @throws <IOException> se si verifica un errore durante la lettura o la scrittura dei file
  */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, UtenteNonEsistenteException {
 		Console cons = System.console();
 		int scelta;
 			do{
@@ -42,6 +42,7 @@ public class cineMax {
 							password = cons.readLine("inserire la password: ");
 							Login login = new Login(username, password);
 							accesso = Login.login(login);
+								
 							long id = Login.getIdUtente(login);
 							if(accesso == true){
 								System.out.print("Accesso consentito!");
@@ -72,7 +73,7 @@ public class cineMax {
 											
 											}else if(alternativa == 2){
 												//visualizza le prenotazioni
-												
+												System.out.println("Elenco delle proprie prenotazioni: ");
 												menuCliente.visualizzaPrenotazione(id);
 												
 											}else if(alternativa == 3){

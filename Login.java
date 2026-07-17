@@ -99,16 +99,21 @@ public class Login{
  * @throws <UtenteNonEsistenteException> se l'utente non è presente nel sistema
  * @throws <IOException> se si verifica un errore durante la lettura del file
  */
-	public static long getIdUtente(Login login) throws UtenteNonEsistenteException, IOException{
+	public static long getIdUtente(Login login) throws IOException{
 		FileReader frd = new FileReader("../data/utenti.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String riga;
-		while ((riga = brd.readLine()) != null) {
-			String[] dati = riga.split(",");
-			if(riga.contains(login.toString())){
-				return (long) Integer.parseInt(dati[0]);
+		long identificativo = 0;
+		try{
+			while ((riga = brd.readLine()) != null) {
+				String[] dati = riga.split(",");
+				if(riga.contains(login.toString())){
+					identificativo = (long) Integer.parseInt(dati[0]);
+				}
 			}
-			throw new UtenteNonEsistenteException(id);
+		}catch(IOException e){
+			e.getMessage();
 		}
+		return identificativo;
 	}
 }

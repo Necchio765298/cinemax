@@ -68,6 +68,16 @@ public class Prenotazione {
     public String getCodice() {
         return codice;
     }
+	
+	
+	public Utente getUtente(){
+		return utente;
+	}
+	
+	
+	public Proiezione getProiezione(){
+		return proiezione;
+	}
 
     /** Restituisce il numero di biglietti acquistati.
  * @return il numero di biglietti
@@ -98,7 +108,7 @@ public class Prenotazione {
 	public boolean equals(Object obj) throws RuntimeException{
 		if(obj instanceof Prenotazione){
 			Prenotazione p=(Prenotazione) obj;
-			if(p.getCodice()==this.codice && Utente.getUtente()== this.utente && Proiezione.getProiezione() == this.proiezione && p.getNumeroBiglietto() == this.numeroBiglietto){
+			if(p.getCodice()==this.codice && p.getUtente()== this.utente && p.getProiezione() == this.proiezione && p.getNumeroBiglietto() == this.numeroBiglietto){
 				return true;
 			}
 		}

@@ -44,7 +44,7 @@ import java.time.LocalDateTime;
 		String prenotazione = " ";
 		try{
 		Prenotazione pre = null;	
-		while((prenotazione =brd.readLine()) != null){
+		while((prenotazione = brd.readLine()) != null){
 			String[] dati = prenotazione.split(",");
 			if(prenotazione.contains(arg.toString())){
 				Proiezione p = Proiezione.getProiezione(LocalDateTime.parse(dati[0]));
@@ -67,18 +67,21 @@ import java.time.LocalDateTime;
  */
 	
 	public static Prenotazione cercaPrenotazione(LocalDateTime dataInizio, LocalDateTime dataFine) throws IOException{
-		try{
 		FileReader frd = new FileReader("../data/prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
-		String Date;
-		while((Date = brd.readLine()) != null) {
-			String Date1 = Date.substring(0,19);
-			LocalDateTime data = LocalDateTime.parse(Date1);
-			if(data.isAfter(dataInizio) && data.isBefore(dataFine))
-				System.out.println(Date.toString());
+		String prenotazione = " ";
+		try{
+		Prenotazione pre = null;
+		while((prenotazione = brd.readLine()) != null) {
+			String[] dati= prenotazione.split(",");
+			if(LocalDateTime.parse(dati[0]).isAfter(dataInizio) && LocalDateTime.parse(dati[0]).isBefore(dataFine))
+				Proiezione p = Proiezione.getProiezione(LocalDateTime.parse(dati[0]));
+				Utente u = Utente.getUtente((long) Integer.parseInt(dati[1]));
+				pre = new Prenotazione(u, p, Integer.parseInt(dati[5]));
 		}
 		brd.close();
 		frd.close();
+		return pre;
 		}catch(Exception e){
 			System.out.println("Data inserita nel formato non corretto");
 		}
