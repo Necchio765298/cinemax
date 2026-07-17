@@ -2,7 +2,8 @@ package cinemax;
 import java.time.LocalDateTime;
 
 /** Eccezione personalizzata lanciata quando una proiezione richiesta non è presente nel sistema.
- * @author 
+ * @author Arianna Necchio
+ * @author Gaia Galimberti
  */
 public class ProiezioneNonEsistenteException extends Exception{
 
