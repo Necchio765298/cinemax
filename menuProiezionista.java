@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 
 /** Gestisce le funzionalità riservate agli utenti con ruolo di proiezionista. 
  * La classe consente l'inserimento, la modifica e l'eliminazione delle proiezioni cinematografiche.
- * @author
+ * @author Arianna Necchio
+ * @author Gaia Galimberti
  */
  public class menuProiezionista {
   
