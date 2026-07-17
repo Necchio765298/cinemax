@@ -9,7 +9,8 @@ import java.io.IOException;
 /** Classe principale dell'applicazione.
  * Contiene il metodo main(), responsabile dell'avvio del programma, della gestione del menu principale e dell'interazione con l'utente.
  * In base alle operazioni selezionate richiama le funzionalità implementate nelle altre classi del progetto.
- * @author
+ * @author Arianna Necchio
+ * @author Gaia Galimberti
  */
 public class cineMax {
 
