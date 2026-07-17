@@ -1,7 +1,8 @@
 package cinemax;
 
 /** Eccezione personalizzata lanciata quando un utente richiesto non è presente nel sistema.
- * @author 
+ * @author Arianna Necchio
+ * @author Gaia Galimberti
  */
 public class UtenteNonEsistenteException extends Exception{
 
