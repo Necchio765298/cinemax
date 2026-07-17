@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 
 /** Gestisce le funzionalità riservate agli utenti con ruolo di bigliettaio. 
  * La classe consente la ricerca e la visualizzazione delle prenotazioni effettuate dai clienti.
- * @author
+ * @author Arianna Necchio
+ * @author Gaia Galimberti
  */
 	public class menuBigliettaio {
   
