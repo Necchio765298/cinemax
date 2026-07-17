@@ -10,7 +10,8 @@ import java.io.IOException;
 
 /** Rappresenta una proiezione cinematografica programmata dal cinema.
  * La classe memorizza il film proiettato, la data e l'ora della proiezione e il prezzo del biglietto.
- * @author 
+ * @author Arianna Necchio
+ * @author Gaia Galimberti
  */
 public class Proiezione {
      /** Data e ora della proiezione. Questo campo è l'identificativo della proiezione 
