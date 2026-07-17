@@ -7,7 +7,8 @@ import java.io.IOException;
 
 /** Rappresenta una prenotazione effettuata da un utente per una determinata proiezione cinematografica.
  * La classe memorizza il codice identificativo, l'utente, la proiezione e il numero di biglietti acquistati.
- * @author 
+ * @author Arianna Necchio
+ * @author Gaia Galimberti
  */
 public class Prenotazione {
     /** Codice identificativo della prenotazione. Identifica univocamente una prenotazione */
