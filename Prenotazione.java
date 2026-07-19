@@ -2,7 +2,10 @@ package cinemax;
 import java.util.UUID;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 
 /** Rappresenta una prenotazione effettuata da un utente per una determinata proiezione cinematografica.
@@ -92,19 +95,38 @@ public class Prenotazione {
     public double getCostoTotale(){
         return proiezione.getPrezzoBiglietto()*numeroBiglietto;
     }
+	
+	/**
+	*Restituisce il numero dei biglietti acquistati per una prenotazione al fine di calcolare il numero di posti occupati.
+	*@param pre è la prenotazione di cui si vuole calcolare il numero di posti prenotati.
+	*@return biglietti
+	*/
+	public static int getTotaleBiglietti(Prenotazione pre) throws IOException{
+		int biglietti = 0;
+		FileReader frd = new FileReader("../data/prenotazioni.csv");
+		BufferedReader brd = new BufferedReader(frd);
+		String riga;
+		while((riga =brd.readLine()) != null){
+			String[] dati = riga.split(",");
+			if(LocalDateTime.parse(dati[0]) == pre.getProiezione().getDataOra()){
+				biglietti = biglietti + Integer.parseInt(dati[5]);
+			}
+		}
+		return biglietti;
+	}
 
     /** Restituisce una rappresentazione testuale della prenotazione, utilizzata per la visualizzazione delle informazioni e per la memorizzazione dei dati nel file csv.
- * @return una stringa contenente i dati della prenotazione
- */
-    public String toString() {
+	* @return una stringa contenente i dati della prenotazione
+	*/
+    public String toString(){
         return proiezione.getDataOra() +"," + utente.getID() + "," +utente.getNome() +"," + utente.getCognome() +"," + proiezione.getTitolo() +"," +  numeroBiglietto + ","+ codice;
     }
 
 	/** Confronta l'oggetto corrente con un altro oggetto per verificarne l'uguaglianza.
- * @param <obj> oggetto da confrontare con la prenotazione corrente
- * @return {@code true} se i due oggetti sono considerati uguali, {@code false} altrimenti
- * @throws <RuntimeException> se si verifica un errore durante il confronto
- */
+	 * @param <obj> oggetto da confrontare con la prenotazione corrente
+	 * @return {@code true} se i due oggetti sono considerati uguali, {@code false} altrimenti
+	 * @throws <RuntimeException> se si verifica un errore durante il confronto
+	 */
 	public boolean equals(Object obj) throws RuntimeException{
 		if(obj instanceof Prenotazione){
 			Prenotazione p=(Prenotazione) obj;

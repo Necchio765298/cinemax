@@ -51,7 +51,8 @@ public class menuCliente{
 		}
 	}
 
-	/** Crea una nuova prenotazione per la proiezione prevista nell'orario specificato verificando la disponibilità dei posti nella sala cinematografica
+	/** Crea una nuova prenotazione per la proiezione prevista nell'orario specificato se il 
+ * numero di posti richiesti è minore del numero di posti disponibili.
  * @param <orario> data e ora della proiezione
  * @return la prenotazione creata
  * @throws <IOExceptio> se si verifica un errore durante la gestione del file
@@ -65,8 +66,8 @@ public class menuCliente{
 			Proiezione p = Proiezione.getProiezione(orario);
 			String biglietti = cons.readLine("Inserire il numero dei biglietti da acquistare: ");
 			int numeroBiglietto = Integer.parseInt(biglietti);
-			if(numeroBiglietto < 200-numeroBiglietto){ //se numero di posti richiesti è minore del numero di posti disponibili	
-				Prenotazione prenotazione =  new Prenotazione(u, p, numeroBiglietto);
+			Prenotazione prenotazione =  new Prenotazione(u, p, numeroBiglietto);
+			if(numeroBiglietto < 200-Prenotazione.getTotaleBiglietti(prenotazione)){	
 				Prenotazione.registraPrenotazione(prenotazione);
 				System.out.println("Il codice della prenotazione è "+ prenotazione.getCodice());
 				return prenotazione;
@@ -76,6 +77,7 @@ public class menuCliente{
 		}catch(Exception e){
 			System.out.println("Un dato inserito non è valido");
 		}
+		return null;
 	}
 
 	/** Modifica la data e l'ora di una prenotazione esistente

@@ -70,8 +70,8 @@ private String ruolo;
 			if(((long)Integer.parseInt(dati[0]))==id){
 				return new Utente(dati[1], dati[2], dati[3], dati[4], LocalDate.parse(dati[5], DateTimeFormatter.ofPattern("yyyy-MM-dd")), dati[6], dati[7]);
 			}
-			throw new UtenteNonEsistenteException(id);
 		}
+		throw new UtenteNonEsistenteException(id);
 	}
 	/** Registra un nuovo utente nel file csv.
 	 * @param <utente> utente da registrare

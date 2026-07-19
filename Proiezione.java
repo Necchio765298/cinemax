@@ -62,7 +62,7 @@ public class Proiezione {
 * @return una Proiezione
 * @throws <ProiezioneNonEsistenteException> se la proiezione ricercata non esiste.
 */
-	public static Proiezione getProiezione(LocalDateTime ldt){
+	public static Proiezione getProiezione(LocalDateTime ldt) throws ProiezioneNonEsistenteException, IOException{
 		FileReader frd = new FileReader("../data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String proiezione;
@@ -71,8 +71,8 @@ public class Proiezione {
 			if(LocalDateTime.parse(dati[0])== ldt){
 				return new Proiezione(ldt, dati[1], dati[2], dati[3], Integer.parseInt(dati[4]), Integer.parseInt(dati[5]), Integer.parseInt(dati[6]), Double.parseDouble(dati[7]));
 			}
-			throw new ProiezioneNonEsistenteException(ldt);
-		}
+		}	
+		throw new ProiezioneNonEsistenteException(ldt);
 	}
 
 /** Ricerca una o più proiezioni nel file csv in base ai criteri di ricerca specificati.
@@ -100,7 +100,8 @@ public class Proiezione {
 			frd.close();
 		}catch(Exception e){
 			System.out.println("Criterio inserito non valido");
-		}
+		}	
+		return null;
 	}
 
 	/** Ricerca le proiezioni comprese in un determinato intervallo di date.
@@ -124,13 +125,14 @@ public class Proiezione {
 		}catch(Exception e){
 			System.out.println("Formato della data inserita non corretto");
 		}
+		return null;
 	}
 
 	/** Restituisce una rappresentazione testuale della proiezione.
  * @param <args> criteri utilizzati per individuare la proiezione
  * @return una stringa contenente le informazioni della proiezione
  */
-	public String visualizzaProiezione(Object... args){
+	public String visualizzaProiezione(Object... args) throws IOException{
 		Proiezione p = Proiezione.cercaProiezione(args);
 		return p.toString();
 	}

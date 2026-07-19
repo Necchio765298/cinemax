@@ -52,6 +52,7 @@ public menuProiezionista() {
 		String PrezzoBiglietto = cons.readLine("Prezzo biglietto: ");
 		double prezzoBiglietto = Double.parseDouble(PrezzoBiglietto);
 		Proiezione p = new Proiezione(dataOra, titolo, genere, regista, anno, durataMinuti, etaMinima, prezzoBiglietto);
+		return p;
 	}
 	   
    

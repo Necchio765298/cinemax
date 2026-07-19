@@ -43,20 +43,21 @@ import java.time.LocalDateTime;
 		BufferedReader brd = new BufferedReader(frd);
 		String prenotazione = " ";
 		try{
-		Prenotazione pre = null;	
-		while((prenotazione = brd.readLine()) != null){
-			String[] dati = prenotazione.split(",");
-			if(prenotazione.contains(arg.toString())){
-				Proiezione p = Proiezione.getProiezione(LocalDateTime.parse(dati[0]));
-				Utente u = Utente.getUtente((long) Integer.parseInt(dati[1]));
-				pre = new Prenotazione(u, p, Integer.parseInt(dati[5]));
+			Prenotazione pre = null;	
+			while((prenotazione = brd.readLine()) != null){
+				String[] dati = prenotazione.split(",");
+				if(prenotazione.contains(arg.toString())){
+					Proiezione p = Proiezione.getProiezione(LocalDateTime.parse(dati[0]));
+					Utente u = Utente.getUtente((long) Integer.parseInt(dati[1]));
+					pre = new Prenotazione(u, p, Integer.parseInt(dati[5]));
+				}
 			}
-		}
-		brd.close();
-		frd.close();
-		return pre;
+			brd.close();
+			frd.close();
+			return pre;
 		}catch(Exception e){
 			System.out.println("Dato inserito non valido");
+			return null;
 		}
 	}
 
@@ -71,19 +72,21 @@ import java.time.LocalDateTime;
 		BufferedReader brd = new BufferedReader(frd);
 		String prenotazione = " ";
 		try{
-		Prenotazione pre = null;
-		while((prenotazione = brd.readLine()) != null) {
-			String[] dati= prenotazione.split(",");
-			if(LocalDateTime.parse(dati[0]).isAfter(dataInizio) && LocalDateTime.parse(dati[0]).isBefore(dataFine))
-				Proiezione p = Proiezione.getProiezione(LocalDateTime.parse(dati[0]));
-				Utente u = Utente.getUtente((long) Integer.parseInt(dati[1]));
-				pre = new Prenotazione(u, p, Integer.parseInt(dati[5]));
-		}
-		brd.close();
-		frd.close();
-		return pre;
+			Prenotazione pre = null;
+			while((prenotazione = brd.readLine()) != null) {
+				String[] dati= prenotazione.split(",");
+				if(LocalDateTime.parse(dati[0]).isAfter(dataInizio) && LocalDateTime.parse(dati[0]).isBefore(dataFine)){
+					Proiezione p = Proiezione.getProiezione(LocalDateTime.parse(dati[0]));
+					Utente u = Utente.getUtente((long) Integer.parseInt(dati[1]));
+					pre = new Prenotazione(u, p, Integer.parseInt(dati[5]));
+				}
+			}
+			brd.close();
+			frd.close();
+			return pre;
 		}catch(Exception e){
 			System.out.println("Data inserita nel formato non corretto");
+			return null;
 		}
 	}
 
