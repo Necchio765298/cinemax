@@ -39,7 +39,7 @@ import java.time.LocalDateTime;
  */
 	
 	public static Prenotazione cercaPrenotazione(Object arg) throws IOException{
-		FileReader frd = new FileReader("../data/prenotazioni.csv");
+		FileReader frd = new FileReader("data/prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String prenotazione = " ";
 		try{
@@ -68,7 +68,7 @@ import java.time.LocalDateTime;
  */
 	
 	public static Prenotazione cercaPrenotazione(LocalDateTime dataInizio, LocalDateTime dataFine) throws IOException{
-		FileReader frd = new FileReader("../data/prenotazioni.csv");
+		FileReader frd = new FileReader("data/prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String prenotazione = " ";
 		try{

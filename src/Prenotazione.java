@@ -42,7 +42,7 @@ public class Prenotazione {
  * @throws <IOException> se si verifica un errore durante la scrittura del file
  */
 	public static void registraPrenotazione(Prenotazione prenotazione) throws IOException{
-		FileWriter fwt = new FileWriter("../data/prenotazioni.csv", true);
+		FileWriter fwt = new FileWriter("data/prenotazioni.csv", true);
 		BufferedWriter bwt = new BufferedWriter(fwt);
 		bwt.write(prenotazione.toString());
 		System.out.println("la prenotazione è stata registrata");
@@ -103,7 +103,7 @@ public class Prenotazione {
 	*/
 	public static int getTotaleBiglietti(Prenotazione pre) throws IOException{
 		int biglietti = 0;
-		FileReader frd = new FileReader("../data/prenotazioni.csv");
+		FileReader frd = new FileReader("data/prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String riga;
 		while((riga =brd.readLine()) != null){

@@ -63,7 +63,7 @@ public class Proiezione {
 * @throws <ProiezioneNonEsistenteException> se la proiezione ricercata non esiste.
 */
 	public static Proiezione getProiezione(LocalDateTime ldt) throws ProiezioneNonEsistenteException, IOException{
-		FileReader frd = new FileReader("../data/proiezioni.csv");
+		FileReader frd = new FileReader("data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String proiezione;
 		while ((proiezione = brd.readLine()) != null) {
@@ -83,7 +83,7 @@ public class Proiezione {
  */
 	public static Proiezione cercaProiezione(Object arg) throws IOException{
 		try{
-			FileReader frd = new FileReader("../data/proiezioni.csv");
+			FileReader frd = new FileReader("data/proiezioni.csv");
 			BufferedReader brd = new BufferedReader(frd);
 			if(arg instanceof LocalDateTime){
 				LocalDateTime p = (LocalDateTime) arg;

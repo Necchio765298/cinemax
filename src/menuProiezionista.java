@@ -63,9 +63,9 @@ public menuProiezionista() {
 	 //aggiunge una proiezione
    public static void aggiungiProiezione() throws IOException{	
 		try{
-	    FileWriter fwt = new FileWriter("../data/proiezioni.csv", true);
+	    FileWriter fwt = new FileWriter("data/proiezioni.csv", true);
 		BufferedWriter bwt = new BufferedWriter(fwt);
-		FileReader frd = new FileReader("../data/proiezioni.csv");
+		FileReader frd = new FileReader("data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		
 		Proiezione p = menuProiezionista.creaProiezione();
@@ -91,13 +91,13 @@ public menuProiezionista() {
 	public static void modificaProiezione(LocalDateTime orario) throws IOException{	
 		try{
 		if(menuBigliettaio.cercaPrenotazione(orario) == null){
-			File file = new File("../data");
+			File file = new File("data");
 			File temp = File.createTempFile("pro", ".csv", file);
-			File vecchio = new File("../data/proiezioni.csv");
+			File vecchio = new File("data/proiezioni.csv");
 			
 				FileWriter fwt = new FileWriter(temp, true);
 				BufferedWriter bwt = new BufferedWriter(fwt);
-				FileReader frd = new FileReader("../data/proiezioni.csv");
+				FileReader frd = new FileReader("data/proiezioni.csv");
 				BufferedReader brd = new BufferedReader(frd);
 			try{	
 				Proiezione proVecchia = Proiezione.getProiezione(orario);
@@ -135,13 +135,13 @@ public menuProiezionista() {
 	public static void eliminaProiezione(LocalDateTime orario) throws IOException {
 		try{
 		if(menuBigliettaio.cercaPrenotazione(orario) == null){
-			File file = new File("../data");
+			File file = new File("data");
 			File temp = File.createTempFile("pro", ".csv", file);
-			File vecchio = new File("../data/proiezioni.csv");
+			File vecchio = new File("data/proiezioni.csv");
 			
 				FileWriter fwt = new FileWriter(temp, true);
 				BufferedWriter bwt = new BufferedWriter(fwt);
-				FileReader frd = new FileReader("../data/proiezioni.csv");
+				FileReader frd = new FileReader("data/proiezioni.csv");
 				BufferedReader brd = new BufferedReader(frd);
 			try{	
 				Proiezione proDelete = Proiezione.getProiezione(orario);

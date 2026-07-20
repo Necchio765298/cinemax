@@ -44,7 +44,7 @@ public class Login{
  * @throws <UtenteNonEsistenteException> se l'utente non è presente nel sistema
  */
 	public static boolean login(Login login) throws UtenteNonEsistenteException, IOException{
-		FileReader frd = new FileReader("../data/utenti.csv");
+		FileReader frd = new FileReader("data/utenti.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String persona;
 		boolean accesso = false;
@@ -69,7 +69,7 @@ public class Login{
  * @throws <IOException> se si verifica un errore durante la lettura del file
  */
 	public static String ruolo(Login login, boolean accesso) throws IOException{
-		FileReader frd = new FileReader("../data/utenti.csv");
+		FileReader frd = new FileReader("data/utenti.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String ruolo = "non specificato";
 		String persona;
@@ -100,7 +100,7 @@ public class Login{
  * @throws <IOException> se si verifica un errore durante la lettura del file
  */
 	public static long getIdUtente(Login login) throws IOException{
-		FileReader frd = new FileReader("../data/utenti.csv");
+		FileReader frd = new FileReader("data/utenti.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String riga;
 		long identificativo = 0;

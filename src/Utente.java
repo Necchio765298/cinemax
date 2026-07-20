@@ -62,7 +62,7 @@ private String ruolo;
 	*/
 	public static Utente getUtente(long id) throws UtenteNonEsistenteException, IOException{
 		
-		FileReader frd = new FileReader("../data/utenti.csv");
+		FileReader frd = new FileReader("data/utenti.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String riga;
 		while ((riga = brd.readLine()) != null) {
@@ -79,7 +79,7 @@ private String ruolo;
 	 */
 	public static void registraUtente(Utente utente) throws IOException{
 		try{
-			FileWriter fwt = new FileWriter("../data/utenti.csv", true);
+			FileWriter fwt = new FileWriter("data/utenti.csv", true);
 			BufferedWriter bwt = new BufferedWriter(fwt);
 			
 			bwt.write(utente.toString());
