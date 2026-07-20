@@ -9,8 +9,8 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-/** Rappresenta un utente registrato all'interno dell'applicazione.
- * La classe memorizza le informazioni anagrafiche, le credenziali di accesso e il ruolo associato all'utente.
+/** Rappresenta un utente registrato all'interno dell'applicazione
+ * La classe memorizza le informazioni anagrafiche, le credenziali di accesso e il ruolo associato all'utente
  * @author Arianna Necchio
  * @author Gaia Galimberti
  */
