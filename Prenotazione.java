@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 
-/** Rappresenta una prenotazione effettuata da un utente per una determinata proiezione cinematografica.
- * La classe memorizza il codice identificativo, l'utente, la proiezione e il numero di biglietti acquistati.
+/** Rappresenta una prenotazione effettuata da un utente per una determinata proiezione cinematografica
+ * La classe memorizza il codice identificativo, l'utente, la proiezione e il numero di biglietti acquistati
  * @author Arianna Necchio
  * @author Gaia Galimberti
  */
