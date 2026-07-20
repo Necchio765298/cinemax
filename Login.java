@@ -6,8 +6,8 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-/** Gestisce l'autenticazione degli utenti dell'applicazione.
- * La classe verifica le credenziali di accesso e determina il ruolo associato all'utente.
+/** Gestisce l'autenticazione degli utenti dell'applicazione
+ * La classe verifica le credenziali di accesso e determina il ruolo associato all'utente
  * @author Arianna Necchio
  * @author Gaia Galimberti
  */
