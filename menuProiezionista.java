@@ -9,8 +9,8 @@ import java.io.BufferedWriter;
 import java.io.Console;
 import java.time.LocalDateTime;
 
-/** Gestisce le funzionalità riservate agli utenti con ruolo di proiezionista. 
- * La classe consente l'inserimento, la modifica e l'eliminazione delle proiezioni cinematografiche.
+/** Gestisce le funzionalità riservate agli utenti con ruolo di proiezionista
+ * La classe consente l'inserimento, la modifica e l'eliminazione delle proiezioni cinematografiche
  * @author Arianna Necchio
  * @author Gaia Galimberti
  */
