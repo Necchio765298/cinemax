@@ -11,8 +11,8 @@ import java.io.BufferedWriter;
 import java.io.Console;
 import java.util.UUID;
 
-/** Gestisce le funzionalità riservate agli utenti con ruolo di cliente. 
- * La classe consente la creazione, la visualizzazione, la modifica e l'eliminazione delle prenotazioni.
+/** Gestisce le funzionalità riservate agli utenti con ruolo di cliente 
+ * La classe consente la creazione, la visualizzazione, la modifica e l'eliminazione delle prenotazioni
  * @author Arianna Necchio
  * @author Gaia Galimberti
  */
