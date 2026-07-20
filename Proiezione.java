@@ -8,8 +8,8 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-/** Rappresenta una proiezione cinematografica programmata dal cinema.
- * La classe memorizza il film proiettato, la data e l'ora della proiezione e il prezzo del biglietto.
+/** Rappresenta una proiezione cinematografica programmata dal cinema
+ * La classe memorizza il film proiettato, la data e l'ora della proiezione e il prezzo del biglietto
  * @author Arianna Necchio
  * @author Gaia Galimberti
  */
