@@ -36,6 +36,14 @@ public class Login{
 	public String toString(){
 		return username + "," + password;
 	}
+	
+	public String getUsername(){
+		return username;
+	}
+	
+	private String getPassword(){
+		return password;
+	}
 
 	/** Verifica la validità delle credenziali inserite confrontandole con quelle memorizzate nel file degli utenti.
  * @param <login> oggetto contenente le credenziali da verificare
@@ -50,8 +58,8 @@ public class Login{
 		boolean accesso = false;
 		try{
 		while((persona = brd.readLine()) != null){
-			
-			if(persona.contains(login.toString()))
+			String[] dati = persona.split(",");
+			if(login.getUsername().equals(dati[3]) && login.getPassword().equals(dati[4]))
 				accesso = true;
 		}	
 		brd.close();
@@ -75,10 +83,11 @@ public class Login{
 		String persona;
 		try{
 		while((persona= brd.readLine()) != null){
-			if(persona.contains(login.toString())){
-				if(persona.contains("Cliente"))
+			String[] dati = persona.split(",");
+			if(login.getUsername().equals(dati[3]) && login.getPassword().equals(dati[4])){
+				if(dati[7].equals("Cliente"))
 					ruolo = "Cliente";
-				else if(persona.contains("Bigliettaio"))
+				else if(dati[7].equals("Bigliettaio"))
 					ruolo = "Bigliettaio";
 				else
 					ruolo = "Proiezionista";
@@ -107,7 +116,7 @@ public class Login{
 		try{
 			while ((riga = brd.readLine()) != null) {
 				String[] dati = riga.split(",");
-				if(riga.contains(login.toString())){
+				if(login.getUsername().equals(dati[3]) && login.getPassword().equals(dati[4])){
 					identificativo = (long) Integer.parseInt(dati[0]);
 				}
 			}

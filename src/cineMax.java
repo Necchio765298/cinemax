@@ -180,9 +180,10 @@ public class cineMax {
 									default:
 										break;
 								}
-							}else
+							}else{
 								System.out.println(" ");
 								System.out.println("Username, password non corretti, oppure non ci si è ancora registrati");
+							}
 						}while(accesso == false);
 						break;
 					case 2:
