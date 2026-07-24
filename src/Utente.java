@@ -2,6 +2,7 @@ package cinemax;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 import java.lang.Math;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -43,10 +44,11 @@ private String ruolo;
  * @param <ruolo> ruolo dell'utente
  */
     public Utente(String nome, String cognome, String username, String password, LocalDate dataNascita, String domicilio, String ruolo){
-        this.ID= (long) Math.random();
+        Random gen= new Random();
+		this.ID= Math.abs(gen.nextLong());
 		this.nome=nome;
-        this.cognome = cognome ;
-        this.username = username ;
+        this.cognome = cognome;
+        this.username = username;
         this.password=password;
         this.dataNascita=dataNascita;
         this.domicilio=domicilio;

@@ -117,7 +117,7 @@ public class Login{
 			while ((riga = brd.readLine()) != null) {
 				String[] dati = riga.split(",");
 				if(login.getUsername().equals(dati[3]) && login.getPassword().equals(dati[4])){
-					identificativo = (long) Integer.parseInt(dati[0]);
+					identificativo = (long) Double.parseDouble(dati[0]);
 				}
 			}
 		}catch(IOException e){
