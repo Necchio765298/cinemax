@@ -110,22 +110,34 @@ public class Proiezione {
  * @throws <IOException> se si verifica un errore durante la lettura del file
  */
 	public static Proiezione cercaProiezione(LocalDate dataInizio, LocalDate dataFine) throws IOException{
-		try{
-		FileReader frd = new FileReader("../data/proiezioni.csv");
+		FileReader frd = new FileReader("data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String riga;
-		while((riga = brd.readLine()) != null) {
-			String[] dati = riga.split(",");
-			LocalDate data = LocalDate.parse(dati[0]);
-			if(data.isAfter(dataInizio) && data.isBefore(dataFine))
-				return new Proiezione(LocalDateTime.parse(dati[0]), dati[1], dati[2], dati[3], Integer.parseInt(dati[4]), Integer.parseInt(dati[5]), Integer.parseInt(dati[6]), Double.parseDouble(dati[7]));
-		}
-		brd.close();
-		frd.close();
+		Proiezione trovata = null;
+		try{
+			try{
+			while((riga = brd.readLine()) != null) {
+				String[] dati = riga.split(",");
+				try{
+				String d = dati[0].substring(0, 10);
+				LocalDate data = LocalDate.parse(d);
+				
+					if((dataInizio.isBefore(data)) && (dataFine.isAfter(data))){
+						trovata = new Proiezione(LocalDateTime.parse(dati[0]), dati[1], dati[2], dati[3], Integer.parseInt(dati[4]), Integer.parseInt(dati[5]), Integer.parseInt(dati[6]), Double.parseDouble(dati[7]));
+					}
+				}catch(Exception e){
+							System.out.println("Errore");
+				}	
+			}
+			}catch(Exception e){
+					System.out.println("data non valida");
+			}
+			brd.close();
+			frd.close();
 		}catch(Exception e){
 			System.out.println("Formato della data inserita non corretto");
 		}
-		return null;
+		return trovata;
 	}
 
 	/** Restituisce una rappresentazione testuale della proiezione.
