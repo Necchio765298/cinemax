@@ -1,6 +1,7 @@
 package cinemax;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.io.Console;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -123,7 +124,8 @@ public class Proiezione {
 				LocalDate data = LocalDate.parse(d);
 				
 					if((dataInizio.isBefore(data)) && (dataFine.isAfter(data))){
-						trovata = new Proiezione(LocalDateTime.parse(dati[0]), dati[1], dati[2], dati[3], Integer.parseInt(dati[4]), Integer.parseInt(dati[5]), Integer.parseInt(dati[6]), Double.parseDouble(dati[7]));
+						DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+						trovata = new Proiezione(LocalDateTime.parse(dati[0], formato), dati[1], dati[2], dati[3], Integer.parseInt(dati[4]), Integer.parseInt(dati[5]), Integer.parseInt(dati[6]), Double.parseDouble(dati[7]));
 					}
 				}catch(Exception e){
 							System.out.println("Errore");
