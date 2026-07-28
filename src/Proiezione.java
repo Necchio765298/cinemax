@@ -67,12 +67,18 @@ public class Proiezione {
 		FileReader frd = new FileReader("data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String proiezione;
-		while ((proiezione = brd.readLine()) != null) {
-			String[] dati = proiezione.split(",");
-			if(LocalDateTime.parse(dati[0])== ldt){
-				return new Proiezione(ldt, dati[1], dati[2], dati[3], Integer.parseInt(dati[4]), Integer.parseInt(dati[5]), Integer.parseInt(dati[6]), Double.parseDouble(dati[7]));
-			}
-		}	
+		try{
+			while ((proiezione = brd.readLine()) != null) {
+				String[] dati = proiezione.split(",");
+				String dataPulita = dati[0].replace("\"", "").trim();
+				DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+				if(LocalDateTime.parse(dataPulita, formato).isEqual(ldt)){
+					return new Proiezione(ldt, dati[1].replace("\"", "").trim(), dati[2].trim(), dati[3].replace("\"", "").trim(), Integer.parseInt(dati[4].trim()), Integer.parseInt(dati[5].trim()), Integer.parseInt(dati[6].trim()), Double.parseDouble(dati[7].replace("\"", "").trim()));
+				}
+			}	
+		}catch(Exception e){
+			System.err.println("Errore di recupero proiezione: " + e.getMessage());
+		}
 		throw new ProiezioneNonEsistenteException(ldt);
 	}
 

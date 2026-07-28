@@ -61,9 +61,11 @@ public class menuCliente{
 		try{
 			Console cons = System.console();
 			String id = cons.readLine("inserire il proprio codice identificativo");
-			long identificativo =(long) Integer.parseInt(id);
+			long identificativo =(long) Double.parseDouble(id);
 			Utente u = Utente.getUtente(identificativo);
+			System.out.println("Utente: "+ u.toString());
 			Proiezione p = Proiezione.getProiezione(orario);
+			System.out.println("Proiezione: " + p.toString());
 			String biglietti = cons.readLine("Inserire il numero dei biglietti da acquistare: ");
 			int numeroBiglietto = Integer.parseInt(biglietti);
 			Prenotazione prenotazione =  new Prenotazione(u, p, numeroBiglietto);
@@ -75,7 +77,7 @@ public class menuCliente{
 				System.out.print("il numero dei biglietti eccede il numero di posti disponibili");
 			}
 		}catch(Exception e){
-			System.out.println("Un dato inserito non è valido");
+			System.out.println("Un dato inserito non è valido" + e.getMessage());
 		}
 		return null;
 	}

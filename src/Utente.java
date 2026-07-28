@@ -18,6 +18,8 @@ import java.io.IOException;
 public class Utente {
 /** Codice identificativo dell'utente */
 private long ID;
+
+private long idEsistente;
 /** Nome dell'utente. */
 private String nome;
 /** Cognome dell'utente. */
@@ -46,6 +48,7 @@ private String ruolo;
     public Utente(String nome, String cognome, String username, String password, LocalDate dataNascita, String domicilio, String ruolo){
         Random gen= new Random();
 		this.ID= Math.abs(gen.nextLong());
+		System.out.println("Il tuo ID è: " + ID);
 		this.nome=nome;
         this.cognome = cognome;
         this.username = username;
@@ -54,6 +57,18 @@ private String ruolo;
         this.domicilio=domicilio;
         this.ruolo=ruolo;
     }
+	
+	public Utente(long idEsistente, String nome, String cognome, String username, String password, LocalDate dataNascita, String domicilio, String ruolo){
+		this.idEsistente = idEsistente;
+		this.nome=nome;
+        this.cognome = cognome;
+        this.username = username;
+        this.password=password;
+        this.dataNascita=dataNascita;
+        this.domicilio=domicilio;
+        this.ruolo=ruolo;
+    }
+	
 	
 	/** Il metodo consente di ottenere un oggetto di tipo Utente specificandone il codice identificativo; se l'utente non viene trovato, il metodo solleva un'eccezione opportuna.
 	* Il metodo è utile per creare un parametro formale di tipo Utente fornito in argomento al costruttore della classe Prenotazione.
@@ -69,8 +84,8 @@ private String ruolo;
 		String riga;
 		while ((riga = brd.readLine()) != null) {
 			String[] dati = riga.split(",");
-			if(((long)Integer.parseInt(dati[0]))==id){
-				return new Utente(dati[1], dati[2], dati[3], dati[4], LocalDate.parse(dati[5], DateTimeFormatter.ofPattern("yyyy-MM-dd")), dati[6], dati[7]);
+			if(((long)Double.parseDouble(dati[0]))==id){
+				return new Utente(id, dati[1], dati[2], dati[3], dati[4], LocalDate.parse(dati[5], DateTimeFormatter.ofPattern("yyyy-MM-dd")), dati[6], dati[7]);
 			}
 		}
 		throw new UtenteNonEsistenteException(id);
@@ -83,7 +98,6 @@ private String ruolo;
 		try{
 			FileWriter fwt = new FileWriter("data/utenti.csv", true);
 			BufferedWriter bwt = new BufferedWriter(fwt);
-			
 			bwt.write(utente.toString());
 			bwt.newLine();
 			bwt.close();
@@ -93,13 +107,10 @@ private String ruolo;
 		}
 	}
 
-	/** Restituisce il codice identificativo dell'utente.
-    * @return il codice identificativo dell'utente
-    */
-	public long getID(){
-		return ID;
-	}
-	
+	public long getID() {
+        return idEsistente;
+    }
+
 /** Restituisce il nome dell'utente.
  * @return il nome dell'utente
  */
@@ -160,6 +171,6 @@ private String ruolo;
  */
     @Override
     public String toString(){
-		return getID()+","+nome + ","+ cognome + ","+ username+"," + password +"," + dataNascita +"," +domicilio +"," +ruolo;
+		return idEsistente + "," +nome + ","+ cognome + ","+ username+"," + password +"," + dataNascita +"," +domicilio +"," +ruolo;
     }
 }
