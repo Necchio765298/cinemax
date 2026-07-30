@@ -14,9 +14,9 @@ import java.io.IOException;
 public class Login{
 	//campi
 	/** Nome utente utilizzato per l'accesso. */
-	String username;
+	private String username;
 	/** Password associata all'utente. */
-	String password;
+	private String password;
 
 	//costruttore
 	/** Costruisce un nuovo oggetto Login.
