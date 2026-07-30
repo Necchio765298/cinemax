@@ -9,6 +9,11 @@ import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import javax.crypto.spec.PBEKeySpec;
+import java.security.SecureRandom;
+import java.security.spec.KeySpec;
+import javax.crypto.SecretKeyFactory;
+import java.nio.charset.StandardCharsets;
 
 /** Rappresenta un utente registrato all'interno dell'applicazione
  * La classe memorizza le informazioni anagrafiche, le credenziali di accesso e il ruolo associato all'utente
@@ -52,7 +57,7 @@ private String ruolo;
 		this.nome=nome;
         this.cognome = cognome;
         this.username = username;
-        this.password=password;
+        this.password=Utente.passwordHash(password);
         this.dataNascita=dataNascita;
         this.domicilio=domicilio;
         this.ruolo=ruolo;
@@ -173,4 +178,14 @@ private String ruolo;
     public String toString(){
 		return idEsistente + "," +nome + ","+ cognome + ","+ username+"," + password +"," + dataNascita +"," +domicilio +"," +ruolo;
     }
+	
+	public static String passwordHash(String password) throws IOException{
+		SecureRandom random = new SecureRandom();
+		byte[] salt = new byte[16];
+		random.nextBytes(salt);
+		KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
+		SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+		byte[] hash = factory.generateSecret(spec).getEncoded();
+		return new String(hash, StandardCharsets.UTF_8);
+	}
 }

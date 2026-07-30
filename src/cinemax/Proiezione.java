@@ -88,27 +88,41 @@ public class Proiezione {
  * @return le proiezioni trovate
  * @throws <IOException> se si verifica un errore durante la lettura del file
  */
-	public static Proiezione cercaProiezione(Object arg) throws IOException{
-		try{
+	public static Proiezione cercaProiezione(LocalDateTime data, String titolo, String genere, String regista, int anno, int durata, int eta, double prezzo){
+		Proiezione p= null;
+		try{	
 			FileReader frd = new FileReader("data/proiezioni.csv");
 			BufferedReader brd = new BufferedReader(frd);
-			if(arg instanceof LocalDateTime){
-				LocalDateTime p = (LocalDateTime) arg;
-				Proiezione.getProiezione(p);
-			}else{
-				String riga;
-				while((riga = brd.readLine()) != null){
-					String[] dati = riga.split(","); 
-					if((dati[1].equals(arg)) || (dati[2].equals(arg)) || (dati[3].equals(arg)) || (dati[4]==arg) || (dati[5]==arg) || (dati[6]==arg) || (dati[7]==arg))
-						return new Proiezione(LocalDateTime.parse(dati[0]), dati[1], dati[2], dati[3], Integer.parseInt(dati[4]), Integer.parseInt(dati[5]), Integer.parseInt(dati[6]), Double.parseDouble(dati[7]));
+			String riga;
+			while((riga = brd.readLine()) != null){
+				String[] dati = riga.split(","); 
+				if((LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).equals(data)) 
+					|| dati[1].toLowerCase().equals(titolo.toLowerCase())
+					|| (dati[2].toLowerCase().equals(genere.toLowerCase()))
+					|| (dati[3].toLowerCase().equals(regista.toLowerCase()))
+					|| (Integer.parseInt(dati[4])==anno)
+					|| (Integer.parseInt(dati[5])==durata)
+					|| (Integer.parseInt(dati[6])==eta)
+					|| (Double.parseDouble(dati[7])==prezzo)){
+						
+					p = new Proiezione(LocalDateTime.parse(dati[0],DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), 
+						dati[1].replace("\"", "").trim(),
+						dati[2].trim(),
+						dati[3].replace("\"", "").trim(),
+						Integer.parseInt(dati[4].trim()),
+						Integer.parseInt(dati[5].trim()),
+						Integer.parseInt(dati[6].trim()),
+						Double.parseDouble(dati[7].replace("\"", "").trim()));
+					break;
 				}
 			}
+			
 			brd.close();
 			frd.close();
 		}catch(Exception e){
-			System.out.println("Criterio inserito non valido");
+			System.out.println("Proiezione non trovata");
 		}	
-		return null;
+		return p;
 	}
 
 	/** Ricerca le proiezioni comprese in un determinato intervallo di date.
@@ -126,12 +140,11 @@ public class Proiezione {
 			while((riga = brd.readLine()) != null) {
 				String[] dati = riga.split(",");
 				try{
-				String d = dati[0].substring(0, 10);
-				LocalDate data = LocalDate.parse(d);
-				
+				DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+				LocalDate data = LocalDateTime.parse(dati[0], formato).toLocalDate();
 					if((dataInizio.isBefore(data)) && (dataFine.isAfter(data))){
-						DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-						trovata = new Proiezione(LocalDateTime.parse(dati[0], formato), dati[1], dati[2], dati[3], Integer.parseInt(dati[4]), Integer.parseInt(dati[5]), Integer.parseInt(dati[6]), Double.parseDouble(dati[7]));
+						
+						return trovata.getProiezione(LocalDateTime.parse(dati[0], formato));
 					}
 				}catch(Exception e){
 							System.out.println("Errore");
@@ -152,8 +165,7 @@ public class Proiezione {
  * @param <args> criteri utilizzati per individuare la proiezione
  * @return una stringa contenente le informazioni della proiezione
  */
-	public String visualizzaProiezione(Object... args) throws IOException{
-		Proiezione p = Proiezione.cercaProiezione(args);
+	public String visualizzaProiezione(Proiezione p) throws IOException{
 		return p.toString();
 	}
 		

@@ -4,7 +4,9 @@ import java.io.Console;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.io.IOException;
-//import java.util.List;
+import java.time.format.DateTimeFormatter;
+
+
 
 /** Classe principale dell'applicazione
  * Contiene il metodo main(), responsabile dell'avvio del programma, della gestione del menu principale e dell'interazione con l'utente
@@ -36,18 +38,19 @@ public class cineMax {
 				
 				switch(scelta){
 					case 1:
-					boolean accesso;
+					Utente u= null;
 						do{
 							username = cons.readLine("inserire il proprio nome utente: ");
 							password = cons.readLine("inserire la password: ");
+							username = username.trim();
+							password = password.trim();
 							Login login = new Login(username, password);
-							accesso = Login.login(login);
+							u = Login.login(login);
 								
-							long id = Login.getIdUtente(login);
-							if(accesso == true){
+							if(u != null){
 								System.out.print("Accesso consentito!");
 								System.out.println(" ");
-								ruoloUtente = Login.ruolo(login, accesso);	//ruoloUtente serve per sapere il ruolo dell'utente loggato e per accedere alle sue funzionalità
+								ruoloUtente = u.getRuolo();	//ruoloUtente serve per sapere il ruolo dell'utente loggato e per accedere alle sue funzionalità
 									
 								int alternativa;
 								switch(ruoloUtente){
@@ -74,7 +77,7 @@ public class cineMax {
 											}else if(alternativa == 2){
 												//visualizza le prenotazioni
 												System.out.println("Elenco delle proprie prenotazioni: ");
-												menuCliente.visualizzaPrenotazione(id);
+												menuCliente.visualizzaPrenotazione(u.getID());
 												
 											}else if(alternativa == 3){
 												//modifica una prenotazione
@@ -184,7 +187,7 @@ public class cineMax {
 								System.out.println(" ");
 								System.out.println("Username, password non corretti, oppure non ci si è ancora registrati");
 							}
-						}while(accesso == false);
+						}while(u == null);
 						break;
 					case 2:
 						System.out.println(" ");
@@ -218,48 +221,53 @@ public class cineMax {
 						System.out.println("9. intervallo di date");
 						
 						String ricerca = cons.readLine("Scelta: ");
+						
 
 						switch(ricerca) {
 							case "1":
 								System.out.println(" ");
 								String dataora = cons.readLine("data_ora_proiezione nel formato aaaa-mm-gg hh:mm:ss ");
-								Proiezione.cercaProiezione(dataora);
+								LocalDateTime DataOra= LocalDateTime.parse(dataora, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+								Proiezione.cercaProiezione(DataOra, null,null,null,0,0,0,0);
 								break;
 							case "2":
 								System.out.println(" ");
 								String titolo = cons.readLine("titolo: ");
-								Proiezione.cercaProiezione(titolo);
+								Proiezione.cercaProiezione(null, titolo, null, null,0,0,0,0);
 								break;
 							case "3":
 								System.out.println(" ");
 								String genere = cons.readLine("Genere: ");
-								Proiezione.cercaProiezione(genere);
+								Proiezione.cercaProiezione(null, null, genere, null,0,0,0,0);
 								break;
 							case "4":
 								System.out.println(" ");
 								String regista = cons.readLine("Regista: ");
-								Proiezione.cercaProiezione(regista);
+								Proiezione.cercaProiezione(null, null, null, regista, 0,0,0,0);
 								break;
 							case "5":
 								System.out.println(" ");
-								String anno = "," + cons.readLine("Anno: ") +",";
-								
-								Proiezione.cercaProiezione(anno);
+								String anno = cons.readLine("Anno: ");
+								int Anno =Integer.parseInt(anno);
+								Proiezione.cercaProiezione(null,null,null,null, Anno, 0,0,0);
 								break;
 							case "6":
 								System.out.println(" ");
-								String minuti = "," + cons.readLine("Durata minuti: ") +",";
-								Proiezione.cercaProiezione(minuti);
+								String minuti = cons.readLine("Durata minuti: ");
+								int Minuti =Integer.parseInt(minuti);
+								Proiezione.cercaProiezione(null,null,null,null,0, Minuti, 0,0);
 								break;
 							case "7":
 								System.out.println(" ");
-								String eta = "," + cons.readLine("Età minima: ")+ ",";
-								Proiezione.cercaProiezione(eta);
+								String eta = cons.readLine("Età minima: ");
+								int Eta=Integer.parseInt(eta);
+								Proiezione.cercaProiezione(null,null,null,null,0, 0, Eta,0);
 								break;
 							case "8":
 								System.out.println(" ");
-								String prezzo = "," +cons.readLine("Prezzo biglietto: ")+ ",";
-								Proiezione.cercaProiezione(prezzo);
+								String prezzo =cons.readLine("Prezzo biglietto: ");
+								Double Prezzo=Double.parseDouble(prezzo);
+								Proiezione.cercaProiezione(null,null,null,null,0,0,0,Prezzo);
 								break;
 							case "9":
 								System.out.println(" ");

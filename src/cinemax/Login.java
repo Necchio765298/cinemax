@@ -17,6 +17,7 @@ public class Login{
 	private String username;
 	/** Password associata all'utente. */
 	private String password;
+	private String hash;
 
 	//costruttore
 	/** Costruisce un nuovo oggetto Login.
@@ -26,6 +27,7 @@ public class Login{
 	public Login(String username, String password){
 		this.username = username;
 		this.password = password;
+		this.hash = Utente.passwordHash(password);
 	}
 
 	//metodi
@@ -44,6 +46,10 @@ public class Login{
 	private String getPassword(){
 		return password;
 	}
+	
+	private String getHash(){
+		return hash;
+	}
 
 	/** Verifica la validità delle credenziali inserite confrontandole con quelle memorizzate nel file degli utenti.
  * @param <login> oggetto contenente le credenziali da verificare
@@ -51,55 +57,36 @@ public class Login{
  * @throws <IOException> se si verifica un errore durante la lettura del file
  * @throws <UtenteNonEsistenteException> se l'utente non è presente nel sistema
  */
-	public static boolean login(Login login) throws UtenteNonEsistenteException, IOException{
+	public static Utente login(Login login){
+		Utente utente = null;
+		try{
 		FileReader frd = new FileReader("data/utenti.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String persona;
-		boolean accesso = false;
-		try{
+		long idUtente = 0;
+		
 		while((persona = brd.readLine()) != null){
 			String[] dati = persona.split(",");
-			if(login.getUsername().equals(dati[3]) && login.getPassword().equals(dati[4]))
-				accesso = true;
+			if(login.getUsername().equals(dati[3]) && login.getHash().equals(dati[4])){
+				idUtente = Long.parseLong(dati[0]);
+				utente = Utente.getUtente(idUtente);
+				break;
+			}
 		}	
 		brd.close();
 		frd.close();
-		}catch(Exception e){
+		}catch(UtenteNonEsistenteException eUtente){
+			System.out.println("L'utente non esiste");
+		}catch(IOException eFile){
+			System.out.println("Il file non è disponibile");
+		}
+		catch(Exception e){
 			System.out.println("Un valore inserito non è nel formato valido");
 		}
-		return accesso;
+		return utente;
 	}
 
-	/** Restituisce il ruolo associato all'utente autenticato.
- * @param <login> oggetto contenente le credenziali dell'utente
- * @param <accesso> esito dell'autenticazione
- * @return il ruolo dell'utente
- * @throws <IOException> se si verifica un errore durante la lettura del file
- */
-	public static String ruolo(Login login, boolean accesso) throws IOException{
-		FileReader frd = new FileReader("data/utenti.csv");
-		BufferedReader brd = new BufferedReader(frd);
-		String ruolo = "non specificato";
-		String persona;
-		try{
-		while((persona= brd.readLine()) != null){
-			String[] dati = persona.split(",");
-			if(login.getUsername().equals(dati[3]) && login.getPassword().equals(dati[4])){
-				if(dati[7].equals("Cliente"))
-					ruolo = "Cliente";
-				else if(dati[7].equals("Bigliettaio"))
-					ruolo = "Bigliettaio";
-				else
-					ruolo = "Proiezionista";
-			}
-		}
-		brd.close();
-		frd.close();
-		}catch(Exception e){
-			System.out.println("ruolo inserito in fase di registrazione diverso da  \" Cliente \" , \" Bigliettaio \", \"Proiezionista \" ");
-		}
-		return ruolo;
-	}
+
 
 	/** Restituisce l'identificativo univoco dell'utente autenticato.
  * Il metodo ricerca l'utente nel file CSV e ne restituisce l'ID.
