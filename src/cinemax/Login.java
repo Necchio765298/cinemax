@@ -24,7 +24,7 @@ public class Login{
  * @param <username> nome utente
  * @param <password> password dell'utente
  */
-	public Login(String username, String password){
+	public Login(String username, String password) throws IOException{
 		this.username = username;
 		this.password = password;
 		this.hash = Utente.passwordHash(password);
@@ -47,7 +47,7 @@ public class Login{
 		return password;
 	}
 	
-	private String getHash(){
+	public String getHash(){
 		return hash;
 	}
 
@@ -67,23 +67,23 @@ public class Login{
 		
 		while((persona = brd.readLine()) != null){
 			String[] dati = persona.split(",");
-			if(login.getUsername().equals(dati[3]) && login.getHash().equals(dati[4])){
+			if(login.getUsername().equals(dati[3].trim()) && login.getHash().equalsIgnoreCase(dati[4].trim())){
 				idUtente = Long.parseLong(dati[0]);
 				utente = Utente.getUtente(idUtente);
-				break;
+				return utente;
 			}
-		}	
+		}
 		brd.close();
 		frd.close();
 		}catch(UtenteNonEsistenteException eUtente){
-			System.out.println("L'utente non esiste");
+			System.out.println("L'utente non esiste" + eUtente.getMessage());
 		}catch(IOException eFile){
 			System.out.println("Il file non è disponibile");
 		}
 		catch(Exception e){
 			System.out.println("Un valore inserito non è nel formato valido");
 		}
-		return utente;
+		return null;
 	}
 
 

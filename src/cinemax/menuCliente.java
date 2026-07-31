@@ -61,9 +61,9 @@ public class menuCliente{
 		try{
 			Console cons = System.console();
 			String id = cons.readLine("inserire il proprio codice identificativo");
-			long identificativo =(long) Double.parseDouble(id);
+			long identificativo =Long.parseLong(id);
 			Utente u = Utente.getUtente(identificativo);
-			System.out.println("Utente: "+ u.toString());
+			System.out.println("Utente: "+ u.toStringEsistente());
 			Proiezione p = Proiezione.getProiezione(orario);
 			System.out.println("Proiezione: " + p.toString());
 			String biglietti = cons.readLine("Inserire il numero dei biglietti da acquistare: ");

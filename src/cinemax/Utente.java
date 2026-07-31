@@ -9,10 +9,8 @@ import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import javax.crypto.spec.PBEKeySpec;
-import java.security.SecureRandom;
-import java.security.spec.KeySpec;
-import javax.crypto.SecretKeyFactory;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.nio.charset.StandardCharsets;
 
 /** Rappresenta un utente registrato all'interno dell'applicazione
@@ -50,7 +48,7 @@ private String ruolo;
  * @param <domicilio> domicilio dell'utente
  * @param <ruolo> ruolo dell'utente
  */
-    public Utente(String nome, String cognome, String username, String password, LocalDate dataNascita, String domicilio, String ruolo){
+    public Utente(String nome, String cognome, String username, String password, LocalDate dataNascita, String domicilio, String ruolo) throws IOException{
         Random gen= new Random();
 		this.ID= Math.abs(gen.nextLong());
 		System.out.println("Il tuo ID è: " + ID);
@@ -63,12 +61,12 @@ private String ruolo;
         this.ruolo=ruolo;
     }
 	
-	public Utente(long idEsistente, String nome, String cognome, String username, String password, LocalDate dataNascita, String domicilio, String ruolo){
+	public Utente(long idEsistente, String nome, String cognome, String username, String password, LocalDate dataNascita, String domicilio, String ruolo) throws IOException{
 		this.idEsistente = idEsistente;
 		this.nome=nome;
         this.cognome = cognome;
         this.username = username;
-        this.password=password;
+        this.password=Utente.passwordHash(password);
         this.dataNascita=dataNascita;
         this.domicilio=domicilio;
         this.ruolo=ruolo;
@@ -89,7 +87,7 @@ private String ruolo;
 		String riga;
 		while ((riga = brd.readLine()) != null) {
 			String[] dati = riga.split(",");
-			if(((long)Double.parseDouble(dati[0]))==id){
+			if((Long.parseLong(dati[0]))==id){
 				return new Utente(id, dati[1], dati[2], dati[3], dati[4], LocalDate.parse(dati[5], DateTimeFormatter.ofPattern("yyyy-MM-dd")), dati[6], dati[7]);
 			}
 		}
@@ -103,6 +101,7 @@ private String ruolo;
 		try{
 			FileWriter fwt = new FileWriter("data/utenti.csv", true);
 			BufferedWriter bwt = new BufferedWriter(fwt);
+			
 			bwt.write(utente.toString());
 			bwt.newLine();
 			bwt.close();
@@ -174,18 +173,38 @@ private String ruolo;
 	/** Restituisce una rappresentazione testuale dell'oggetto Utente, utilizzata per la visualizzazione delle informazioni e per la memorizzazione dei dati nel file csv.
  * @return una stringa contenente i dati dell'utente
  */
-    @Override
     public String toString(){
-		return idEsistente + "," +nome + ","+ cognome + ","+ username+"," + password +"," + dataNascita +"," +domicilio +"," +ruolo;
+		return ID + "," +nome + ","+ cognome + ","+ username+"," + password +"," + dataNascita +"," +domicilio +"," +ruolo;
     }
 	
-	public static String passwordHash(String password) throws IOException{
-		SecureRandom random = new SecureRandom();
-		byte[] salt = new byte[16];
-		random.nextBytes(salt);
-		KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
-		SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-		byte[] hash = factory.generateSecret(spec).getEncoded();
-		return new String(hash, StandardCharsets.UTF_8);
+	public String toStringEsistente(){
+		return ID + "," +nome + ","+ cognome + ","+ username+"," + password +"," + dataNascita +"," +domicilio +"," +ruolo;
 	}
+	
+	
+	public static String passwordHash(String password) throws IOException{
+		try {
+            // Usa lo standard SHA-256 (molto più sicuro del vecchio MD5 o SHA-1)
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            
+            // Calcola l'hash in formato byte array
+            byte[] hashBytes = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            
+            // Converte il byte array in una stringa Esadecimale (HEX) pulita
+            StringBuilder hexString = new StringBuilder();
+            for(byte b : hashBytes){
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1)
+					hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString(); // Ritorna una stringa di 64 caratteri
+            
+        } catch (Exception e) {
+            System.out.println("Algoritmo di hashing non trovato" + e.getMessage());
+        }
+		return null;
+	}
+	
+	
 }
