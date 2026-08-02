@@ -72,7 +72,7 @@ public class cineMax {
 												System.out.println("A che data e ora prenotare?");
 												String DataOra = cons.readLine("Data e ora della proiezione da prenotare nel formato AAAA-MM-GGTHH-MM-SS ");
 												LocalDateTime dataOra = LocalDateTime.parse(DataOra);
-												menuCliente.creaPrenotazione(dataOra);
+												menuCliente.creaPrenotazione(dataOra,u);
 											
 											}else if(alternativa == 2){
 												//visualizza le prenotazioni
@@ -88,7 +88,7 @@ public class cineMax {
 												String nuova = cons.readLine("Data e ora della proiezione da prenotare nel formato AAAA-MM-GGTHH-MM-SS ");
 												LocalDateTime dataNuova = LocalDateTime.parse(nuova);
 												String codice = cons.readLine("Inserire il codice della prenotazione: ");
-												menuCliente.modificaPrenotazione(dataVecchia, dataNuova, codice);
+												menuCliente.modificaPrenotazione(dataVecchia, dataNuova, codice, u);
 												
 											}else if(alternativa == 4){
 												//elimina una prenotazione

@@ -57,12 +57,9 @@ public class menuCliente{
  * @return la prenotazione creata
  * @throws <IOExceptio> se si verifica un errore durante la gestione del file
  */
-	public static Prenotazione creaPrenotazione(LocalDateTime orario) throws IOException{
+	public static Prenotazione creaPrenotazione(LocalDateTime orario, Utente u) throws IOException{
 		try{
 			Console cons = System.console();
-			String id = cons.readLine("inserire il proprio codice identificativo");
-			long identificativo =Long.parseLong(id);
-			Utente u = Utente.getUtente(identificativo);
 			System.out.println("Utente: "+ u.toStringEsistente());
 			Proiezione p = Proiezione.getProiezione(orario);
 			System.out.println("Proiezione: " + p.toString());
@@ -89,7 +86,7 @@ public class menuCliente{
  * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
  */
 	
-	public static void modificaPrenotazione(LocalDateTime dataVecchia, LocalDateTime dataNuova, String codice) throws IOException{	
+	public static void modificaPrenotazione(LocalDateTime dataVecchia, LocalDateTime dataNuova, String codice, Utente u) throws IOException{	
 		try{
 			if((dataVecchia.isAfter(LocalDateTime.now())) &&  (dataNuova.isAfter(LocalDateTime.now()))){
 				File file = new File("../data");
@@ -102,7 +99,7 @@ public class menuCliente{
 					BufferedReader brd = new BufferedReader(frd);
 				try{	
 					Prenotazione preVecchia = menuBigliettaio.cercaPrenotazione(codice);
-					Prenotazione preNuova = menuCliente.creaPrenotazione(dataNuova);
+					Prenotazione preNuova = menuCliente.creaPrenotazione(dataNuova, u);
 					String linea;
 					while((linea = brd.readLine())!= null){
 						if(!(preVecchia.toString()).equals(linea)){

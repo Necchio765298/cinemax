@@ -178,7 +178,7 @@ private String ruolo;
     }
 	
 	public String toStringEsistente(){
-		return ID + "," +nome + ","+ cognome + ","+ username+"," + password +"," + dataNascita +"," +domicilio +"," +ruolo;
+		return idEsistente + "," +nome + ","+ cognome + ","+ username+"," + password +"," + dataNascita +"," +domicilio +"," +ruolo;
 	}
 	
 	
