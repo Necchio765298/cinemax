@@ -42,7 +42,7 @@ public class menuCliente{
  */
 	public static void visualizzaPrenotazione(long id) throws IOException{
 		try{
-			Prenotazione p = menuBigliettaio.cercaPrenotazione(id);
+			Prenotazione p = menuBigliettaio.cercaPrenotazione(null, id, "", "", "", 0, "");
 			String prenotazione = p.toString();
 			
 			System.out.println("Prenotazione trovata: "+ prenotazione);
@@ -98,7 +98,7 @@ public class menuCliente{
 					FileReader frd = new FileReader("../data/prenotazioni.csv");
 					BufferedReader brd = new BufferedReader(frd);
 				try{	
-					Prenotazione preVecchia = menuBigliettaio.cercaPrenotazione(codice);
+					Prenotazione preVecchia = menuBigliettaio.cercaPrenotazione(null, 0, "", "", "", 0, codice);
 					Prenotazione preNuova = menuCliente.creaPrenotazione(dataNuova, u);
 					String linea;
 					while((linea = brd.readLine())!= null){
@@ -144,7 +144,7 @@ public class menuCliente{
 				FileReader frd = new FileReader("../data/prenotazioni.csv");
 				BufferedReader brd = new BufferedReader(frd);
 			try{	
-				Prenotazione preDelete = menuBigliettaio.cercaPrenotazione(codice);
+				Prenotazione preDelete = menuBigliettaio.cercaPrenotazione(null, 0, "", "", "", 0, codice);
 				String linea;
 				while((linea = brd.readLine())!= null){
 					if(!(preDelete.toString()).equals(linea)){

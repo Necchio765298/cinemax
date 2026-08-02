@@ -90,7 +90,7 @@ public menuProiezionista() {
  */
 	public static void modificaProiezione(LocalDateTime orario) throws IOException{	
 		try{
-		if(menuBigliettaio.cercaPrenotazione(orario) == null){
+		if(menuBigliettaio.cercaPrenotazione(orario, 0, "", "", "", 0, "") == null){
 			File file = new File("data");
 			File temp = File.createTempFile("pro", ".csv", file);
 			File vecchio = new File("data/proiezioni.csv");
@@ -134,7 +134,7 @@ public menuProiezionista() {
 	 //elimina con gli stream
 	public static void eliminaProiezione(LocalDateTime orario) throws IOException {
 		try{
-		if(menuBigliettaio.cercaPrenotazione(orario) == null){
+		if(menuBigliettaio.cercaPrenotazione(orario, 0, "", "", "", 0, "") == null){
 			File file = new File("data");
 			File temp = File.createTempFile("pro", ".csv", file);
 			File vecchio = new File("data/proiezioni.csv");

@@ -175,7 +175,7 @@ public class Proiezione {
  * @return la data e l'ora della proiezione
  */
     public LocalDateTime getDataOra(){
-        return dataOra;
+		return dataOra;
     }
 
 	/** Restituisce il prezzo del biglietto della proiezione.
@@ -242,7 +242,7 @@ public class Proiezione {
  * @return una stringa contenente i dati della proiezione
  */
     public String toString(){
-        return dataOra+ ","+ titolo + "," + genere + "," + regista + "," + anno+ "," + durataMinuti+ "," + etaMinima+ "," +prezzoBiglietto;
+        return dataOra.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+ ","+ titolo + "," + genere + "," + regista + "," + anno+ "," + durataMinuti+ "," + etaMinima+ "," +prezzoBiglietto;
     }
 
 	/** Confronta l'oggetto corrente con un altro oggetto per verificarne l'uguaglianza.

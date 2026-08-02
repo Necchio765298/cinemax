@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 /** Rappresenta una prenotazione effettuata da un utente per una determinata proiezione cinematografica
@@ -119,7 +120,7 @@ public class Prenotazione {
 	* @return una stringa contenente i dati della prenotazione
 	*/
     public String toString(){
-        return proiezione.getDataOra() +"," + utente.getID() + "," +utente.getNome() +"," + utente.getCognome() +"," + proiezione.getTitolo() +"," +  numeroBiglietto + ","+ codice;
+        return proiezione.getDataOra().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) +"," + utente.getID() + "," +utente.getNome() +"," + utente.getCognome() +"," + proiezione.getTitolo() +"," +  numeroBiglietto + ","+ codice;
     }
 
 	/** Confronta l'oggetto corrente con un altro oggetto per verificarne l'uguaglianza.

@@ -70,14 +70,15 @@ public class cineMax {
 												//crea nuova prenotazione
 												System.out.println(" ");
 												System.out.println("A che data e ora prenotare?");
-												String DataOra = cons.readLine("Data e ora della proiezione da prenotare nel formato AAAA-MM-GGTHH-MM-SS ");
-												LocalDateTime dataOra = LocalDateTime.parse(DataOra);
+												String DataOra = cons.readLine("Data e ora della proiezione da prenotare nel formato AAAA-MM-GG HH-MM-SS ");
+												LocalDateTime dataOra = LocalDateTime.parse(DataOra, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 												menuCliente.creaPrenotazione(dataOra,u);
 											
 											}else if(alternativa == 2){
 												//visualizza le prenotazioni
 												System.out.println("Elenco delle proprie prenotazioni: ");
-												menuCliente.visualizzaPrenotazione(u.getID());
+												long ident = u.getID();
+												menuCliente.visualizzaPrenotazione(ident);
 												
 											}else if(alternativa == 3){
 												//modifica una prenotazione
@@ -113,32 +114,58 @@ public class cineMax {
 													//cerca una prenotazione
 													System.out.println(" ");
 													System.out.println("come cercare la prenotazione?");
-													System.out.println("1. codice prenotazione");
-													System.out.println("2. nome e cognome cliente");
-													System.out.println("3. titolo film");
-													System.out.println("4. intervallo date");
+													System.out.println("1. data e ora");
+													System.out.println("2. ID utente");
+													System.out.println("3. nome cliente");
+													System.out.println("4. cognome cliente");
+													System.out.println("5. titolo film");
+													System.out.println("6. numero biglietti prenotati");
+													System.out.println("7. codice prenotazione");
 													
+													System.out.println("8. intervallo date");
 													String ricerca = cons.readLine("Scelta: ");
 
 													switch(ricerca) {
 														case "1":
 															System.out.println(" ");
-															String codice = cons.readLine("Codice: ");
-															menuBigliettaio.cercaPrenotazione(codice);
+															String data = cons.readLine("Data e ora nel formato AAAA-MM-GGTHH-MM-SS: ");
+															LocalDateTime dataOra = LocalDateTime.parse(data, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+															menuBigliettaio.cercaPrenotazione(dataOra, 0, "", "", "", 0, "");
 															break;
 														case "2":
 															System.out.println(" ");
-															String nome = cons.readLine("Nome: ");
-															String cognome = cons.readLine("Cognome: ");
-															String user = nome + "," + cognome;
-															menuBigliettaio.cercaPrenotazione(user);
+															String id = cons.readLine("id utente: ");
+															long ID = Long.parseLong(id);
+															menuBigliettaio.cercaPrenotazione(null, ID, "", "", "", 0, "");
 															break;
 														case "3":
 															System.out.println(" ");
-															String titolo = cons.readLine("Titolo: ");
-															menuBigliettaio.cercaPrenotazione(titolo);
-															break;
+															String nome = cons.readLine("Nome: ");
+															menuBigliettaio.cercaPrenotazione(null, 0, nome, "", "", 0, "");
+															break;	
 														case "4":
+															System.out.println(" ");
+															String cognome = cons.readLine("Cognome: ");
+															menuBigliettaio.cercaPrenotazione(null, 0, "", cognome, "", 0, "");
+															break;		
+														case "5":
+															System.out.println(" ");
+															String titolo = cons.readLine("Titolo: ");
+															menuBigliettaio.cercaPrenotazione(null, 0, "", "", titolo, 0, "");
+															break;
+														case "6":
+															System.out.println(" ");
+															String Biglietti = cons.readLine("numero biglietti: ");
+															int biglietti =Integer.parseInt(Biglietti);
+															menuBigliettaio.cercaPrenotazione(null, 0, "", "", "", biglietti, "");
+															break;
+														case "7":
+															System.out.println(" ");
+															String codice = cons.readLine("Codice: ");
+															menuBigliettaio.cercaPrenotazione(null, 0, "", "", "", 0, codice);
+															break;
+														
+														case "8":
 															System.out.println(" ");
 															String Inizio = cons.readLine("data di inizio nel formato aaaa-mm-ggThh:mm:ss ");
 															LocalDateTime inizio = LocalDateTime.parse(Inizio);
@@ -228,54 +255,54 @@ public class cineMax {
 								System.out.println(" ");
 								String dataora = cons.readLine("data_ora_proiezione nel formato aaaa-mm-gg hh:mm:ss ");
 								LocalDateTime DataOra= LocalDateTime.parse(dataora, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-								p = Proiezione.cercaProiezione(DataOra, null,null,null,0,0,0,0);
-								//p.visualizzaProiezione();
+								p = Proiezione.cercaProiezione(DataOra, " "," "," ",0,0,0,0);
+								System.out.println("Proiezione trovata: "+ p.toString());
 								break;
 							case "2":
 								System.out.println(" ");
 								String titolo = cons.readLine("titolo: ");
-								p = Proiezione.cercaProiezione(null, titolo, null, null,0,0,0,0);
+								p = Proiezione.cercaProiezione(null, titolo, " ", " ",0,0,0,0);
 								System.out.println("Proiezione trovata: "+ p.toString());
 								break;
 							case "3":
 								System.out.println(" ");
 								String genere = cons.readLine("Genere: ");
-								p = Proiezione.cercaProiezione(null, null, genere, null,0,0,0,0);
-								//p.visualizzaProiezione();
+								p = Proiezione.cercaProiezione(null, " ", genere, " ",0,0,0,0);
+								System.out.println("Proiezione trovata: "+ p.toString());
 								break;
 							case "4":
 								System.out.println(" ");
 								String regista = cons.readLine("Regista: ");
-								p = Proiezione.cercaProiezione(null, null, null, regista, 0,0,0,0);
-								//p.visualizzaProiezione();
+								p = Proiezione.cercaProiezione(null, " ", " ", regista, 0,0,0,0);
+								System.out.println("Proiezione trovata: "+ p.toString());
 								break;
 							case "5":
 								System.out.println(" ");
 								String anno = cons.readLine("Anno: ");
 								int Anno =Integer.parseInt(anno);
-								Proiezione.cercaProiezione(null,null,null,null, Anno, 0,0,0);
-								//p.visualizzaProiezione();
+								Proiezione.cercaProiezione(null," "," "," ", Anno, 0,0,0);
+								System.out.println("Proiezione trovata: "+ p.toString());
 								break;
 							case "6":
 								System.out.println(" ");
 								String minuti = cons.readLine("Durata minuti: ");
 								int Minuti =Integer.parseInt(minuti);
-								p = Proiezione.cercaProiezione(null,null,null,null,0, Minuti, 0,0);
-								//p.visualizzaProiezione();
+								p = Proiezione.cercaProiezione(null," "," "," ",0, Minuti, 0,0);
+								System.out.println("Proiezione trovata: "+ p.toString());
 								break;
 							case "7":
 								System.out.println(" ");
 								String eta = cons.readLine("Età minima: ");
 								int Eta=Integer.parseInt(eta);
-								p = Proiezione.cercaProiezione(null,null,null,null,0, 0, Eta,0);
-								//p.visualizzaProiezione();
+								p = Proiezione.cercaProiezione(null," "," "," ",0, 0, Eta,0);
+								System.out.println("Proiezione trovata: "+ p.toString());
 								break;
 							case "8":
 								System.out.println(" ");
 								String prezzo =cons.readLine("Prezzo biglietto: ");
 								Double Prezzo=Double.parseDouble(prezzo);
-								p = Proiezione.cercaProiezione(null,null,null,null,0,0,0,Prezzo);
-								//p.visualizzaProiezione();
+								p = Proiezione.cercaProiezione(null," "," "," ",0,0,0,Prezzo);
+								System.out.println("Proiezione trovata: "+ p.toString());
 								break;
 							case "9":
 								System.out.println(" ");
@@ -284,7 +311,7 @@ public class cineMax {
 								String Fine = cons.readLine("data di fine nel formato aaaa-mm-gg: ");
 								LocalDate fine = LocalDate.parse(Fine);
 								p = Proiezione.cercaProiezione(inizio, fine);
-								//p.visualizzaProiezione();
+								System.out.println("Proiezione trovata: "+ p.toString());
 								break;
 						}
 						break;
