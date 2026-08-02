@@ -41,7 +41,7 @@ import java.time.LocalDateTime;
 	public static Prenotazione cercaPrenotazione(Object arg) throws IOException{
 		FileReader frd = new FileReader("data/prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
-		String prenotazione = " ";
+		String prenotazione = null;
 		try{
 			Prenotazione pre = null;	
 			while((prenotazione = brd.readLine()) != null){
@@ -50,15 +50,16 @@ import java.time.LocalDateTime;
 					Proiezione p = Proiezione.getProiezione(LocalDateTime.parse(dati[0]));
 					Utente u = Utente.getUtente((long) Integer.parseInt(dati[1]));
 					pre = new Prenotazione(u, p, Integer.parseInt(dati[5]));
+					return pre;
 				}
 			}
 			brd.close();
 			frd.close();
-			return pre;
+			
 		}catch(Exception e){
-			System.out.println("Dato inserito non valido");
-			return null;
+			System.out.println("Dato inserito non valido" + e.getMessage());	
 		}
+		return null;
 	}
 
 /** Ricerca le prenotazioni comprese in un determinato intervallo di date e orari.
