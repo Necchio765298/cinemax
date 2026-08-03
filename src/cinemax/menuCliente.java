@@ -66,7 +66,8 @@ public class menuCliente{
 			String biglietti = cons.readLine("Inserire il numero dei biglietti da acquistare: ");
 			int numeroBiglietto = Integer.parseInt(biglietti);
 			Prenotazione prenotazione =  new Prenotazione(u, p, numeroBiglietto);
-			if(numeroBiglietto < 200-Prenotazione.getTotaleBiglietti(prenotazione)){	
+			System.out.println("Prenotazione: "+prenotazione.toString());
+			if(numeroBiglietto < 200-Prenotazione.getTotaleBiglietti(prenotazione, orario)){	
 				Prenotazione.registraPrenotazione(prenotazione);
 				System.out.println("Il codice della prenotazione è "+ prenotazione.getCodice());
 				return prenotazione;

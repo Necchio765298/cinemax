@@ -102,14 +102,14 @@ public class Prenotazione {
 	*@param pre è la prenotazione di cui si vuole calcolare il numero di posti prenotati.
 	*@return biglietti
 	*/
-	public static int getTotaleBiglietti(Prenotazione pre) throws IOException{
+	public static int getTotaleBiglietti(Prenotazione pre, LocalDateTime orario) throws ProiezioneNonEsistenteException, IOException{
 		int biglietti = 0;
 		FileReader frd = new FileReader("data/prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String riga;
 		while((riga =brd.readLine()) != null){
 			String[] dati = riga.split(",");
-			if(LocalDateTime.parse(dati[0]) == pre.getProiezione().getDataOra()){
+			if(LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).equals(Proiezione.getProiezione(orario).getDataOra())){
 				biglietti = biglietti + Integer.parseInt(dati[5]);
 			}
 		}
