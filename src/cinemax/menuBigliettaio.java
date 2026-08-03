@@ -47,14 +47,17 @@ import java.time.format.DateTimeFormatter;
 			String prenotazione = null;	
 			while((prenotazione = brd.readLine()) != null){
 				String[] dati = prenotazione.split(",");
-				if((LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).equals(data))
+				if((LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).equals(data.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))))
 					|| (Long.parseLong(dati[1])==id)
 					|| (dati[2].toLowerCase().equals(nome.toLowerCase()))
 					|| (dati[3].toLowerCase().equals(cognome.toLowerCase()))
 					|| (dati[4].toLowerCase().equals(titolo.toLowerCase()))
 					|| (Integer.parseInt(dati[5])==biglietti)
 					|| (dati[6].toUpperCase().equals(codice.toUpperCase()))){
-						
+					
+					System.out.println(data.toString()+" "+id+" "+nome+" "+cognome+" "
+					+" "+titolo+" "+biglietti+" "+codice);
+					
 					System.out.println("criterio trovato");
 					Proiezione p = Proiezione.getProiezione(LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 					p.toString();

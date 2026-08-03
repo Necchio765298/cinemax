@@ -124,11 +124,12 @@ public class cineMax {
 													
 													System.out.println("8. intervallo date");
 													String ricerca = cons.readLine("Scelta: ");
+													LocalDateTime dataFinta = LocalDateTime.parse("2000-01-01 10:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
 													switch(ricerca) {
 														case "1":
 															System.out.println(" ");
-															String data = cons.readLine("Data e ora nel formato AAAA-MM-GGTHH-MM-SS: ");
+															String data = cons.readLine("Data e ora nel formato AAAA-MM-GG HH-MM-SS: ");
 															LocalDateTime dataOra = LocalDateTime.parse(data, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 															menuBigliettaio.cercaPrenotazione(dataOra, 0, "", "", "", 0, "");
 															break;
@@ -136,33 +137,33 @@ public class cineMax {
 															System.out.println(" ");
 															String id = cons.readLine("id utente: ");
 															long ID = Long.parseLong(id);
-															menuBigliettaio.cercaPrenotazione(null, ID, "", "", "", 0, "");
+															menuBigliettaio.cercaPrenotazione(dataFinta, ID, "", "", "", 0, "");
 															break;
 														case "3":
 															System.out.println(" ");
 															String nome = cons.readLine("Nome: ");
-															menuBigliettaio.cercaPrenotazione(null, 0, nome, "", "", 0, "");
+															menuBigliettaio.cercaPrenotazione(dataFinta, 0, nome, "", "", 0, "");
 															break;	
 														case "4":
 															System.out.println(" ");
 															String cognome = cons.readLine("Cognome: ");
-															menuBigliettaio.cercaPrenotazione(null, 0, "", cognome, "", 0, "");
+															menuBigliettaio.cercaPrenotazione(dataFinta, 0, "", cognome, "", 0, "");
 															break;		
 														case "5":
 															System.out.println(" ");
 															String titolo = cons.readLine("Titolo: ");
-															menuBigliettaio.cercaPrenotazione(null, 0, "", "", titolo, 0, "");
+															menuBigliettaio.cercaPrenotazione(dataFinta, 0, "", "", titolo, 0, "");
 															break;
 														case "6":
 															System.out.println(" ");
 															String Biglietti = cons.readLine("numero biglietti: ");
 															int biglietti =Integer.parseInt(Biglietti);
-															menuBigliettaio.cercaPrenotazione(null, 0, "", "", "", biglietti, "");
+															menuBigliettaio.cercaPrenotazione(dataFinta, 0, "", "", "", biglietti, "");
 															break;
 														case "7":
 															System.out.println(" ");
 															String codice = cons.readLine("Codice: ");
-															menuBigliettaio.cercaPrenotazione(null, 0, "", "", "", 0, codice);
+															menuBigliettaio.cercaPrenotazione(dataFinta, 0, "", "", "", 0, codice);
 															break;
 														
 														case "8":
