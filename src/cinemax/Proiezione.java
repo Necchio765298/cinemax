@@ -96,7 +96,7 @@ public class Proiezione {
 			String riga;
 			while((riga = brd.readLine()) != null){
 				String[] dati = riga.split(","); 
-				if(((LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).isEqual(data)))
+				if(((LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).isEqual(data))
 					|| (dati[1].replace("\"", "").trim().toLowerCase().equals(titolo.toLowerCase()))
 					|| (dati[2].trim().toLowerCase().equals(genere.toLowerCase()))
 					|| (dati[3].replace("\"", "").trim().toLowerCase().equals(regista.toLowerCase()))
@@ -104,7 +104,9 @@ public class Proiezione {
 					|| (Integer.parseInt(dati[5].trim())==durata)
 					|| (Integer.parseInt(dati[6].trim())==eta)
 					|| (Double.parseDouble(dati[7].replace("\"", "").trim())==prezzo)){
-					
+						
+					p =Proiezione.getProiezione(LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+					/*
 					p = new Proiezione(LocalDateTime.parse(dati[0].replace("\"", "").trim(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), 
 						dati[1].replace("\"", "").trim(),
 						dati[2].trim(),
@@ -113,16 +115,18 @@ public class Proiezione {
 						Integer.parseInt(dati[5].trim()),
 						Integer.parseInt(dati[6].trim()),
 						Double.parseDouble(dati[7].replace("\"", "").trim()));
-					return p;
+					*/
+					System.out.println(" creata la proiezione");
+					break;
 				}
+				System.out.println(" trovata la proiezione con la data " + LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 			}
-			
 			brd.close();
 			frd.close();
 		}catch(Exception e){
 			System.out.println("Proiezione non trovata" + e.getMessage());
 		}	
-		return null;
+		return p;
 	}
 
 	/** Ricerca le proiezioni comprese in un determinato intervallo di date.

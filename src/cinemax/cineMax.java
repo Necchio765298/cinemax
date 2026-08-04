@@ -250,6 +250,7 @@ public class cineMax {
 						
 						String ricerca = cons.readLine("Scelta: ");
 						Proiezione p= null;
+						LocalDateTime dataFinta = LocalDateTime.parse("2000-01-01 10:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
 						switch(ricerca) {
 							case "1":
@@ -262,47 +263,47 @@ public class cineMax {
 							case "2":
 								System.out.println(" ");
 								String titolo = cons.readLine("titolo: ");
-								p = Proiezione.cercaProiezione(null, titolo, " ", " ",0,0,0,0);
+								p = Proiezione.cercaProiezione(dataFinta, titolo, " ", " ",0,0,0,0);
 								System.out.println("Proiezione trovata: "+ p.toString());
 								break;
 							case "3":
 								System.out.println(" ");
 								String genere = cons.readLine("Genere: ");
-								p = Proiezione.cercaProiezione(null, " ", genere, " ",0,0,0,0);
+								p = Proiezione.cercaProiezione(dataFinta, " ", genere, " ",0,0,0,0);
 								System.out.println("Proiezione trovata: "+ p.toString());
 								break;
 							case "4":
 								System.out.println(" ");
 								String regista = cons.readLine("Regista: ");
-								p = Proiezione.cercaProiezione(null, " ", " ", regista, 0,0,0,0);
+								p = Proiezione.cercaProiezione(dataFinta, " ", " ", regista, 0,0,0,0);
 								System.out.println("Proiezione trovata: "+ p.toString());
 								break;
 							case "5":
 								System.out.println(" ");
 								String anno = cons.readLine("Anno: ");
 								int Anno =Integer.parseInt(anno);
-								Proiezione.cercaProiezione(null," "," "," ", Anno, 0,0,0);
+								Proiezione.cercaProiezione(dataFinta," "," "," ", Anno, 0,0,0);
 								System.out.println("Proiezione trovata: "+ p.toString());
 								break;
 							case "6":
 								System.out.println(" ");
 								String minuti = cons.readLine("Durata minuti: ");
 								int Minuti =Integer.parseInt(minuti);
-								p = Proiezione.cercaProiezione(null," "," "," ",0, Minuti, 0,0);
+								p = Proiezione.cercaProiezione(dataFinta," "," "," ",0, Minuti, 0,0);
 								System.out.println("Proiezione trovata: "+ p.toString());
 								break;
 							case "7":
 								System.out.println(" ");
 								String eta = cons.readLine("Età minima: ");
 								int Eta=Integer.parseInt(eta);
-								p = Proiezione.cercaProiezione(null," "," "," ",0, 0, Eta,0);
+								p = Proiezione.cercaProiezione(dataFinta," "," "," ",0, 0, Eta,0);
 								System.out.println("Proiezione trovata: "+ p.toString());
 								break;
 							case "8":
 								System.out.println(" ");
 								String prezzo =cons.readLine("Prezzo biglietto: ");
 								Double Prezzo=Double.parseDouble(prezzo);
-								p = Proiezione.cercaProiezione(null," "," "," ",0,0,0,Prezzo);
+								p = Proiezione.cercaProiezione(dataFinta," "," "," ",0,0,0,Prezzo);
 								System.out.println("Proiezione trovata: "+ p.toString());
 								break;
 							case "9":

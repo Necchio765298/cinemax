@@ -63,7 +63,7 @@ import java.time.format.DateTimeFormatter;
 					Utente u = Utente.getUtente(Long.parseLong(dati[1]));
 					pre = new Prenotazione(dati[6], u, p, Integer.parseInt(dati[5]));
 					System.out.println("Prenotazione trovata: "+ pre.toStringEsistente());
-					break;
+					return pre;
 				}
 			}
 			brd.close();
@@ -72,7 +72,7 @@ import java.time.format.DateTimeFormatter;
 		}catch(Exception e){
 			System.out.println("Dato inserito non valido" + e.getMessage());	
 		}
-		return pre;
+		return null;
 	}
 
 /** Ricerca le prenotazioni comprese in un determinato intervallo di date e orari.
