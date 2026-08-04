@@ -129,8 +129,8 @@ public class cineMax {
 													switch(ricerca) {
 														case "1":
 															System.out.println(" ");
-															String data = cons.readLine("Data e ora nel formato AAAA-MM-GG HH-MM-SS: ");
-															LocalDateTime dataOra = LocalDateTime.parse(data, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+															String DataOra = cons.readLine("Data e ora della proiezione nel formato AAAA-MM-GG HH-MM-SS ");
+															LocalDateTime dataOra = LocalDateTime.parse(DataOra, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 															menuBigliettaio.cercaPrenotazione(dataOra, 0, "", "", "", 0, "");
 															break;
 														case "2":

@@ -15,6 +15,8 @@ import java.time.format.DateTimeFormatter;
  * @author Gaia Galimberti
  */
 public class Prenotazione {
+	
+	private String codiceEsistente;
     /** Codice identificativo della prenotazione. Identifica univocamente una prenotazione */
     private String codice;
    /** Utente che ha effettuato la prenotazione. */
@@ -32,6 +34,13 @@ public class Prenotazione {
  */
     public Prenotazione(Utente utente , Proiezione proiezione , int numeroBiglietto){
         this.codice = UUID.randomUUID().toString().substring(0,8).toUpperCase();
+        this.utente = utente;
+        this.proiezione=proiezione;
+        this.numeroBiglietto=numeroBiglietto;
+    }
+	
+	public Prenotazione(String codiceEsistente, Utente utente , Proiezione proiezione , int numeroBiglietto){
+        this.codiceEsistente = codiceEsistente;
         this.utente = utente;
         this.proiezione=proiezione;
         this.numeroBiglietto=numeroBiglietto;
@@ -121,6 +130,10 @@ public class Prenotazione {
 	*/
     public String toString(){
         return proiezione.getDataOra().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) +"," + utente.getID() + "," +utente.getNome() +"," + utente.getCognome() +"," + proiezione.getTitolo() +"," +  numeroBiglietto + ","+ codice;
+    }
+	
+	public String toStringEsistente(){
+        return proiezione.getDataOra().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) +"," + utente.getID() + "," +utente.getNome() +"," + utente.getCognome() +"," + proiezione.getTitolo() +"," +  numeroBiglietto + ","+ codiceEsistente;
     }
 
 	/** Confronta l'oggetto corrente con un altro oggetto per verificarne l'uguaglianza.

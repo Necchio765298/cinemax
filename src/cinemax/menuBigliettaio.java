@@ -47,7 +47,7 @@ import java.time.format.DateTimeFormatter;
 			String prenotazione = null;	
 			while((prenotazione = brd.readLine()) != null){
 				String[] dati = prenotazione.split(",");
-				if((LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).equals(data.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))))
+				if(((LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).isEqual(data))
 					|| (Long.parseLong(dati[1])==id)
 					|| (dati[2].toLowerCase().equals(nome.toLowerCase()))
 					|| (dati[3].toLowerCase().equals(cognome.toLowerCase()))
@@ -55,17 +55,14 @@ import java.time.format.DateTimeFormatter;
 					|| (Integer.parseInt(dati[5])==biglietti)
 					|| (dati[6].toUpperCase().equals(codice.toUpperCase()))){
 					
-					System.out.println(data.toString()+" "+id+" "+nome+" "+cognome+" "
-					+" "+titolo+" "+biglietti+" "+codice);
+					System.out.println(dati[0].toString()+" "+dati[1]+" "+dati[2]+" "+dati[3]+" "
+					+" "+dati[4]+" "+dati[5]+" "+dati[6]);
 					
 					System.out.println("criterio trovato");
 					Proiezione p = Proiezione.getProiezione(LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-					p.toString();
 					Utente u = Utente.getUtente(Long.parseLong(dati[1]));
-					u.toString();
-					pre = new Prenotazione(u, p, Integer.parseInt(dati[5]));
-					System.out.println("Prenotazione creata");
-					pre.toString();
+					pre = new Prenotazione(dati[6], u, p, Integer.parseInt(dati[5]));
+					System.out.println("Prenotazione trovata: "+ pre.toStringEsistente());
 					break;
 				}
 			}

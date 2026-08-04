@@ -96,7 +96,7 @@ public class Proiezione {
 			String riga;
 			while((riga = brd.readLine()) != null){
 				String[] dati = riga.split(","); 
-				if((LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).equals(data.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))) 
+				if(((LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).isEqual(data)))
 					|| (dati[1].replace("\"", "").trim().toLowerCase().equals(titolo.toLowerCase()))
 					|| (dati[2].trim().toLowerCase().equals(genere.toLowerCase()))
 					|| (dati[3].replace("\"", "").trim().toLowerCase().equals(regista.toLowerCase()))
