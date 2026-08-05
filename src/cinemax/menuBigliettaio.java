@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /** Gestisce le funzionalità riservate agli utenti con ruolo di bigliettaio 
  * La classe consente la ricerca e la visualizzazione delle prenotazioni effettuate dai clienti
@@ -30,7 +31,10 @@ import java.time.format.DateTimeFormatter;
 /** Visualizza le informazioni relative a una prenotazione.
  * @throws <IOException> se si verifica un errore durante la gestione del file
  */
-	public static void visualizzaPrenotazione(){
+	public static void visualizzaPrenotazione(ArrayList<Prenotazione> memo){
+		System.out.println("Prenotazioni trovate: ");
+		for(Prenotazione pre : memo)
+			System.out.println(pre.toStringEsistente());
 		}
 	
 /** Ricerca una prenotazione in base ai criteri specificati.
@@ -39,8 +43,9 @@ import java.time.format.DateTimeFormatter;
  * @throws <IOException> se si verifica un errore durante la lettura del file
  */
 	
-	public static Prenotazione cercaPrenotazione(LocalDateTime data, long id, String nome, String cognome, String titolo, int biglietti, String codice) throws IOException{
+	public static ArrayList<Prenotazione> cercaPrenotazione(LocalDateTime data, long id, String nome, String cognome, String titolo, int biglietti, String codice) throws IOException{
 		Prenotazione pre = null;
+		ArrayList<Prenotazione> memo = new ArrayList<Prenotazione>();
 		try{
 			FileReader frd = new FileReader("data/prenotazioni.csv");
 			BufferedReader brd = new BufferedReader(frd);
@@ -55,15 +60,12 @@ import java.time.format.DateTimeFormatter;
 					|| (Integer.parseInt(dati[5])==biglietti)
 					|| (dati[6].toUpperCase().equals(codice.toUpperCase()))){
 					
-					System.out.println(dati[0].toString()+" "+dati[1]+" "+dati[2]+" "+dati[3]+" "
-					+" "+dati[4]+" "+dati[5]+" "+dati[6]);
 					
-					System.out.println("criterio trovato");
 					Proiezione p = Proiezione.getProiezione(LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 					Utente u = Utente.getUtente(Long.parseLong(dati[1]));
 					pre = new Prenotazione(dati[6], u, p, Integer.parseInt(dati[5]));
-					System.out.println("Prenotazione trovata: "+ pre.toStringEsistente());
-					return pre;
+					
+					memo.add(pre);
 				}
 			}
 			brd.close();
@@ -72,7 +74,7 @@ import java.time.format.DateTimeFormatter;
 		}catch(Exception e){
 			System.out.println("Dato inserito non valido" + e.getMessage());	
 		}
-		return null;
+		return memo;
 	}
 
 /** Ricerca le prenotazioni comprese in un determinato intervallo di date e orari.
@@ -81,27 +83,29 @@ import java.time.format.DateTimeFormatter;
  * @throws <IOException> se si verifica un errore durante la lettura del file
  */
 	
-	public static Prenotazione cercaPrenotazione(LocalDateTime dataInizio, LocalDateTime dataFine) throws IOException{
+	public static ArrayList<Prenotazione> cercaPrenotazione(LocalDateTime dataInizio, LocalDateTime dataFine) throws IOException{
 		FileReader frd = new FileReader("data/prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String prenotazione = " ";
+		ArrayList<Prenotazione> memo = new ArrayList<Prenotazione>();
 		try{
 			Prenotazione pre = null;
 			while((prenotazione = brd.readLine()) != null) {
 				String[] dati= prenotazione.split(",");
-				if(LocalDateTime.parse(dati[0]).isAfter(dataInizio) && LocalDateTime.parse(dati[0]).isBefore(dataFine)){
+				if(LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).isAfter(dataInizio) && LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).isBefore(dataFine)){
 					Proiezione p = Proiezione.getProiezione(LocalDateTime.parse(dati[0]));
-					Utente u = Utente.getUtente((long) Integer.parseInt(dati[1]));
+					Utente u = Utente.getUtente(Long.parseLong(dati[1]));
 					pre = new Prenotazione(u, p, Integer.parseInt(dati[5]));
+					memo.add(pre);
 				}
 			}
 			brd.close();
 			frd.close();
-			return pre;
+			
 		}catch(Exception e){
 			System.out.println("Data inserita nel formato non corretto");
-			return null;
 		}
+		return memo;
 	}
 
 }

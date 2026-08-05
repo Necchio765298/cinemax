@@ -5,8 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-
-
+import java.util.ArrayList;
 
 /** Classe principale dell'applicazione
  * Contiene il metodo main(), responsabile dell'avvio del programma, della gestione del menu principale e dell'interazione con l'utente
@@ -78,16 +77,18 @@ public class cineMax {
 												//visualizza le prenotazioni
 												System.out.println("Elenco delle proprie prenotazioni: ");
 												long ident = u.getID();
-												menuCliente.visualizzaPrenotazione(ident);
+												LocalDateTime dataFinta = LocalDateTime.parse("2000-01-01 10:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+												ArrayList<Prenotazione> memo = menuBigliettaio.cercaPrenotazione(dataFinta, ident, "", "", "", 0, "");
+												menuCliente.visualizzaPrenotazione(memo);
 												
 											}else if(alternativa == 3){
 												//modifica una prenotazione
 												System.out.println(" ");
 												
-												String vecchia = cons.readLine("Data e ora della proiezione prenotata nel formato AAAA-MM-GGTHH-MM-SS ");
-												LocalDateTime dataVecchia = LocalDateTime.parse(vecchia);
-												String nuova = cons.readLine("Data e ora della proiezione da prenotare nel formato AAAA-MM-GGTHH-MM-SS ");
-												LocalDateTime dataNuova = LocalDateTime.parse(nuova);
+												String vecchia = cons.readLine("Data e ora della proiezione prenotata nel formato AAAA-MM-GG HH-MM-SS ");
+												LocalDateTime dataVecchia = LocalDateTime.parse(vecchia, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+												String nuova = cons.readLine("Data e ora della proiezione da prenotare nel formato AAAA-MM-GG HH-MM-SS ");
+												LocalDateTime dataNuova = LocalDateTime.parse(nuova, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 												String codice = cons.readLine("Inserire il codice della prenotazione: ");
 												menuCliente.modificaPrenotazione(dataVecchia, dataNuova, codice, u);
 												
@@ -125,45 +126,53 @@ public class cineMax {
 													System.out.println("8. intervallo date");
 													String ricerca = cons.readLine("Scelta: ");
 													LocalDateTime dataFinta = LocalDateTime.parse("2000-01-01 10:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+													ArrayList<Prenotazione> memo = null;
 
 													switch(ricerca) {
 														case "1":
 															System.out.println(" ");
 															String DataOra = cons.readLine("Data e ora della proiezione nel formato AAAA-MM-GG HH-MM-SS ");
 															LocalDateTime dataOra = LocalDateTime.parse(DataOra, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-															menuBigliettaio.cercaPrenotazione(dataOra, 0, "", "", "", 0, "");
+															memo = menuBigliettaio.cercaPrenotazione(dataOra, 0, "", "", "", 0, "");
+															menuBigliettaio.visualizzaPrenotazione(memo);
 															break;
 														case "2":
 															System.out.println(" ");
 															String id = cons.readLine("id utente: ");
 															long ID = Long.parseLong(id);
-															menuBigliettaio.cercaPrenotazione(dataFinta, ID, "", "", "", 0, "");
+															memo = menuBigliettaio.cercaPrenotazione(dataFinta, ID, "", "", "", 0, "");
+															menuBigliettaio.visualizzaPrenotazione(memo);
 															break;
 														case "3":
 															System.out.println(" ");
 															String nome = cons.readLine("Nome: ");
-															menuBigliettaio.cercaPrenotazione(dataFinta, 0, nome, "", "", 0, "");
+															memo = menuBigliettaio.cercaPrenotazione(dataFinta, 0, nome, "", "", 0, "");
+															menuBigliettaio.visualizzaPrenotazione(memo);
 															break;	
 														case "4":
 															System.out.println(" ");
 															String cognome = cons.readLine("Cognome: ");
-															menuBigliettaio.cercaPrenotazione(dataFinta, 0, "", cognome, "", 0, "");
+															memo = menuBigliettaio.cercaPrenotazione(dataFinta, 0, "", cognome, "", 0, "");
+															menuBigliettaio.visualizzaPrenotazione(memo);
 															break;		
 														case "5":
 															System.out.println(" ");
 															String titolo = cons.readLine("Titolo: ");
-															menuBigliettaio.cercaPrenotazione(dataFinta, 0, "", "", titolo, 0, "");
+															memo = menuBigliettaio.cercaPrenotazione(dataFinta, 0, "", "", titolo, 0, "");
+															menuBigliettaio.visualizzaPrenotazione(memo);
 															break;
 														case "6":
 															System.out.println(" ");
 															String Biglietti = cons.readLine("numero biglietti: ");
 															int biglietti =Integer.parseInt(Biglietti);
-															menuBigliettaio.cercaPrenotazione(dataFinta, 0, "", "", "", biglietti, "");
+															memo = menuBigliettaio.cercaPrenotazione(dataFinta, 0, "", "", "", biglietti, "");
+															menuBigliettaio.visualizzaPrenotazione(memo);
 															break;
 														case "7":
 															System.out.println(" ");
 															String codice = cons.readLine("Codice: ");
-															menuBigliettaio.cercaPrenotazione(dataFinta, 0, "", "", "", 0, codice);
+															memo = menuBigliettaio.cercaPrenotazione(dataFinta, 0, "", "", "", 0, codice);
+															menuBigliettaio.visualizzaPrenotazione(memo);
 															break;
 														
 														case "8":
@@ -172,7 +181,8 @@ public class cineMax {
 															LocalDateTime inizio = LocalDateTime.parse(Inizio);
 															String Fine = cons.readLine("data di fine nel formato aaaa-mm-ggThh:mm:ss ");
 															LocalDateTime fine = LocalDateTime.parse(Fine);
-															menuBigliettaio.cercaPrenotazione(inizio, fine);
+															memo = menuBigliettaio.cercaPrenotazione(inizio, fine);
+															menuBigliettaio.visualizzaPrenotazione(memo);
 															break;
 													}		
 												} 
