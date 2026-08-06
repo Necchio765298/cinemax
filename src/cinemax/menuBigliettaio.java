@@ -93,9 +93,9 @@ import java.util.ArrayList;
 			while((prenotazione = brd.readLine()) != null) {
 				String[] dati= prenotazione.split(",");
 				if(LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).isAfter(dataInizio) && LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).isBefore(dataFine)){
-					Proiezione p = Proiezione.getProiezione(LocalDateTime.parse(dati[0]));
+					Proiezione p = Proiezione.getProiezione(LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 					Utente u = Utente.getUtente(Long.parseLong(dati[1]));
-					pre = new Prenotazione(u, p, Integer.parseInt(dati[5]));
+					pre = new Prenotazione(dati[6], u, p, Integer.parseInt(dati[5]));
 					memo.add(pre);
 				}
 			}
@@ -103,7 +103,7 @@ import java.util.ArrayList;
 			frd.close();
 			
 		}catch(Exception e){
-			System.out.println("Data inserita nel formato non corretto");
+			System.out.println("Data inserita nel formato non corretto" + e.getMessage());
 		}
 		return memo;
 	}

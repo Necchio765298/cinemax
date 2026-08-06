@@ -8,6 +8,8 @@ import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+
 
 /** Rappresenta una proiezione cinematografica programmata dal cinema
  * La classe memorizza il film proiettato, la data e l'ora della proiezione e il prezzo del biglietto
@@ -88,14 +90,16 @@ public class Proiezione {
  * @return le proiezioni trovate
  * @throws <IOException> se si verifica un errore durante la lettura del file
  */
-	public static Proiezione cercaProiezione(LocalDateTime data, String titolo, String genere, String regista, int anno, int durata, int eta, double prezzo){
+	public static ArrayList<Proiezione> cercaProiezione(LocalDateTime data, String titolo, String genere, String regista, int anno, int durata, int eta, double prezzo){
 		Proiezione p= null;
+		ArrayList<Proiezione> memo = new ArrayList<Proiezione>();
 		try{	
 			FileReader frd = new FileReader("data/proiezioni.csv");
 			BufferedReader brd = new BufferedReader(frd);
 			String riga;
 			while((riga = brd.readLine()) != null){
 				String[] dati = riga.split(","); 
+				
 				if(((LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).isEqual(data))
 					|| (dati[1].replace("\"", "").trim().toLowerCase().equals(titolo.toLowerCase()))
 					|| (dati[2].trim().toLowerCase().equals(genere.toLowerCase()))
@@ -106,27 +110,15 @@ public class Proiezione {
 					|| (Double.parseDouble(dati[7].replace("\"", "").trim())==prezzo)){
 						
 					p =Proiezione.getProiezione(LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-					/*
-					p = new Proiezione(LocalDateTime.parse(dati[0].replace("\"", "").trim(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), 
-						dati[1].replace("\"", "").trim(),
-						dati[2].trim(),
-						dati[3].replace("\"", "").trim(),
-						Integer.parseInt(dati[4].trim()),
-						Integer.parseInt(dati[5].trim()),
-						Integer.parseInt(dati[6].trim()),
-						Double.parseDouble(dati[7].replace("\"", "").trim()));
-					*/
-					System.out.println(" creata la proiezione");
-					break;
+					memo.add(p);
 				}
-				System.out.println(" trovata la proiezione con la data " + LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 			}
 			brd.close();
 			frd.close();
 		}catch(Exception e){
 			System.out.println("Proiezione non trovata" + e.getMessage());
 		}	
-		return p;
+		return memo;
 	}
 
 	/** Ricerca le proiezioni comprese in un determinato intervallo di date.
@@ -134,11 +126,11 @@ public class Proiezione {
  * @param <dataFine> data finale dell'intervallo
  * @throws <IOException> se si verifica un errore durante la lettura del file
  */
-	public static Proiezione cercaProiezione(LocalDate dataInizio, LocalDate dataFine) throws IOException{
+	public static ArrayList<Proiezione> cercaProiezione(LocalDate dataInizio, LocalDate dataFine) throws IOException{
 		FileReader frd = new FileReader("data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		String riga;
-		Proiezione trovata = null;
+		ArrayList<Proiezione> memo = new ArrayList<Proiezione>();
 		try{
 			try{
 			while((riga = brd.readLine()) != null) {
@@ -147,8 +139,8 @@ public class Proiezione {
 				DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 				LocalDate data = LocalDateTime.parse(dati[0].replace("\"", "").trim(), formato).toLocalDate();
 					if((dataInizio.isBefore(data)) && (dataFine.isAfter(data))){
-						
-						return trovata.getProiezione(LocalDateTime.parse(dati[0].replace("\"", "").trim(), formato));
+						Proiezione trovata = Proiezione.getProiezione(LocalDateTime.parse(dati[0].replace("\"", "").trim(), formato));
+						memo.add(trovata);
 					}
 				}catch(Exception e){
 							System.out.println("Errore");
@@ -162,15 +154,17 @@ public class Proiezione {
 		}catch(Exception e){
 			System.out.println("Formato della data inserita non corretto");
 		}
-		return trovata;
+		return memo;
 	}
 
 	/** Restituisce una rappresentazione testuale della proiezione.
  * @param <args> criteri utilizzati per individuare la proiezione
  * @return una stringa contenente le informazioni della proiezione
  */
-	public static String visualizzaProiezione(Proiezione p) throws IOException{
-		return p.toString();
+	public static void visualizzaProiezione(ArrayList<Proiezione> memo) throws IOException{
+		System.out.println("Proiezioni trovate: ");
+		for(Proiezione pro : memo)
+			System.out.println(pro.toString());
 	}
 		
 	
