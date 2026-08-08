@@ -90,7 +90,7 @@ public class Proiezione {
  * @return le proiezioni trovate
  * @throws <IOException> se si verifica un errore durante la lettura del file
  */
-	public static ArrayList<Proiezione> cercaProiezione(LocalDateTime data, String titolo, String genere, String regista, int anno, int durata, int eta, double prezzo){
+	public static ArrayList<Proiezione> cercaProiezione(LocalDateTime data, String titolo, String genere, String regista, int anno, int durata, int eta, double prezzo) throws IOException{
 		Proiezione p= null;
 		ArrayList<Proiezione> memo = new ArrayList<Proiezione>();
 		try{	
@@ -132,22 +132,15 @@ public class Proiezione {
 		String riga;
 		ArrayList<Proiezione> memo = new ArrayList<Proiezione>();
 		try{
-			try{
+			
 			while((riga = brd.readLine()) != null) {
 				String[] dati = riga.split(",");
-				try{
 				DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 				LocalDate data = LocalDateTime.parse(dati[0].replace("\"", "").trim(), formato).toLocalDate();
 					if((dataInizio.isBefore(data)) && (dataFine.isAfter(data))){
 						Proiezione trovata = Proiezione.getProiezione(LocalDateTime.parse(dati[0].replace("\"", "").trim(), formato));
 						memo.add(trovata);
 					}
-				}catch(Exception e){
-							System.out.println("Errore");
-				}	
-			}
-			}catch(Exception e){
-					System.out.println("data non valida");
 			}
 			brd.close();
 			frd.close();

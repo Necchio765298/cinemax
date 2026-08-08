@@ -199,9 +199,9 @@ public class cineMax {
 												String Alternativa = cons.readLine("Scelta: ");
 												alternativa = Integer.parseInt(Alternativa);
 
-												if(alternativa == 1){	
-													menuProiezionista.aggiungiProiezione();
-													System.out.println("La proiezione è stata aggiunta");
+												if(alternativa == 1){
+													Proiezione creata = menuProiezionista.creaProiezione();
+													menuProiezionista.aggiungiProiezione(creata);
 												   }
 												else if(alternativa == 2){
 													String DataOra = cons.readLine("Data e ora della proiezione da modificare nel formato AAAA-MM-GGTHH-MM-SS ");

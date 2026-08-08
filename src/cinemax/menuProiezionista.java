@@ -8,6 +8,8 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.Console;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 /** Gestisce le funzionalità riservate agli utenti con ruolo di proiezionista
  * La classe consente l'inserimento, la modifica e l'eliminazione delle proiezioni cinematografiche
@@ -47,11 +49,12 @@ public menuProiezionista() {
 		String EtaMinima = cons.readLine("Età minima: ");
 		int etaMinima = Integer.parseInt(EtaMinima);
 				
-		String DataOra = cons.readLine("Data e ora della proiezione nel formato AAAA-MM-GGTHH-MM-SS ");
-		LocalDateTime dataOra = LocalDateTime.parse(DataOra);
+		String DataOra = cons.readLine("Data e ora della proiezione nel formato AAAA-MM-GG HH-MM-SS ");
+		LocalDateTime dataOra = LocalDateTime.parse(DataOra, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		String PrezzoBiglietto = cons.readLine("Prezzo biglietto: ");
 		double prezzoBiglietto = Double.parseDouble(PrezzoBiglietto);
 		Proiezione p = new Proiezione(dataOra, titolo, genere, regista, anno, durataMinuti, etaMinima, prezzoBiglietto);
+		System.out.println("Proiezione creata: "+ p.toString());
 		return p;
 	}
 	   
@@ -60,27 +63,31 @@ public menuProiezionista() {
  * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
  */
  
-	 //aggiunge una proiezione
-   public static void aggiungiProiezione() throws IOException{	
+	public static void aggiungiProiezione(Proiezione p) throws IOException{	
 		try{
 	    FileWriter fwt = new FileWriter("data/proiezioni.csv", true);
 		BufferedWriter bwt = new BufferedWriter(fwt);
 		FileReader frd = new FileReader("data/proiezioni.csv");
 		BufferedReader brd = new BufferedReader(frd);
 		
-		Proiezione p = menuProiezionista.creaProiezione();
 		String proiezione;
 		while((proiezione = brd.readLine()) != null){
-			if (proiezione.contains(p.toString()))
+			String[] dati = proiezione.split(","); 
+			if((LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).isEqual(p.getDataOra())){
 				System.out.println("la proiezione inserita si accavalla con una già esistente");
+				bwt.close();
+				fwt.close();
+				
+				return;
+			}
 		}
-		bwt.newLine();
 		bwt.write(p.toString());
-		
+		bwt.newLine();
+		System.out.println("La proiezione è stata aggiunta");
 		bwt.close();
 		fwt.close();
 		}catch(Exception e){
-			System.out.println("Un criterio inserito non è nel formato valido");
+			System.out.println("Un criterio inserito non è nel formato valido"+ e.getMessage());
 		}
 	}
 

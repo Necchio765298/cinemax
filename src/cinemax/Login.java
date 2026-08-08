@@ -86,30 +86,4 @@ public class Login{
 		return null;
 	}
 
-
-
-	/** Restituisce l'identificativo univoco dell'utente autenticato.
- * Il metodo ricerca l'utente nel file CSV e ne restituisce l'ID.
- * @param <login> credenziali dell'utente da ricercare
- * @return l'identificativo dell'utente
- * @throws <UtenteNonEsistenteException> se l'utente non è presente nel sistema
- * @throws <IOException> se si verifica un errore durante la lettura del file
- */
-	public static long getIdUtente(Login login) throws IOException{
-		FileReader frd = new FileReader("data/utenti.csv");
-		BufferedReader brd = new BufferedReader(frd);
-		String riga;
-		long identificativo = 0;
-		try{
-			while ((riga = brd.readLine()) != null) {
-				String[] dati = riga.split(",");
-				if(login.getUsername().equals(dati[3]) && login.getPassword().equals(dati[4])){
-					identificativo = (long) Double.parseDouble(dati[0]);
-				}
-			}
-		}catch(IOException e){
-			e.getMessage();
-		}
-		return identificativo;
-	}
 }
