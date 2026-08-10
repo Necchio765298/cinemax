@@ -111,7 +111,7 @@ public class Prenotazione {
 	*@param pre è la prenotazione di cui si vuole calcolare il numero di posti prenotati.
 	*@return biglietti
 	*/
-	public static int getTotaleBiglietti(Prenotazione pre, LocalDateTime orario) throws ProiezioneNonEsistenteException, IOException{
+	public static int getTotaleBiglietti(LocalDateTime orario) throws ProiezioneNonEsistenteException, IOException{
 		int biglietti = 0;
 		FileReader frd = new FileReader("data/prenotazioni.csv");
 		BufferedReader brd = new BufferedReader(frd);

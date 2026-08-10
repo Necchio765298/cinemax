@@ -65,17 +65,20 @@ public class menuCliente{
 			System.out.println("Utente: "+ u.toStringEsistente());
 			Proiezione p = Proiezione.getProiezione(orario);
 			System.out.println("Proiezione: " + p.toString());
+			System.out.println("");
 			String biglietti = cons.readLine("Inserire il numero dei biglietti da acquistare: ");
 			int numeroBiglietto = Integer.parseInt(biglietti);
 			Prenotazione prenotazione =  new Prenotazione(u, p, numeroBiglietto);
 			System.out.println("Prenotazione: "+prenotazione.toString());
-			if(numeroBiglietto < 200-Prenotazione.getTotaleBiglietti(prenotazione, orario)){	
+			System.out.println("");
+			if(numeroBiglietto < 200-Prenotazione.getTotaleBiglietti(orario)){	
 				Prenotazione.registraPrenotazione(prenotazione);
 				System.out.println("Il codice della prenotazione è "+ prenotazione.getCodice());
 				return prenotazione;
 			}else{
 				System.out.print("il numero dei biglietti eccede il numero di posti disponibili");
 			}
+			System.out.println("");
 		}catch(Exception e){
 			System.out.println("Un dato inserito non è valido" + e.getMessage());
 		}
@@ -89,38 +92,36 @@ public class menuCliente{
  * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
  */
 	
-	public static void modificaPrenotazione(LocalDateTime dataVecchia, LocalDateTime dataNuova, String codice, Utente u) throws IOException{	
+	public static void modificaPrenotazione(LocalDateTime dataVecchia, LocalDateTime dataNuova, Utente u) throws IOException{	
 		try{
 			Console cons = System.console();
 			if((dataVecchia.isAfter(LocalDateTime.now())) &&  (dataNuova.isAfter(LocalDateTime.now()))){
-				File file = new File("../data");
+				File file = new File("data");
 				File temp = File.createTempFile("pre", ".csv", file);
-				File vecchio = new File("../data/prenotazioni.csv");
+				File vecchio = new File("data/prenotazioni.csv");
 				
 					FileWriter fwt = new FileWriter(temp, true);
 					BufferedWriter bwt = new BufferedWriter(fwt);
-					FileReader frd = new FileReader("../data/prenotazioni.csv");
+					FileReader frd = new FileReader("data/prenotazioni.csv");
 					BufferedReader brd = new BufferedReader(frd);
 				try{	
-					ArrayList<Prenotazione> preVecchia = menuBigliettaio.cercaPrenotazione(dataVecchia, 0, "", "", "", 0, codice);
-					System.out.println("Digitare il numero relativo alla prenotazione da modificare tra queele ricercate");
-					for(Prenotazione pre : preVecchia){
-						int i=0;
-						System.out.println(i++ +pre.toString());
-					}
-					String Numero = cons.readLine("Scelta numero prenotazione: ");
-					int numero = Integer.parseInt(Numero);
-					Prenotazione preOttenuta= preVecchia.get(numero);
-					System.out.println(" ");
+					ArrayList<Prenotazione> preVecchia = menuBigliettaio.cercaPrenotazione(dataVecchia, 0, "", "", "", 0, "");
 					
-					System.out.println("Inserire ora la nuova Prenotazione da registrare: ");
+					Prenotazione preOttenuta= preVecchia.get(0);
+					System.out.println(" ");
 					Prenotazione preNuova = menuCliente.creaPrenotazione(dataNuova, u);
 					
 					String linea;
 					while((linea = brd.readLine())!= null){
 						
-						if(!(preOttenuta).equals(preNuova)){
-							bwt.write(preOttenuta.toString());
+						String[] dati = linea.split(",");
+						String codice = dati[6];
+						int numBiglietti = Integer.parseInt(dati[5]);
+						Proiezione p = Proiezione.getProiezione(dataVecchia);
+						Prenotazione daLinea = new Prenotazione(codice, u, p, numBiglietti);
+						
+						if(!(preOttenuta).equals(daLinea)){
+							bwt.write(daLinea.toStringEsistente());
 						}else{
 						bwt.write(preNuova.toString());
 						}
