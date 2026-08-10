@@ -100,7 +100,7 @@ public class menuCliente{
 				File temp = File.createTempFile("pre", ".csv", file);
 				File vecchio = new File("data/prenotazioni.csv");
 				
-					FileWriter fwt = new FileWriter(temp, true);
+					FileWriter fwt = new FileWriter(temp);
 					BufferedWriter bwt = new BufferedWriter(fwt);
 					FileReader frd = new FileReader("data/prenotazioni.csv");
 					BufferedReader brd = new BufferedReader(frd);

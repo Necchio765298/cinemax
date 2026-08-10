@@ -101,9 +101,9 @@ public class Proiezione {
 				String[] dati = riga.split(","); 
 				
 				if(((LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).isEqual(data))
-					|| (dati[1].replace("\"", "").trim().toLowerCase().equals(titolo.toLowerCase()))
+					|| (dati[1].replaceAll("\"", "").trim().toLowerCase().equals(titolo.toLowerCase()))
 					|| (dati[2].trim().toLowerCase().equals(genere.toLowerCase()))
-					|| (dati[3].replace("\"", "").trim().toLowerCase().equals(regista.toLowerCase()))
+					|| (dati[3].replaceAll("\"", "").trim().toLowerCase().equals(regista.toLowerCase()))
 					|| (Integer.parseInt(dati[4].trim())==anno)
 					|| (Integer.parseInt(dati[5].trim())==durata)
 					|| (Integer.parseInt(dati[6].trim())==eta)
