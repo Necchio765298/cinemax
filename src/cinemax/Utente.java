@@ -19,8 +19,6 @@ import java.nio.charset.StandardCharsets;
 public class Utente {
 /** Codice identificativo dell'utente */
 private long ID;
-
-private long idEsistente;
 /** Nome dell'utente. */
 private String nome;
 /** Cognome dell'utente. */
@@ -60,7 +58,7 @@ private String ruolo;
     }
 	
 	public Utente(long idEsistente, String nome, String cognome, String username, String password, LocalDate dataNascita, String domicilio, String ruolo) throws IOException{
-		this.idEsistente = idEsistente;
+		this.ID = idEsistente;
 		this.nome=nome;
         this.cognome = cognome;
         this.username = username;
