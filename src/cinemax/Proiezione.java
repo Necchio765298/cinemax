@@ -90,34 +90,58 @@ public class Proiezione {
  * @return le proiezioni trovate
  * @throws <IOException> se si verifica un errore durante la lettura del file
  */
-	public static ArrayList<Proiezione> cercaProiezione(LocalDateTime data, String titolo, String genere, String regista, int anno, int durata, int eta, double prezzo) throws IOException{
+	public static ArrayList<Proiezione> cercaProiezione(LocalDateTime data, String titolo, String genere, String regista, int anno, int durata, int eta, double prezzo) throws ProiezioneNonEsistenteException{
 		Proiezione p= null;
-		ArrayList<Proiezione> memo = new ArrayList<Proiezione>();
+		FileReader frd = null;
+		BufferedReader brd= null;
+		ArrayList<Proiezione> memo= null;
+		String riga;
+		LocalDateTime loc = null;
+		String t = null;
+		String reg = null;
+		String gen = null;
+		Double prez = 0.0;
+		String[] dati=null;
 		try{	
-			FileReader frd = new FileReader("data/proiezioni.csv");
-			BufferedReader brd = new BufferedReader(frd);
-			String riga;
+			frd = new FileReader("data/proiezioni.csv");
+			brd = new BufferedReader(frd);
+			memo = new ArrayList<Proiezione>();
+		}catch(Exception eFile){
+			System.err.println("Errore nell'apertura del file");
+		}
+		try{	
 			while((riga = brd.readLine()) != null){
-				String[] dati = riga.split(","); 
-				
-				if(((LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).isEqual(data))
-					|| (dati[1].replaceAll("\"", "").trim().toLowerCase().equals(titolo.toLowerCase()))
-					|| (dati[2].trim().toLowerCase().equals(genere.toLowerCase()))
-					|| (dati[3].replaceAll("\"", "").trim().toLowerCase().equals(regista.toLowerCase()))
+				dati = riga.split(","); 
+				System.out.println(dati[0]);
+				loc=LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+				t=dati[1].replaceAll("\"", "").trim();
+				gen =dati[2].trim();
+				reg = dati[3].replaceAll("\"", "").trim();
+				prez=Double.parseDouble(dati[7].replace("\"", "").trim());
+				if(loc.isEqual(data)
+					|| (t.toLowerCase().equals(titolo.toLowerCase()))
+					|| (gen.toLowerCase().equals(genere.toLowerCase()))
+					|| (reg.toLowerCase().equals(regista.toLowerCase()))
 					|| (Integer.parseInt(dati[4].trim())==anno)
 					|| (Integer.parseInt(dati[5].trim())==durata)
 					|| (Integer.parseInt(dati[6].trim())==eta)
-					|| (Double.parseDouble(dati[7].replace("\"", "").trim())==prezzo)){
+					|| (prez==prezzo)){
 						
-					p =Proiezione.getProiezione(LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-					memo.add(p);
+						p= new Proiezione(loc, t, gen, reg, Integer.parseInt(dati[4].trim()), Integer.parseInt(dati[5].trim()), Integer.parseInt(dati[6].trim()), prez);
+						memo.add(p);
 				}
 			}
 			brd.close();
 			frd.close();
-		}catch(Exception e){
-			System.out.println("Proiezione non trovata" + e.getMessage());
-		}	
+			if(memo.isEmpty()){
+				throw new ProiezioneNonEsistenteException(true);
+			}
+			
+		}catch(IOException e){
+			System.out.println("Si è verificato un problema nella ricerca" + e.getMessage());
+		}catch(NumberFormatException eFormato){
+			System.out.println("Formato data non valido "+ eFormato.getMessage());
+		}
 		return memo;
 	}
 
@@ -126,11 +150,19 @@ public class Proiezione {
  * @param <dataFine> data finale dell'intervallo
  * @throws <IOException> se si verifica un errore durante la lettura del file
  */
-	public static ArrayList<Proiezione> cercaProiezione(LocalDate dataInizio, LocalDate dataFine) throws IOException{
-		FileReader frd = new FileReader("data/proiezioni.csv");
-		BufferedReader brd = new BufferedReader(frd);
+	public static ArrayList<Proiezione> cercaProiezione(LocalDate dataInizio, LocalDate dataFine) throws ProiezioneNonEsistenteException{
+		Proiezione p= null;
+		FileReader frd = null;
+		BufferedReader brd= null;
+		ArrayList<Proiezione> memo = null;
 		String riga;
-		ArrayList<Proiezione> memo = new ArrayList<Proiezione>();
+		try{
+		frd = new FileReader("data/proiezioni.csv");
+		brd = new BufferedReader(frd);
+		memo = new ArrayList<Proiezione>();
+		}catch(Exception eFile){
+			System.err.println("Errore nell'apertura del file");
+		}
 		try{
 			
 			while((riga = brd.readLine()) != null) {
@@ -144,8 +176,14 @@ public class Proiezione {
 			}
 			brd.close();
 			frd.close();
-		}catch(Exception e){
-			System.out.println("Formato della data inserita non corretto");
+			if(memo.isEmpty()){
+				throw new ProiezioneNonEsistenteException(true);
+			}
+			
+		}catch(IOException e){
+			System.out.println("Si è verificato un problema nella ricerca");
+		}catch(NumberFormatException eFormato){
+			System.out.println("Formato data non valido");
 		}
 		return memo;
 	}

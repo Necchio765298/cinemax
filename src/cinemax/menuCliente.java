@@ -120,7 +120,7 @@ public class menuCliente{
 						Proiezione p = Proiezione.getProiezione(dataVecchia);
 						Prenotazione daLinea = new Prenotazione(codice, u, p, numBiglietti);
 						
-						if(!(preOttenuta).equals(daLinea)){
+						if(!(preOttenuta.getCodice()).equals(daLinea.getCodice())){
 							bwt.write(daLinea.toStringEsistente());
 						}else{
 						bwt.write(preNuova.toString());
