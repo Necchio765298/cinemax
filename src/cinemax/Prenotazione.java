@@ -132,7 +132,6 @@ public class Prenotazione {
         return proiezione.getDataOra().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) +"," + utente.getID() + "," +utente.getNome() +"," + utente.getCognome() +"," + proiezione.getTitolo() +"," +  numeroBiglietto + ","+ codice;
     }
 	
-	
 
 	/** Confronta l'oggetto corrente con un altro oggetto per verificarne l'uguaglianza.
 	 * @param <obj> oggetto da confrontare con la prenotazione corrente

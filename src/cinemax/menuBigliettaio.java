@@ -34,7 +34,7 @@ import java.util.ArrayList;
 	public static void visualizzaPrenotazione(ArrayList<Prenotazione> memo){
 		System.out.println("Prenotazioni trovate: ");
 		for(Prenotazione pre : memo)
-			System.out.println(pre.toStringEsistente());
+			System.out.println(pre.toString());
 		}
 	
 /** Ricerca una prenotazione in base ai criteri specificati.

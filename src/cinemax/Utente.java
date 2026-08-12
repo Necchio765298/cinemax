@@ -2,8 +2,6 @@ package cinemax;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Random;
-import java.lang.Math;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.BufferedReader;
@@ -49,8 +47,8 @@ private String ruolo;
  * @param <ruolo> ruolo dell'utente
  */
     public Utente(String nome, String cognome, String username, String password, LocalDate dataNascita, String domicilio, String ruolo) throws IOException{
-        Random gen= new Random();
-		this.ID= Math.abs(gen.nextLong());
+        
+		this.ID= Utente.generaID();
 		System.out.println("Il tuo ID è: " + ID);
 		this.nome=nome;
         this.cognome = cognome;
@@ -72,6 +70,31 @@ private String ruolo;
         this.ruolo=ruolo;
     }
 	
+	public static long generaID(){
+		FileReader frd = null;
+		BufferedReader brd = null;
+		String riga =null;
+		long idLetto =0;
+		long idNuovo =0;
+		String[] dati= null;
+		try{
+			frd= new FileReader("data/utenti.csv");
+			brd= new BufferedReader(frd);
+			try{
+				while ((riga = brd.readLine()) != null) {
+					dati = riga.split(",");
+					idLetto = Long.parseLong(dati[0]);
+				}
+			}catch(Exception e){
+				System.out.println("Non ci sono id disponibili");
+			}
+		}catch(IOException eFile){
+			System.out.println("File non disponibile");
+		}
+		idNuovo = ++idLetto;
+		return idNuovo;
+	}
+			
 	
 	/** Il metodo consente di ottenere un oggetto di tipo Utente specificandone il codice identificativo; se l'utente non viene trovato, il metodo solleva un'eccezione opportuna.
 	* Il metodo è utile per creare un parametro formale di tipo Utente fornito in argomento al costruttore della classe Prenotazione.

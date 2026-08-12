@@ -47,7 +47,7 @@ public class menuCliente{
 		try{
 			System.out.println("Prenotazioni trovate: ");
 			for(Prenotazione pre : memo)
-					System.out.println(pre.toStringEsistente());
+					System.out.println(pre.toString());
 		}catch(Exception e){
 			e.getMessage();
 		}
@@ -121,7 +121,7 @@ public class menuCliente{
 						Prenotazione daLinea = new Prenotazione(codice, u, p, numBiglietti);
 						
 						if(!(preOttenuta.getCodice()).equals(daLinea.getCodice())){
-							bwt.write(daLinea.toStringEsistente());
+							bwt.write(daLinea.toString());
 						}else{
 						bwt.write(preNuova.toString());
 						}
