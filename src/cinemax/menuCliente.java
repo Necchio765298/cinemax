@@ -62,7 +62,7 @@ public class menuCliente{
 	public static Prenotazione creaPrenotazione(LocalDateTime orario, Utente u) throws IOException{
 		try{
 			Console cons = System.console();
-			System.out.println("Utente: "+ u.toStringEsistente());
+			System.out.println("Utente: "+ u.toString());
 			Proiezione p = Proiezione.getProiezione(orario);
 			System.out.println("Proiezione: " + p.toString());
 			System.out.println("");
@@ -106,7 +106,7 @@ public class menuCliente{
 					BufferedReader brd = new BufferedReader(frd);
 				try{	
 					ArrayList<Prenotazione> preVecchia = menuBigliettaio.cercaPrenotazione(dataVecchia, 0, "", "", "", 0, "");
-					
+					//prenotazione da sovrascrivere = preOttenuta
 					Prenotazione preOttenuta= preVecchia.get(0);
 					System.out.println(" ");
 					Prenotazione preNuova = menuCliente.creaPrenotazione(dataNuova, u);
@@ -117,8 +117,9 @@ public class menuCliente{
 						String[] dati = linea.split(",");
 						String codice = dati[6];
 						int numBiglietti = Integer.parseInt(dati[5]);
-						Proiezione p = Proiezione.getProiezione(dataVecchia);
-						Prenotazione daLinea = new Prenotazione(codice, u, p, numBiglietti);
+						Utente utente = Utente.getUtente(Long.parseLong(dati[1]));
+						Proiezione p = Proiezione.getProiezione(LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+						Prenotazione daLinea = new Prenotazione(codice, utente, p, numBiglietti); //tutte le prenotazioni del file
 						
 						if(!(preOttenuta.getCodice()).equals(daLinea.getCodice())){
 							bwt.write(daLinea.toString());

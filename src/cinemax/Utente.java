@@ -133,7 +133,7 @@ private String ruolo;
 	}
 
 	public long getID() {
-        return idEsistente;
+        return ID;
     }
 
 /** Restituisce il nome dell'utente.
@@ -197,10 +197,6 @@ private String ruolo;
     public String toString(){
 		return ID + "," +nome + ","+ cognome + ","+ username+"," + password +"," + dataNascita +"," +domicilio +"," +ruolo;
     }
-	
-	public String toStringEsistente(){
-		return idEsistente + "," +nome + ","+ cognome + ","+ username+"," + password +"," + dataNascita +"," +domicilio +"," +ruolo;
-	}
 	
 	
 	public static String passwordHash(String password) throws IOException{

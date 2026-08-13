@@ -112,7 +112,6 @@ public class Proiezione {
 		try{	
 			while((riga = brd.readLine()) != null){
 				dati = riga.split(","); 
-				System.out.println(dati[0]);
 				loc=LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 				t=dati[1].replaceAll("\"", "").trim();
 				gen =dati[2].trim();
@@ -151,11 +150,17 @@ public class Proiezione {
  * @throws <IOException> se si verifica un errore durante la lettura del file
  */
 	public static ArrayList<Proiezione> cercaProiezione(LocalDate dataInizio, LocalDate dataFine) throws ProiezioneNonEsistenteException{
-		Proiezione p= null;
+		Proiezione trovata= null;
 		FileReader frd = null;
 		BufferedReader brd= null;
 		ArrayList<Proiezione> memo = null;
 		String riga;
+		LocalDateTime loc = null;
+		String t = null;
+		String reg = null;
+		String gen = null;
+		Double prez = 0.0;
+		String[] dati = null;
 		try{
 		frd = new FileReader("data/proiezioni.csv");
 		brd = new BufferedReader(frd);
@@ -166,11 +171,17 @@ public class Proiezione {
 		try{
 			
 			while((riga = brd.readLine()) != null) {
-				String[] dati = riga.split(",");
+				dati = riga.split(",");
+				loc=LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+				t=dati[1].replaceAll("\"", "").trim();
+				gen =dati[2].trim();
+				reg = dati[3].replaceAll("\"", "").trim();
+				prez=Double.parseDouble(dati[7].replace("\"", "").trim());
+				
 				DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 				LocalDate data = LocalDateTime.parse(dati[0].replace("\"", "").trim(), formato).toLocalDate();
 					if((dataInizio.isBefore(data)) && (dataFine.isAfter(data))){
-						Proiezione trovata = Proiezione.getProiezione(LocalDateTime.parse(dati[0].replace("\"", "").trim(), formato));
+						trovata= new Proiezione(loc, t, gen, reg, Integer.parseInt(dati[4].trim()), Integer.parseInt(dati[5].trim()), Integer.parseInt(dati[6].trim()), prez);
 						memo.add(trovata);
 					}
 			}

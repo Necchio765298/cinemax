@@ -237,7 +237,17 @@ public class cineMax {
 						String DataNascita = cons.readLine("data di nascita? Richiesta nel formato aaaa-mm-gg ");
 						LocalDate dataNascita = LocalDate.parse(DataNascita);
 						String domicilio = cons.readLine("domicilio? ");
-						String ruolo = cons.readLine("ruolo? scrivere Cliente, Bigliettaio o Proiezionista ");
+						String ruolo = null;
+						do{
+							String numeroscelta = cons.readLine("ruolo? digitare 1. Cliente, 2. Bigliettaio, 3. Proiezionista ");
+							int numRuolo = Integer.parseInt(numeroscelta);
+							if(numRuolo == 1)
+								ruolo = "Cliente";
+							else if(numRuolo == 2)
+								ruolo = "Bigliettaio";
+							else if(numRuolo == 3)
+								ruolo = "Proiezionista";
+						}while(ruolo != "Cliente" && ruolo != "Bigliettaio" && ruolo != "Proiezionista");
 						Utente nuovoUtente = new Utente(nome, cognome, username, password, dataNascita, domicilio, ruolo);
 						Utente.registraUtente(nuovoUtente);
 						break;
@@ -265,11 +275,14 @@ public class cineMax {
 						switch(ricerca) {
 							case "1":
 								System.out.println(" ");
+								boolean riprova;
+								do{
+								riprova = false;
 								String dataora = cons.readLine("data_ora_proiezione nel formato aaaa-mm-gg hh:mm:ss ");
 								LocalDateTime DataOra= null;
 								boolean dateCorrect=true;
-								boolean riprova = false;
-								do{
+								
+								
 									do{
 										try{
 											DataOra=LocalDateTime.parse(dataora, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
@@ -281,98 +294,135 @@ public class cineMax {
 									try{
 										memo = Proiezione.cercaProiezione(DataOra, " "," "," ",0,0,99,0);
 									}catch(ProiezioneNonEsistenteException ePro){
-										System.out.println("La proiezione ricercata non è stata trovata");
 										System.out.println("Si desidera ricercare la proiezione? Digitare S/N");
 										String risposta = cons.readLine().trim().toUpperCase();
 										if(risposta.equals("S")){
 											riprova = true;
 										}
+										continue;
 									}
-									
-								}while(riprova);
-								Proiezione.visualizzaProiezione(memo);
+								Proiezione.visualizzaProiezione(memo);	
+								}while(riprova == true);
+								
 								break;
 							case "2":
 								System.out.println(" ");
+								
+								do{
+								riprova = false;
 								String titolo = cons.readLine("titolo: ");
+								
 								try{
 									memo = Proiezione.cercaProiezione(dataFinta, titolo, " ", " ",0,0,99,0);
 								}catch(ProiezioneNonEsistenteException ePro){
-										System.out.println("La proiezione ricercata non è stata trovata");
 										System.out.println("Si desidera ricercare la proiezione? Digitare S/N");
 										String risposta = cons.readLine().trim().toUpperCase();
 										if(risposta.equals("S")){
 											riprova = true;
 										}
+										continue;
 									}
-								Proiezione.visualizzaProiezione(memo);
+								Proiezione.visualizzaProiezione(memo);	
+								}while(riprova == true);
+								
 								break;
 							case "3":
 								System.out.println(" ");
+								
+								do{
+								riprova = false;
 								String genere = cons.readLine("Genere: ");
+								
 								try{
 									memo = Proiezione.cercaProiezione(dataFinta, " ", genere, " ",0,0,99,0);
 								}catch(ProiezioneNonEsistenteException ePro){
-										System.out.println("La proiezione ricercata non è stata trovata");
 										System.out.println("Si desidera ricercare la proiezione? Digitare S/N");
 										String risposta = cons.readLine().trim().toUpperCase();
 										if(risposta.equals("S")){
 											riprova = true;
 										}
+										continue;
 									}
 								Proiezione.visualizzaProiezione(memo);
+								}while(riprova == true);
+								
 								break;
 							case "4":
 								System.out.println(" ");
+								
+								do{
+								riprova = false;
 								String regista = cons.readLine("Regista: ");
+								
 								try{
 									memo = Proiezione.cercaProiezione(dataFinta, " ", " ", regista, 0,0,99,0);
 								}catch(ProiezioneNonEsistenteException ePro){
-										
 										System.out.println("Si desidera ricercare la proiezione? Digitare S/N");
 										String risposta = cons.readLine().trim().toUpperCase();
 										if(risposta.equals("S")){
 											riprova = true;
 										}
+										continue;
 									}
-								Proiezione.visualizzaProiezione(memo);
+								Proiezione.visualizzaProiezione(memo);	
+								}while(riprova== true);
+								
 								break;
 							case "5":
 								System.out.println(" ");
+								
+								do{
+								riprova = false;
 								String anno = cons.readLine("Anno: ");
 								int Anno =Integer.parseInt(anno);
+								
+								
 								try{
 									memo = Proiezione.cercaProiezione(dataFinta," "," "," ", Anno, 0,99,0);
 								}catch(ProiezioneNonEsistenteException ePro){
-										
 										System.out.println("Si desidera ricercare la proiezione? Digitare S/N");
 										String risposta = cons.readLine().trim().toUpperCase();
 										if(risposta.equals("S")){
 											riprova = true;
 										}
+										continue;
 									}
 								Proiezione.visualizzaProiezione(memo);
+								}while(riprova==true);
+								
 								break;
 							case "6":
 								System.out.println(" ");
+								
+								do{
+								riprova = false;
 								String minuti = cons.readLine("Durata minuti: ");
 								int Minuti =Integer.parseInt(minuti);
+								
+								
 								try{
 									memo = Proiezione.cercaProiezione(dataFinta," "," "," ",0, Minuti, 99,0);
 								}catch(ProiezioneNonEsistenteException ePro){
-										
 										System.out.println("Si desidera ricercare la proiezione? Digitare S/N");
 										String risposta = cons.readLine().trim().toUpperCase();
 										if(risposta.equals("S")){
 											riprova = true;
 										}
+										continue;
 									}
 								Proiezione.visualizzaProiezione(memo);
+								}while(riprova==true);
+								
 								break;
 							case "7":
 								System.out.println(" ");
+								
+								do{
+								riprova = false;
 								String eta = cons.readLine("Età minima: ");
 								int Eta=Integer.parseInt(eta);
+								
+								
 								try{
 									memo = Proiezione.cercaProiezione(dataFinta," "," "," ",0, 0, Eta,0);
 								}catch(ProiezioneNonEsistenteException ePro){
@@ -381,13 +431,21 @@ public class cineMax {
 										if(risposta.equals("S")){
 											riprova = true;
 										}
+										continue;
 									}
 								Proiezione.visualizzaProiezione(memo);
+								}while(riprova==true);
+								
 								break;
 							case "8":
 								System.out.println(" ");
+								
+								do{
+								riprova = false;
 								String prezzo =cons.readLine("Prezzo biglietto: ");
 								Double Prezzo=Double.parseDouble(prezzo);
+								
+								
 								try{
 								memo = Proiezione.cercaProiezione(dataFinta," "," "," ",0,0,99,Prezzo);
 								}catch(ProiezioneNonEsistenteException ePro){
@@ -396,15 +454,23 @@ public class cineMax {
 										if(risposta.equals("S")){
 											riprova = true;
 										}
+										continue;
 									}
 								Proiezione.visualizzaProiezione(memo);
+								}while(riprova==true);
+								
 								break;
 							case "9":
 								System.out.println(" ");
+								
+								do{
+								riprova = false;
 								String Inizio = cons.readLine("data di inizio nel formato aaaa-mm-gg: ");
 								LocalDate inizio = LocalDate.parse(Inizio);
 								String Fine = cons.readLine("data di fine nel formato aaaa-mm-gg: ");
 								LocalDate fine = LocalDate.parse(Fine);
+								
+								
 								try{
 									memo = Proiezione.cercaProiezione(inizio, fine);
 								}catch(ProiezioneNonEsistenteException ePro){
@@ -413,8 +479,11 @@ public class cineMax {
 										if(risposta.equals("S")){
 											riprova = true;
 										}
+										continue;
 									}
 								Proiezione.visualizzaProiezione(memo);
+								}while(riprova== true);
+								
 								break;
 						}
 						break;
