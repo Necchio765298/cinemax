@@ -46,9 +46,11 @@ import java.util.ArrayList;
 	public static ArrayList<Prenotazione> cercaPrenotazione(LocalDateTime data, long id, String nome, String cognome, String titolo, int biglietti, String codice) throws IOException{
 		Prenotazione pre = null;
 		ArrayList<Prenotazione> memo = new ArrayList<Prenotazione>();
+		FileReader frd = null;
+		BufferedReader brd= null;
 		try{
-			FileReader frd = new FileReader("data/prenotazioni.csv");
-			BufferedReader brd = new BufferedReader(frd);
+			frd = new FileReader("data/prenotazioni.csv");
+			brd = new BufferedReader(frd);
 			String prenotazione = null;	
 			while((prenotazione = brd.readLine()) != null){
 				String[] dati = prenotazione.split(",");
@@ -68,11 +70,13 @@ import java.util.ArrayList;
 					memo.add(pre);
 				}
 			}
-			brd.close();
-			frd.close();
+			
 			
 		}catch(Exception e){
 			System.out.println("Dato inserito non valido" + e.getMessage());	
+		}finally{
+			brd.close();
+			frd.close();
 		}
 		return memo;
 	}

@@ -71,8 +71,8 @@ public class cineMax {
 												System.out.println("A che data e ora prenotare?");
 												String DataOra = cons.readLine("Data e ora della proiezione da prenotare nel formato AAAA-MM-GG HH-MM-SS ");
 												LocalDateTime dataOra = LocalDateTime.parse(DataOra, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-												menuCliente.creaPrenotazione(dataOra,u);
-											
+												Prenotazione daRegistrare = menuCliente.creaPrenotazione(dataOra,u);
+												Prenotazione.registraPrenotazione(daRegistrare);
 											}else if(alternativa == 2){
 												//visualizza le prenotazioni
 												System.out.println("Elenco delle proprie prenotazioni: ");

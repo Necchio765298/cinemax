@@ -71,8 +71,7 @@ public class menuCliente{
 			Prenotazione prenotazione =  new Prenotazione(u, p, numeroBiglietto);
 			System.out.println("Prenotazione: "+prenotazione.toString());
 			System.out.println("");
-			if(numeroBiglietto < 200-Prenotazione.getTotaleBiglietti(orario)){	
-				Prenotazione.registraPrenotazione(prenotazione);
+			if(numeroBiglietto < 200-Prenotazione.getTotaleBiglietti(orario)){
 				System.out.println("Il codice della prenotazione è "+ prenotazione.getCodice());
 				return prenotazione;
 			}else{
@@ -93,17 +92,23 @@ public class menuCliente{
  */
 	
 	public static void modificaPrenotazione(LocalDateTime dataVecchia, LocalDateTime dataNuova, Utente u) throws IOException{	
+		Console cons = System.console();
+		FileReader frd = null;
+		BufferedReader brd = null;
+		FileWriter fwt = null;
+		BufferedWriter bwt = null;
+		File vecchio = null;
+		File temp = null;
 		try{
-			Console cons = System.console();
 			if((dataVecchia.isAfter(LocalDateTime.now())) &&  (dataNuova.isAfter(LocalDateTime.now()))){
 				File file = new File("data");
-				File temp = File.createTempFile("pre", ".csv", file);
-				File vecchio = new File("data/prenotazioni.csv");
+				temp = File.createTempFile("pre", ".csv", file);
+				vecchio = new File("data/prenotazioni.csv");
 				
-					FileWriter fwt = new FileWriter(temp);
-					BufferedWriter bwt = new BufferedWriter(fwt);
-					FileReader frd = new FileReader("data/prenotazioni.csv");
-					BufferedReader brd = new BufferedReader(frd);
+					fwt = new FileWriter(temp);
+					bwt = new BufferedWriter(fwt);
+					frd = new FileReader("data/prenotazioni.csv");
+					brd = new BufferedReader(frd);
 				try{	
 					ArrayList<Prenotazione> preVecchia = menuBigliettaio.cercaPrenotazione(dataVecchia, 0, "", "", "", 0, "");
 					//prenotazione da sovrascrivere = preOttenuta
@@ -129,20 +134,40 @@ public class menuCliente{
 						bwt.newLine();
 					}
 				}catch(Exception e){
-					System.err.println(e.getMessage());
+					System.err.println("Qualcosa non va "+e.getMessage());
 				}
+			}else{
+				System.out.println("La data vecchia o quella nuova non sono successive alla data odierna, pertanto non è possibile modificare la prenotazione");
+				return;
+			}
+		}catch(Exception e){
+			System.err.println("Errore durante la modifica della prenotazione"+ e.getMessage());
+		}finally{
+			try{
 				brd.close();
 				bwt.close();
 				frd.close();
 				fwt.close();
-				vecchio.delete();
-				temp.renameTo(vecchio);
-			}else
-				System.out.println("La data vecchia o quella nuova non sono successive alla data odierna, pertanto non è possibile modificare la prenotazione");
-		}catch(Exception e){
-			e.getMessage();
-		}	
+			}catch(IOException ecc){
+ 			System.err.println("Errore nella chiusura dei flussi: " + ecc.getMessage());
+			}
+		}
+		try{
+		if(vecchio.delete()){
+			if(temp.renameTo(vecchio)){
+				System.out.println("File aggiornato con successo!");
+			}else{
+				System.err.println("Errore: Impossibile rinominare il file temporaneo.");
+				throw new Exception();
+			}
+		}else{
+			System.err.println("Errore: Impossibile eliminare il file originale.");
+		}
+		}catch(Exception eccez){
+			System.err.println("Eliminazione e rinomina falliti" + eccez.getMessage());
+		}
 	}
+	
 			
 
 	/** Elimina una prenotazione dal sistema
