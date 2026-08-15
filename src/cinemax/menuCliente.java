@@ -187,27 +187,26 @@ public class menuCliente{
 					BufferedWriter bwt = new BufferedWriter(fwt);
 					FileReader frd = new FileReader("data/prenotazioni.csv");
 					BufferedReader brd = new BufferedReader(frd);
-				try{	
-					ArrayList<Prenotazione> preDelete = menuBigliettaio.cercaPrenotazione(null, 0, "", "", "", 0, codice);
-					System.out.println("Digitare il numero relativo alla prenotazione da eliminare tra queele ricercate");
-					for(Prenotazione pre : preDelete){
-						int i=0;
-						System.out.println(i++ +pre.toString());
-					}
-					String Numero = cons.readLine("Scelta numero prenotazione: ");
-					int numero = Integer.parseInt(Numero);
-					Prenotazione preOttenuta= preDelete.get(numero);
+				try{
+					LocalDateTime dataFinta = LocalDateTime.parse("2000-01-01 10:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+					ArrayList<Prenotazione> preDelete = menuBigliettaio.cercaPrenotazione(dataFinta, 0, "", "", "", 0, codice);
+					Prenotazione preOttenuta= preDelete.get(0);
+					System.out.println("Prenotazione da cancellare: "+preOttenuta.toString());
 					String linea;
 					while((linea = brd.readLine())!= null){
 						String[] dati= linea.split(",");
 						Proiezione p = Proiezione.getProiezione(LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 						Utente u = Utente.getUtente(Long.parseLong(dati[1]));
 						Prenotazione preAltra = new Prenotazione(dati[6], u, p, Integer.parseInt(dati[5]));
+						System.out.println("Prenotazione che viene confrontata: "+preAltra.toString());
 						
-						if(!(preOttenuta).equals(preAltra)){
-							bwt.write(preOttenuta.toString());
+						if(!(preOttenuta.getCodice().equals(preAltra.getCodice()))){
+							bwt.write(preAltra.toString());
+							bwt.newLine();
+						}else{
+							continue;
 						}
-						bwt.newLine();
+						
 					}
 				}catch(Exception e){
 					System.err.println(e.getMessage());
