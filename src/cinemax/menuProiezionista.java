@@ -18,23 +18,19 @@ import java.time.format.DateTimeFormatter;
  */
  public class menuProiezionista {
   
-	 //CAMPI
+
  /** Proiezione gestita dal menu del proiezionista. */
- private Proiezione proiezione;
+	private Proiezione proiezione;
  
 
-  //COSTRUTTORE
-/** Costruisce un nuovo oggetto menuProiezionista.
- */
-public menuProiezionista() {
-	this.proiezione = proiezione;
-}
-   
-   
-   //METODI
+/** Costruisce un nuovo oggetto di tipo menuProiezionista.*/
+	public menuProiezionista() {
+		this.proiezione = proiezione;
+	}
+
 
  /** Crea una nuova proiezione utilizzando i dati inseriti
- * @return la proiezione creata
+ * @return proiezione nuova proiezione da registrare su file
  */
 	public static Proiezione creaProiezione(){
 		Console cons = System.console();
@@ -59,7 +55,8 @@ public menuProiezionista() {
 	}
 	   
    
-  /** Aggiunge una nuova proiezione al sistema acquisendo i dati necessari e verificandone la validità prima della memorizzazione.
+  /** Inserisce una proiezione su file acquisendo i dati necessari e verificanche non si sovrapponga con una già esistente.
+  @param p Proiezione da registrare su file
  * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
  */
  
@@ -95,7 +92,7 @@ public menuProiezionista() {
 		}
 	}
 
-	 /** Modifica i dati di una proiezione già presente nel sistema individuata dalla data e ora specificate
+	 /** Modifica una proiezione già presente nel file se non ci sono ancora prenotazioni per questa.
  * @param <orario> data e ora della proiezione da modificare
  * @throws <IOException> se si verifica un errore durante la gestione del file
  */
