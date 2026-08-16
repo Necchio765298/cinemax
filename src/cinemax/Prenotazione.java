@@ -76,7 +76,7 @@ public class Prenotazione {
     }
 
     /** Restituisce il codice identificativo della prenotazione.
- * @return il codice della prenotazione
+ * @return codice il codice della prenotazione
  */
     public String getCodice() {
         return codice;
@@ -93,7 +93,7 @@ public class Prenotazione {
 	}
 
     /** Restituisce il numero di biglietti acquistati.
- * @return il numero di biglietti
+ * @return numeroBiglietto il numero di biglietti
  */
     public int getNumeroBiglietto() {	
         return numeroBiglietto;

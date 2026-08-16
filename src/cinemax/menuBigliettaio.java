@@ -62,16 +62,12 @@ import java.util.ArrayList;
 					|| (Integer.parseInt(dati[5])==biglietti)
 					|| (dati[6].toUpperCase().equals(codice.toUpperCase()))){
 					
-					
 					Proiezione p = Proiezione.getProiezione(LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 					Utente u = Utente.getUtente(Long.parseLong(dati[1]));
 					pre = new Prenotazione(dati[6], u, p, Integer.parseInt(dati[5]));
-					
 					memo.add(pre);
 				}
 			}
-			
-			
 		}catch(Exception e){
 			System.out.println("Dato inserito non valido" + e.getMessage());	
 		}finally{
@@ -88,11 +84,13 @@ import java.util.ArrayList;
  */
 	
 	public static ArrayList<Prenotazione> cercaPrenotazione(LocalDateTime dataInizio, LocalDateTime dataFine) throws IOException{
-		FileReader frd = new FileReader("data/prenotazioni.csv");
-		BufferedReader brd = new BufferedReader(frd);
+		FileReader frd = null;
+		BufferedReader brd = null;
 		String prenotazione = " ";
 		ArrayList<Prenotazione> memo = new ArrayList<Prenotazione>();
 		try{
+			frd = new FileReader("data/prenotazioni.csv");
+			brd = new BufferedReader(frd);
 			Prenotazione pre = null;
 			while((prenotazione = brd.readLine()) != null) {
 				String[] dati= prenotazione.split(",");
@@ -103,11 +101,11 @@ import java.util.ArrayList;
 					memo.add(pre);
 				}
 			}
-			brd.close();
-			frd.close();
-			
 		}catch(Exception e){
 			System.out.println("Data inserita nel formato non corretto" + e.getMessage());
+		}finally{
+			brd.close();
+			frd.close();
 		}
 		return memo;
 	}

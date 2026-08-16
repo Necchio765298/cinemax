@@ -64,30 +64,34 @@ public menuProiezionista() {
  */
  
 	public static void aggiungiProiezione(Proiezione p) throws IOException{	
+		FileWriter fwt= null;
+		BufferedWriter bwt = null;
+		FileReader frd = null;
+		BufferedReader brd = null;
 		try{
-	    FileWriter fwt = new FileWriter("data/proiezioni.csv", true);
-		BufferedWriter bwt = new BufferedWriter(fwt);
-		FileReader frd = new FileReader("data/proiezioni.csv");
-		BufferedReader brd = new BufferedReader(frd);
-		
-		String proiezione;
-		while((proiezione = brd.readLine()) != null){
-			String[] dati = proiezione.split(","); 
-			if((LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).isEqual(p.getDataOra())){
-				System.out.println("la proiezione inserita si accavalla con una già esistente");
-				bwt.close();
-				fwt.close();
-				
-				return;
+			fwt = new FileWriter("data/proiezioni.csv", true);
+			bwt = new BufferedWriter(fwt);
+			frd = new FileReader("data/proiezioni.csv");
+			brd = new BufferedReader(frd);
+			
+			String proiezione;
+			while((proiezione = brd.readLine()) != null){
+				String[] dati = proiezione.split(","); 
+				if((LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).isEqual(p.getDataOra())){
+					System.out.println("la proiezione inserita si accavalla con una già esistente");
+					bwt.close();
+					fwt.close();
+					return;
+				}
 			}
-		}
-		bwt.write(p.toString());
-		bwt.newLine();
-		System.out.println("La proiezione è stata aggiunta");
-		bwt.close();
-		fwt.close();
+			bwt.write(p.toString());
+			bwt.newLine();
+			System.out.println("La proiezione è stata aggiunta");
 		}catch(Exception e){
-			System.out.println("Un criterio inserito non è nel formato valido"+ e.getMessage());
+			System.err.println("Un criterio inserito non è nel formato valido "+ e.getMessage());
+		}finally{
+			bwt.close();
+			fwt.close();
 		}
 	}
 
@@ -95,43 +99,88 @@ public menuProiezionista() {
  * @param <orario> data e ora della proiezione da modificare
  * @throws <IOException> se si verifica un errore durante la gestione del file
  */
-	public static void modificaProiezione(LocalDateTime orario) throws IOException{	
+	public static void modificaProiezione(LocalDateTime orario) throws IOException{
+		FileReader frd = null;
+		BufferedReader brd = null;
+		FileWriter fwt = null;
+		BufferedWriter bwt = null;
+		File vecchio = null;
+		File temp = null;
 		try{
-		if(menuBigliettaio.cercaPrenotazione(orario, 0, "", "", "", 0, "") == null){
-			File file = new File("data");
-			File temp = File.createTempFile("pro", ".csv", file);
-			File vecchio = new File("data/proiezioni.csv");
-			
-				FileWriter fwt = new FileWriter(temp, true);
-				BufferedWriter bwt = new BufferedWriter(fwt);
-				FileReader frd = new FileReader("data/proiezioni.csv");
-				BufferedReader brd = new BufferedReader(frd);
-			try{	
-				Proiezione proVecchia = Proiezione.getProiezione(orario);
-				Proiezione proNuova = creaProiezione();
-				String linea;
-				while((linea = brd.readLine())!= null){
-					if(!(proVecchia).equals(proNuova)){
-						bwt.write(linea);
-					}else{
-						bwt.write(proNuova.toString());
+			if(menuBigliettaio.cercaPrenotazione(orario, 0, "", "", "", 0, "").isEmpty()){
+				File file = new File("data");
+				temp = File.createTempFile("pro", ".csv", file);
+				vecchio = new File("data/proiezioni.csv");
+				
+				fwt = new FileWriter(temp, true);
+				bwt = new BufferedWriter(fwt);
+				frd = new FileReader("data/proiezioni.csv");
+				brd = new BufferedReader(frd);
+				try{	
+					Proiezione proOttenuta = Proiezione.getProiezione(orario);
+					System.out.println("Proiezione da modificare trovata: "+proOttenuta.toString());
+					System.out.println(" ");
+					System.out.println("Inserire ora la nuova proiezione da salvare: ");
+					Proiezione proNuova = creaProiezione();
+					String linea;
+					String[] dati = null;
+					LocalDateTime loc = null;
+					String t = null;
+					String reg = null;
+					String gen = null;
+					Double prez = 0.0;
+					while((linea = brd.readLine())!= null){
+						
+						dati = linea.split(",");
+						loc=LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+						t=dati[1].replaceAll("\"", "").trim();
+						gen =dati[2].trim();
+						reg = dati[3].replaceAll("\"", "").trim();
+						prez=Double.parseDouble(dati[7].replace("\"", "").trim());
+						Proiezione daLinea = new Proiezione(loc, t, gen, reg, Integer.parseInt(dati[4].trim()), Integer.parseInt(dati[5].trim()), Integer.parseInt(dati[6].trim()), prez);
+						
+						if(!(proOttenuta.getDataOra()).equals(daLinea.getDataOra())){
+							bwt.write(daLinea.toString());
+						}else{
+							bwt.write(proNuova.toString());
+						}
+						bwt.newLine();
 					}
-					bwt.newLine();
+				}catch(Exception e){
+					System.err.println("Qualcosa non va "+e.getMessage());
 				}
-			}catch(Exception e){
-				System.err.println(e.getMessage());
+			}else{
+				System.out.println("ci sono prenotazioni per la proiezione da modificare, pertanto non è possibile modificarla");
+				return;
 			}
-			brd.close();
-			bwt.close();
-			frd.close();
-			fwt.close();
-			vecchio.delete();
-			temp.renameTo(vecchio);
-		}else
-			System.out.println("ci sono prenotazioni per la proiezione da modificare, pertanto non è possibile modificarla");
 		}catch(Exception e){
-			e.getMessage();
-		}	
+			System.err.println("Errore durante la modifica della proiezione"+ e.getMessage());
+		}finally{
+			try{
+				brd.close();
+				bwt.close();
+				frd.close();
+				fwt.close();
+			}catch(IOException ecc){
+				System.err.println("Errore nella chiusura dei flussi: " + ecc.getMessage());
+			}catch(NullPointerException nullecc){
+				System.err.println("un parametro è nullo: " + nullecc.getMessage());
+			}	
+		}
+		try{
+			if(vecchio.delete()){
+				if(temp.renameTo(vecchio)){
+					System.out.println("File aggiornato con successo!");
+				}else{
+					System.err.println("Errore: Impossibile rinominare il file temporaneo.");
+					throw new Exception();
+				}
+			}else{
+				System.err.println("Errore: Impossibile eliminare il file originale.");
+			}
+		}catch(Exception eccez){
+			System.err.println("Eliminazione e rinomina falliti" + eccez.getMessage());
+		}
 	}
 
 	 /** Elimina una proiezione dal sistema individuata dalla data e ora specificate
@@ -140,38 +189,80 @@ public menuProiezionista() {
  */
 	 //elimina con gli stream
 	public static void eliminaProiezione(LocalDateTime orario) throws IOException {
+		FileReader frd = null;
+		BufferedReader brd = null;
+		FileWriter fwt = null;
+		BufferedWriter bwt = null;
+		File vecchio = null;
+		File temp = null;
 		try{
-		if(menuBigliettaio.cercaPrenotazione(orario, 0, "", "", "", 0, "") == null){
-			File file = new File("data");
-			File temp = File.createTempFile("pro", ".csv", file);
-			File vecchio = new File("data/proiezioni.csv");
-			
-				FileWriter fwt = new FileWriter(temp, true);
-				BufferedWriter bwt = new BufferedWriter(fwt);
-				FileReader frd = new FileReader("data/proiezioni.csv");
-				BufferedReader brd = new BufferedReader(frd);
-			try{	
-				Proiezione proDelete = Proiezione.getProiezione(orario);
-				String linea;
-				while((linea = brd.readLine())!= null){
-					if(!(proDelete.toString()).equals(linea)){
-						bwt.write(linea);
+			if(menuBigliettaio.cercaPrenotazione(orario, 0, "", "", "", 0, "").isEmpty()){
+				File file = new File("data");
+				temp = File.createTempFile("pro", ".csv", file);
+				vecchio = new File("data/proiezioni.csv");
+				
+				fwt = new FileWriter(temp, true);
+				bwt = new BufferedWriter(fwt);
+				frd = new FileReader("data/proiezioni.csv");
+				brd = new BufferedReader(frd);
+				try{	
+					Proiezione proOttenuta = Proiezione.getProiezione(orario);
+					System.out.println("Proiezione da eliminare trovata: "+proOttenuta.toString());
+					String linea;
+					String[] dati = null;
+					LocalDateTime loc = null;
+					String t = null;
+					String reg = null;
+					String gen = null;
+					Double prez = 0.0;
+					while((linea = brd.readLine())!= null){
+						dati = linea.split(",");
+						loc=LocalDateTime.parse(dati[0].replace("\"", "").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+						t=dati[1].replaceAll("\"", "").trim();
+						gen =dati[2].trim();
+						reg = dati[3].replaceAll("\"", "").trim();
+						prez=Double.parseDouble(dati[7].replace("\"", "").trim());
+						Proiezione daLinea = new Proiezione(loc, t, gen, reg, Integer.parseInt(dati[4].trim()), Integer.parseInt(dati[5].trim()), Integer.parseInt(dati[6].trim()), prez);
+						
+						if(!(proOttenuta.getDataOra()).equals(daLinea.getDataOra())){
+							bwt.write(daLinea.toString());
+							bwt.newLine();
+						}else{
+							continue;
+						}
 					}
-					bwt.newLine();
+				}catch(Exception e){
+					System.err.println("Qualcosa non va "+e.getMessage());
 				}
-			}catch(Exception e){
-				System.err.println(e.getMessage());
+			}else{
+				System.out.println("ci sono prenotazioni per la proiezione da modificare, pertanto non è possibile modificarla");
+				return;
 			}
-			brd.close();
-			bwt.close();
-			frd.close();
-			fwt.close();
-			vecchio.delete();
-			temp.renameTo(vecchio);
-		}else
-			System.out.println("ci sono prenotazioni per la proiezione da cancellare, pertanto non è possibile eliminarla");
 		}catch(Exception e){
-			e.getMessage();
+			System.err.println("Errore durante l'eliminazione della prenotazione"+ e.getMessage());
+		}finally{
+			try{
+				brd.close();
+				bwt.close();
+				frd.close();
+				fwt.close();
+			}catch(IOException ecc){
+ 			System.err.println("Errore nella chiusura dei flussi: " + ecc.getMessage());
+			}
+		}
+		try{
+			if(vecchio.delete()){
+				if(temp.renameTo(vecchio)){
+					System.out.println("File aggiornato con successo!");
+				}else{
+					System.err.println("Errore: Impossibile rinominare il file temporaneo.");
+					throw new Exception();
+				}
+			}else{
+				System.err.println("Errore: Impossibile eliminare il file originale.");
+			}
+		}catch(Exception eccez){
+			System.err.println("Eliminazione e rinomina falliti" + eccez.getMessage());
 		}	
 	}
 }

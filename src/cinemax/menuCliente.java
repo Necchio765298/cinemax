@@ -117,9 +117,10 @@ public class menuCliente{
 					Prenotazione preNuova = menuCliente.creaPrenotazione(dataNuova, u);
 					
 					String linea;
+					String[] dati = null;
 					while((linea = brd.readLine())!= null){
 						
-						String[] dati = linea.split(",");
+						dati = linea.split(",");
 						String codice = dati[6];
 						int numBiglietti = Integer.parseInt(dati[5]);
 						Utente utente = Utente.getUtente(Long.parseLong(dati[1]));
@@ -153,16 +154,16 @@ public class menuCliente{
 			}
 		}
 		try{
-		if(vecchio.delete()){
-			if(temp.renameTo(vecchio)){
-				System.out.println("File aggiornato con successo!");
+			if(vecchio.delete()){
+				if(temp.renameTo(vecchio)){
+					System.out.println("File aggiornato con successo!");
+				}else{
+					System.err.println("Errore: Impossibile rinominare il file temporaneo.");
+					throw new Exception();
+				}
 			}else{
-				System.err.println("Errore: Impossibile rinominare il file temporaneo.");
-				throw new Exception();
+				System.err.println("Errore: Impossibile eliminare il file originale.");
 			}
-		}else{
-			System.err.println("Errore: Impossibile eliminare il file originale.");
-		}
 		}catch(Exception eccez){
 			System.err.println("Eliminazione e rinomina falliti" + eccez.getMessage());
 		}
@@ -176,25 +177,32 @@ public class menuCliente{
  * @throws <IOException> se si verifica un errore durante la gestione del file
  */
 	public static void eliminaPrenotazione(LocalDateTime dataVecchia, String codice) throws IOException{
+		Console cons = System.console();
+		FileReader frd = null;
+		BufferedReader brd = null;
+		FileWriter fwt = null;
+		BufferedWriter bwt = null;
+		File vecchio = null;
+		File temp = null;
 		try{
-				Console cons = System.console();
 			if(dataVecchia.compareTo(LocalDateTime.now())>0){
 				File file = new File("data");
-				File temp = File.createTempFile("pre", ".csv", file);
-				File vecchio = new File("data/prenotazioni.csv");
+				temp = File.createTempFile("pre", ".csv", file);
+				vecchio = new File("data/prenotazioni.csv");
 				
-					FileWriter fwt = new FileWriter(temp, true);
-					BufferedWriter bwt = new BufferedWriter(fwt);
-					FileReader frd = new FileReader("data/prenotazioni.csv");
-					BufferedReader brd = new BufferedReader(frd);
+				fwt = new FileWriter(temp, true);
+				bwt = new BufferedWriter(fwt);
+				frd = new FileReader("data/prenotazioni.csv");
+				brd = new BufferedReader(frd);
 				try{
 					LocalDateTime dataFinta = LocalDateTime.parse("2000-01-01 10:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 					ArrayList<Prenotazione> preDelete = menuBigliettaio.cercaPrenotazione(dataFinta, 0, "", "", "", 0, codice);
 					Prenotazione preOttenuta= preDelete.get(0);
 					System.out.println("Prenotazione da cancellare: "+preOttenuta.toString());
 					String linea;
+					String[] dati = null;
 					while((linea = brd.readLine())!= null){
-						String[] dati= linea.split(",");
+						dati = linea.split(",");
 						Proiezione p = Proiezione.getProiezione(LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 						Utente u = Utente.getUtente(Long.parseLong(dati[1]));
 						Prenotazione preAltra = new Prenotazione(dati[6], u, p, Integer.parseInt(dati[5]));
@@ -206,22 +214,40 @@ public class menuCliente{
 						}else{
 							continue;
 						}
-						
 					}
 				}catch(Exception e){
-					System.err.println(e.getMessage());
+					System.err.println("Qualcosa non va "+e.getMessage());
 				}
+			}else{
+				System.out.println("La data della prenotazione è antecedente la data odierna, pertanto non è stato possibile eliminarla");
+				return;
+			}
+		}catch(Exception e){
+			System.err.println("Errore durante l'eliminazione della prenotazione"+ e.getMessage());
+		}finally{
+			try{
 				brd.close();
 				bwt.close();
 				frd.close();
 				fwt.close();
-				vecchio.delete();
-				temp.renameTo(vecchio);
-			}else
-				System.out.println("La data della prenotazione è antecedente la data odierna, pertanto non è stato possibile eliminarla");
-		}catch(Exception e){
-			e.getMessage();
-		}	
+			}catch(IOException ecc){
+ 			System.err.println("Errore nella chiusura dei flussi: " + ecc.getMessage());
+			}
+		}
+		try{
+			if(vecchio.delete()){
+				if(temp.renameTo(vecchio)){
+					System.out.println("File aggiornato con successo!");
+				}else{
+					System.err.println("Errore: Impossibile rinominare il file temporaneo.");
+					throw new Exception();
+				}
+			}else{
+				System.err.println("Errore: Impossibile eliminare il file originale.");
+			}
+		}catch(Exception eccez){
+			System.err.println("Eliminazione e rinomina falliti" + eccez.getMessage());
+		}
 	}
 	
 }

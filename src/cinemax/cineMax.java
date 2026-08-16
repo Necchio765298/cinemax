@@ -206,16 +206,16 @@ public class cineMax {
 													menuProiezionista.aggiungiProiezione(creata);
 												   }
 												else if(alternativa == 2){
-													String DataOra = cons.readLine("Data e ora della proiezione da modificare nel formato AAAA-MM-GGTHH-MM-SS ");
-													LocalDateTime dataOra = LocalDateTime.parse(DataOra);
+													String DataOra = cons.readLine("Data e ora della proiezione da modificare nel formato AAAA-MM-GG HH-MM-SS ");
+													LocalDateTime dataOra = LocalDateTime.parse(DataOra, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 													menuProiezionista.modificaProiezione(dataOra);
-													System.out.println("La proiezione è stata modificata");
+													
 												   } 
 												else if(alternativa == 3){
-													String DataOra = cons.readLine("Data e ora della proiezione nel formato AAAA-MM-GGTHH-MM-SS ");
-													LocalDateTime dataOra = LocalDateTime.parse(DataOra);
+													String DataOra = cons.readLine("Data e ora della proiezione nel formato AAAA-MM-GG HH-MM-SS ");
+													LocalDateTime dataOra = LocalDateTime.parse(DataOra, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 													menuProiezionista.eliminaProiezione(dataOra);
-													System.out.println("La proiezione è stata eliminata");
+													
 												}		
 											
 										}while(alternativa != 0);
