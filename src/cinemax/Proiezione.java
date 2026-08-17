@@ -1,3 +1,5 @@
+//Necchio Arianna, matricola: 765298, sede: Como
+
 package cinemax;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
@@ -11,10 +13,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-/** Rappresenta una proiezione cinematografica programmata dal cinema
- * La classe memorizza il film proiettato, la data e l'ora della proiezione e il prezzo del biglietto
+/** La classe Proiezione costruisce oggetti di tipo <code>Proiezione</code>, che rappresentano le proiezioni inserite nel palinsesto del cinema.
+ * Una proiezione è costituita dal titolo del film proiettato, 
+ la data e l'ora, il genere del film, il regista, l'anno di produzione, la durata in minuti del film,
+ l'età minima consentita di visualizzazione e il prezzo del biglietto.
  * @author Arianna Necchio
- * @author Gaia Galimberti
+ * @version 
  */
 public class Proiezione {
      /** Data e ora della proiezione. Questo campo è l'identificativo della proiezione 
@@ -38,14 +42,14 @@ public class Proiezione {
 	
 
 	/** Costruisce una nuova proiezione.
- * @param <dataOra> data e ora della proiezione
- * @param <titolo> titolo del film
- * @param <genere> genere del film
- * @param <regista> regista del film
- * @param <anno> anno di uscita
- * @param <durataMinuti> durata del film in minuti
- * @param <etaMinima> età minima consigliata
- * @param <prezzoBiglietto> prezzo del biglietto
+ * @param dataOra data e ora della proiezione
+ * @param titolo titolo del film
+ * @param genere genere del film
+ * @param regista regista del film
+ * @param anno anno di produzione
+ * @param durataMinuti durata del film in minuti
+ * @param etaMinima età minima consigliata
+ * @param prezzoBiglietto prezzo del biglietto
  */
     public Proiezione(LocalDateTime dataOra, String titolo, String genere, String regista, int anno, int durataMinuti, int etaMinima, double prezzoBiglietto){
         this.dataOra = dataOra;
@@ -59,11 +63,13 @@ public class Proiezione {
     }
 
 /**
-* Il metodo consente di ottenere un oggetto di tipo Proiezione fornendo come argomento un oggetto di tipo LocalDateTime.
-* Il metodo è utile per creare un parametro formale di tipo Proiezione da fornire in argomento al costruttore della classe Prenotazione.
-* @param <ldt> la data e l'ora associata alla proiezione da ricercare
-* @return una Proiezione
-* @throws <ProiezioneNonEsistenteException> se la proiezione ricercata non esiste.
+* Il metodo consente di ottenere un oggetto di tipo <code>Proiezione</code> fornendo come argomento un oggetto di tipo <code>LocalDateTime</code>, 
+ovvero la relativa data e ora.
+
+* @param ldt la data e l'ora associata alla proiezione da ricercare
+* @return Proiezione oggetto di tipo <code>Proiezione</code>
+* @throws ProiezioneNonEsistenteException se la proiezione ricercata non esiste.
+@throws IOException se si verifica un errore nella gestione degli stream.
 */
 	public static Proiezione getProiezione(LocalDateTime ldt) throws ProiezioneNonEsistenteException, IOException{
 		FileReader frd = new FileReader("data/proiezioni.csv");
@@ -84,12 +90,29 @@ public class Proiezione {
 		throw new ProiezioneNonEsistenteException(ldt);
 	}
 
-/** Ricerca una o più proiezioni nel file csv in base ai criteri di ricerca specificati.
-* Il metodo riceve in argomento dati di tipo String, LocalDateTime e double.
- * @param <arg> criterio utilizzato per la ricerca
- * @return le proiezioni trovate
- * @throws <IOException> se si verifica un errore durante la lettura del file
- */
+/** Ricerca una o più proiezioni nel file Proiezioni.csv in base ai criteri di ricerca specificati.
+* Il metodo riceve in argomento dati di tipo String, LocalDateTime e double, in particolare si può ricercare una proiezione per:
+* - data e ora;
+* - titolo;
+* - genere;
+* - nome e cognome del regista;
+* - anno di produzione;
+* - durata in minuti;
+* - età minima di visualizzazione;
+* - prezzo del biglietto.
+* @param data data e ora della proiezione in formato yyyy-MM-dd HH-mm-ss
+* @param titolo titolo del film
+* @param genere genere del film, ad esempio Fantasy, Adventure...
+* @param regista nome e cognome del regista
+* @param anno anno di produzione cinematografica
+* @param durata durata in minuti del film
+* @param eta età minima consigliata per la visualizzazione
+* @param prezzo prezzo del biglietto per una persona
+* @return memo lista di proiezioni trovate, sotto un oggetto di tipo <code>ArrayList</code>
+* @throws ProiezioneNonEsistenteException se la proiezione non esiste
+* @throws IOException se si verifica un errore durante la lettura del file
+* @throws NumberFormatException se il formato della data inserita non è corretto
+*/
 	public static ArrayList<Proiezione> cercaProiezione(LocalDateTime data, String titolo, String genere, String regista, int anno, int durata, int eta, double prezzo) throws ProiezioneNonEsistenteException{
 		Proiezione p= null;
 		FileReader frd = null;
@@ -144,10 +167,13 @@ public class Proiezione {
 		return memo;
 	}
 
-	/** Ricerca le proiezioni comprese in un determinato intervallo di date.
- * @param <dataInizio> data iniziale dell'intervallo
- * @param <dataFine> data finale dell'intervallo
- * @throws <IOException> se si verifica un errore durante la lettura del file
+	/** Ricerca una o più proiezioni nel file Proiezioni.csv comprese in un determinato intervallo di date.
+ * @param dataInizio data iniziale dell'intervallo
+ * @param dataFine data finale dell'intervallo
+ * @return memo lista di proiezioni trovate, sotto un oggetto di tipo <code>ArrayList</code>
+ * @throws ProiezioneNonEsistenteException se la proiezione non esiste
+ * @throws IOException se si verifica un errore durante la lettura del file
+ * @throws NumberFormatException se il formato della data inserita non è corretto
  */
 	public static ArrayList<Proiezione> cercaProiezione(LocalDate dataInizio, LocalDate dataFine) throws ProiezioneNonEsistenteException{
 		Proiezione trovata= null;
@@ -199,9 +225,11 @@ public class Proiezione {
 		return memo;
 	}
 
-	/** Restituisce una rappresentazione testuale della proiezione.
- * @param <args> criteri utilizzati per individuare la proiezione
- * @return una stringa contenente le informazioni della proiezione
+	/** Restituisce una rappresentazione testuale delle proiezioni memorizzate all'interno della lista creata con 
+ * @see cercaProiezione(LocalDateTime data, String titolo, String genere, String regista, int anno, int durata, int eta, double prezzo) e con 
+ * @see cercaProiezione(LocalDate dataInizio, LocalDate dataFine).
+ * @param memo lista di tipo <code>ArrayList</code> contenente le proiezioni da visualizzare
+ * @throws IOException nel caso la lista sia inesistente o sollevi qualsiasi eccezione di altro tipo
  */
 	public static void visualizzaProiezione(ArrayList<Proiezione> memo) throws IOException{
 		System.out.println("Proiezioni trovate: ");
@@ -212,21 +240,21 @@ public class Proiezione {
 	
 	
 	/** Restituisce la data e l'ora della proiezione.
- * @return la data e l'ora della proiezione
+ * @return dataOra la data e l'ora della proiezione
  */
     public LocalDateTime getDataOra(){
 		return dataOra;
     }
 
 	/** Restituisce il prezzo del biglietto della proiezione.
- * @return il prezzo del biglietto
+ * @return prezzoBiglietto il prezzo del biglietto per una persona
  */
     public double getPrezzoBiglietto(){
         return prezzoBiglietto;
     }
 
 	/** Modifica la data e l'ora della proiezione.
- * @param <dataOra> nuova data e ora della proiezione
+ * @param dataOra nuova data e ora della proiezione
  */
     public void setDataOra(LocalDateTime dataOra){
         this.dataOra=dataOra;
@@ -239,56 +267,62 @@ public class Proiezione {
         this.prezzoBiglietto = prezzoBiglietto;
     }
 	
+	/** Restituisce il titolo del film.
+ * @return titolo titolo
+ */
 	public String getTitolo(){
 		return titolo;
 	}
 	
     /** Restituisce il genere del film.
- * @return il genere del film
+ * @return genere genere del film
  */
     public String getGenere(){
         return genere;
     }
 
     /** Restituisce il regista del film.
- * @return il regista del film
+ * @return regista regista del film
  */
     public String getRegista(){
         return regista;
     }
 
     /** Restituisce l'anno del film.
- * @return l'anno del film
+ * @return anno anno del film
  */
     public int getAnno(){
         return anno;
     }
 
     /** Restituisce la durata in minuti del film.
- * @return la durata in minuti del film
+ * @return durataMinuti la durata in minuti del film
  */
     public int getDurataMinuti(){
         return durataMinuti;
     }
 
     /** Restituisce l'età minima del film.
- * @return l'età minima del film
+ * @return etaMinima l'età minima del film
  */
     public int getEtaMinima(){
         return etaMinima;
     }
 	
-	/** Restituisce una rappresentazione testuale della proiezione, utilizzata per la visualizzazione delle informazioni e per la memorizzazione dei dati nel file csv.
- * @return una stringa contenente i dati della proiezione
+	/** Restituisce una rappresentazione testuale della proiezione, utilizzata per la visualizzazione 
+ * delle informazioni e per la memorizzazione dei dati nel file Proiezioni.csv.
+ * @return stringa_proiezione proiezione nel formato testuale
  */
     public String toString(){
         return dataOra.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+ ","+ titolo + "," + genere + "," + regista + "," + anno+ "," + durataMinuti+ "," + etaMinima+ "," +prezzoBiglietto;
     }
 
-	/** Confronta l'oggetto corrente con un altro oggetto per verificarne l'uguaglianza.
- * @param <obj> oggetto da confrontare con la proiezione corrente
- * @return {@code true} se i due oggetti sono considerati uguali, {@code false} altrimenti
- * @throws <RuntimeException> se si verifica un errore durante il confronto
+	/** 
+	@deprecated 
+	Confronta la proiezione corrente con un'altra per verificare che si tratti dello stesso oggetto.
+ * @param obj proiezione da confrontare con la proiezione corrente
+ * @return <code>true</code> se i due oggetti sono considerati uguali, <code> false</code> altrimenti
+ * @throws RuntimeException eccezione sollevata se si verifica un errore durante il confronto
  */
 	public boolean equals(Object obj) throws RuntimeException{
 		if(obj instanceof Proiezione){
