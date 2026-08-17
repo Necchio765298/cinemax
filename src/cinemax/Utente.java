@@ -1,3 +1,5 @@
+//Necchio Arianna, matricola: 765298, sede: Como
+
 package cinemax;
 
 import java.time.LocalDate;
@@ -11,10 +13,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.nio.charset.StandardCharsets;
 
-/** Rappresenta un utente registrato all'interno dell'applicazione
- * La classe memorizza le informazioni anagrafiche, le credenziali di accesso e il ruolo associato all'utente
+/**La classe fornisce la rappresentazione di un oggetto di tipo <code>Utente</code> registrato all'applicazione.
+ * La classe memorizza le informazioni anagrafiche (nome, cognome, data di nascita, domicilio), le credenziali di accesso 
+ * e il ruolo associato all'utente (cliente, bigliettaio o proiezionista).
  * @author Arianna Necchio
- * @author Gaia Galimberti
+ * @version 2.1
  */
 public class Utente {
 /** Codice identificativo dell'utente */
@@ -25,24 +28,24 @@ private String nome;
 private String cognome;
 /** Username utilizzato per l'accesso. */
 private String username;
-/** Password dell'utente. */
+/** Password cifrata. */
 private String password;
-/** Data di nascita dell'utente. */
+/** Data di nascita. */
 private LocalDate dataNascita;
-/** Domicilio dell'utente. */
+/** Domicilio. */
 private String domicilio;
-/** Ruolo dell'utente all'interno dell'applicazione. */
+/** Ruolo all'interno dell'applicazione. */
 private String ruolo;
 
-/** Costruisce un nuovo utente.
- * @param <ID> identificativo dell'utente
- * @param <nome> nome dell'utente
- * @param <cognome> cognome dell'utente
- * @param <username> username dell'utente
- * @param <password> password dell'utente
- * @param <dataNascita> data di nascita dell'utente
- * @param <domicilio> domicilio dell'utente
- * @param <ruolo> ruolo dell'utente
+/** Costruisce un nuovo oggetto di tipo <code>Utente</code> da memorizzare nel file Utenti.csv.
+ * @param ID codice identificativo generato secondo una numerazione progressiva
+ * @param nome nome
+ * @param cognome cognome
+ * @param username username
+ * @param password password
+ * @param dataNascita data di nascita
+ * @param domicilio domicilio
+ * @param ruolo ruolo
  */
     public Utente(String nome, String cognome, String username, String password, LocalDate dataNascita, String domicilio, String ruolo) throws IOException{
         
@@ -57,6 +60,16 @@ private String ruolo;
         this.ruolo=ruolo;
     }
 	
+	/** Costruisce un nuovo oggetto di tipo <code>Utente</code> una volta letta una stringa dal file Utenti.csv.
+ * @param ID codice identificativo letto dal file
+ * @param nome nome
+ * @param cognome cognome
+ * @param username username
+ * @param password password
+ * @param dataNascita data di nascita
+ * @param domicilio domicilio
+ * @param ruolo ruolo
+ */
 	public Utente(long idEsistente, String nome, String cognome, String username, String password, LocalDate dataNascita, String domicilio, String ruolo) throws IOException{
 		this.ID = idEsistente;
 		this.nome=nome;
@@ -68,6 +81,14 @@ private String ruolo;
         this.ruolo=ruolo;
     }
 	
+	/** Metodo utilizzato per la generazione del codice identificativo secondo una numerazione progressiva,
+	* incrementando di uno il valore del codice dell'ultimo utente registrato e andandolo ad assegnare al
+	* nuovo oggetto di tipo <code>Utente</code> da memorizzare su file.
+	* Il valore generato è di tipo <code>Long</code>.
+	* @return idNuovo numero Long progressivo
+	* @throws IOException eccezione che si solleva se si verificano problemi con gli stream
+	* @throws Exception eccezione generica e che intercetta tutte le eccezioni a meno di IOException
+	*/
 	public static long generaID(){
 		FileReader frd = null;
 		BufferedReader brd = null;
@@ -94,12 +115,13 @@ private String ruolo;
 	}
 			
 	
-	/** Il metodo consente di ottenere un oggetto di tipo Utente specificandone il codice identificativo; se l'utente non viene trovato, il metodo solleva un'eccezione opportuna.
-	* Il metodo è utile per creare un parametro formale di tipo Utente fornito in argomento al costruttore della classe Prenotazione.
-	* @param <id> identificativo dell'utente
-	* @return l'utente
-	* @throws <UtenteNonEsistenteException> se l'utente non è stato ancora registrato
-	* @throws <IOException> se si verifica un errore durante la scrittura del file
+	/** Il metodo consente di ottenere un oggetto di tipo <code>Utente</code> specificandone il codice identificativo; 
+	* se l'utente non viene trovato, il metodo solleva un'eccezione opportuna.
+	* Il metodo è utile per creare un parametro formale di tipo <code>Utente</code> fornito in argomento al costruttore della classe @see Prenotazione.
+	* @param id identificativo dell'utente
+	* @return oggetto_Utente nuovo oggetto di tipo <code>Utente</code>
+	* @throws UtenteNonEsistenteException eccezione che si solleva se l'utente non è stato ancora registrato
+	* @throws IOException eccezione che si solleva se si verifica un errore durante la lettura/scrittura del file
 	*/
 	public static Utente getUtente(long id) throws UtenteNonEsistenteException, IOException{
 		
@@ -114,9 +136,10 @@ private String ruolo;
 		}
 		throw new UtenteNonEsistenteException(id);
 	}
-	/** Registra un nuovo utente nel file csv.
-	 * @param <utente> utente da registrare
-	 * @throws <IOException> se si verifica un errore durante la scrittura del file
+	/** Registra un nuovo oggetto di tipo <code>Utente</code> nel file Utenti.csv.
+	 * @param utente oggetto di tipo <code>Utente</code> da registrare
+	 * @throws IOException eccezione che si solleva se si verifica un errore durante la lettura/scrittura del file
+	 *@throws Exception eccezione generica che si solleva e che intercetta tutte le eccezioni a meno di IOException
 	 */
 	public static void registraUtente(Utente utente) throws IOException{
 		try{
@@ -132,12 +155,15 @@ private String ruolo;
 		}
 	}
 
+/** Restituisce il codice identificativo dell'utente.
+ * @return ID codice ID dell'utente
+ */
 	public long getID() {
         return ID;
     }
 
 /** Restituisce il nome dell'utente.
- * @return il nome dell'utente
+ * @return nome nome dell'utente
  */
     public String getNome() {
         return nome;
@@ -145,7 +171,7 @@ private String ruolo;
 
 
 /** Restituisce il cognome dell'utente.
- * @return il cognome dell'utente
+ * @return cognome cognome dell'utente
  */
     public String getCognome() {
         return cognome;
@@ -153,15 +179,15 @@ private String ruolo;
 
 
 /** Restituisce lo username dell'utente.
- * @return lo username dell'utente
+ * @return username username
  */
     public String getUsername() {
         return username;
     }
 
 
-/** Restituisce la password dell'utente.
- * @return la password dell'utente
+/** Restituisce la password dell'utente. Metodo non utilizzabile fuori dalla classe <code>Utente</code>
+ * @return password password cifrata
  */
     private String getPassword() {
         return password;
@@ -169,7 +195,7 @@ private String ruolo;
 
 
 /** Restituisce la data di nascita dell'utente.
- * @return la data di nascita dell'utente
+ * @return dataNascita data di nascita
  */
     public LocalDate getDataNascita() {
         return dataNascita;
@@ -177,7 +203,7 @@ private String ruolo;
 
 
 /** Restituisce il domicilio dell'utente.
- * @return il domicilio dell'utente
+ * @return domicilio domicilio
  */
     public String getDomicilio() {
         return domicilio;
@@ -185,39 +211,41 @@ private String ruolo;
 
 
 /** Restituisce il ruolo associato all'utente.
- * @return il ruolo dell'utente
+ * @return il ruolo
  */
     public String getRuolo() {
         return ruolo;
     }
 
-	/** Restituisce una rappresentazione testuale dell'oggetto Utente, utilizzata per la visualizzazione delle informazioni e per la memorizzazione dei dati nel file csv.
- * @return una stringa contenente i dati dell'utente
+	/** Restituisce una rappresentazione testuale dell'oggetto <code>Utente</code>, utilizzata per la visualizzazione 
+	delle relatice informazioni e per la sua memorizzazione nel file Utenti.csv.
+ * @return stringa_Utente  stringa contenente i dati dell'utente
  */
     public String toString(){
 		return ID + "," +nome + ","+ cognome + ","+ username+"," + password +"," + dataNascita +"," +domicilio +"," +ruolo;
     }
 	
-	
+	/**
+	Metodo utilizzato per cifrare le password degli utenti registrati. Restituisce una stringa di 64 caratteri esadecimali.
+	@param password password in chiaro da cifrare
+	@throws IOException eccezione che si solleva se si verifica un errore durante la lettura/scrittura del file
+	@throws Exception eccezione generica che si solleva e che intercetta tutte le eccezioni a meno di IOException
+	*/
 	public static String passwordHash(String password) throws IOException{
-		try {
-            // Usa lo standard SHA-256 (molto più sicuro del vecchio MD5 o SHA-1)
+		try{ 
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            
-            // Calcola l'hash in formato byte array
             byte[] hashBytes = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-            
-            // Converte il byte array in una stringa Esadecimale (HEX) pulita
             StringBuilder hexString = new StringBuilder();
+			
             for(byte b : hashBytes){
                 String hex = Integer.toHexString(0xff & b);
                 if (hex.length() == 1)
 					hexString.append('0');
                 hexString.append(hex);
             }
-            return hexString.toString(); // Ritorna una stringa di 64 caratteri
+            return hexString.toString(); 
             
-        } catch (Exception e) {
+        }catch(Exception e){
             System.out.println("Algoritmo di hashing non trovato" + e.getMessage());
         }
 		return null;

@@ -1,3 +1,6 @@
+//Necchio Arianna, matricola: 765298, sede: Como
+
+
 package cinemax;
 import java.util.UUID;
 import java.io.BufferedWriter;
@@ -9,10 +12,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-/** Rappresenta una prenotazione effettuata da un utente per una determinata proiezione cinematografica
- * La classe memorizza il codice identificativo, l'utente, la proiezione e il numero di biglietti acquistati
+/** La classe Prenotazione costruisce oggetti di tipo <code>Prenotazione</code>, che rappresentano le prenotazioni create dagli utenti.
+ * Una prenotazione è costituita dal proprio codice identifiativo, da un oggetto di tipo <code>Utente</code> che ha prenotato,
+ * da un altro oggetto di tipo <code>Proiezione</code> che individua la proiezione che l'utente intende visionare e il numero dei biglietti acquistati.
  * @author Arianna Necchio
- * @author Gaia Galimberti
+ * @version 2.1
  */
 public class Prenotazione {
 	
@@ -26,11 +30,11 @@ public class Prenotazione {
     /** Numero di biglietti acquistati. */
     private int numeroBiglietto;
 
-    /** Costruisce una nuova prenotazione.
+    /** Costruisce un nuovo oggetto di tipo <code>Prenotazione</code>.
  * Il codice identificativo viene generato automaticamente.
- * @param <utente> utente che effettua la prenotazione
- * @param <proiezione> proiezione selezionata
- * @param <numeroBiglietto> numero di biglietti acquistati
+ * @param utente utente che effettua la prenotazione
+ * @param proiezione proiezione da visionare
+ * @param numeroBiglietto numero di biglietti acquistati
  */
     public Prenotazione(Utente utente , Proiezione proiezione , int numeroBiglietto){
         this.codice = UUID.randomUUID().toString().substring(0,8).toUpperCase();
@@ -39,6 +43,13 @@ public class Prenotazione {
         this.numeroBiglietto=numeroBiglietto;
     }
 	
+   /** Costruisce un nuovo oggetto di tipo <code>Prenotazione</code>.
+ * Il codice identificativo viene letto dal file Proiezioni.csv e memorizzato nel campo <code>codice</code>.
+ * @param codiceEsistente codice letto dal file
+ * @param utente utente che effettua la prenotazione
+ * @param proiezione proiezione da visionare
+ * @param numeroBiglietto numero di biglietti acquistati
+ */	
 	public Prenotazione(String codiceEsistente, Utente utente , Proiezione proiezione , int numeroBiglietto){
         this.codice = codiceEsistente;
         this.utente = utente;
@@ -47,9 +58,9 @@ public class Prenotazione {
     }
 
 
-	/** Registra una prenotazione nel file csv delle prenotazioni.
- * @param <prenotazione> prenotazione da registrare
- * @throws <IOException> se si verifica un errore durante la scrittura del file
+	/** Registra una prenotazione nel file Prenotazoni.csv.
+ * @param prenotazione prenotazione da registrare
+ * @throws IOException eccezione che si verifica un errore durante la scrittura del file
  */
 	public static void registraPrenotazione(Prenotazione prenotazione) throws IOException{
 		FileWriter fwt = new FileWriter("data/prenotazioni.csv", true);
@@ -62,14 +73,14 @@ public class Prenotazione {
 	}
 
     /** Modifica la proiezione associata alla prenotazione.
- * @param <proiezione> nuova proiezione
+ * @param proiezione nuova proiezione
  */
     public void setProiezione(Proiezione proiezione) {
         this.proiezione = proiezione;
     }
 
     /** Modifica il numero di biglietti della prenotazione.
- * @param <numeroBiglietto> nuovo numero di biglietti
+ * @param numeroBiglietto nuovo numero di biglietti
  */
     public void setNumeroBiglietto(int numeroBiglietto) {
         this.numeroBiglietto = numeroBiglietto;
@@ -82,12 +93,16 @@ public class Prenotazione {
         return codice;
     }
 	
-	
+	 /** Restituisce un oggetto di tipo <code>Utente</code> che ha effettuato la prenotazione.
+ * @return utente utente che ha prenotato
+ */
 	public Utente getUtente(){
 		return utente;
 	}
 	
-	
+	 /** Restituisce un oggetto di tipo <code>Proiezione</code>.
+ * @return proiezione proiezione da visualizzare
+ */
 	public Proiezione getProiezione(){
 		return proiezione;
 	}
@@ -99,17 +114,19 @@ public class Prenotazione {
         return numeroBiglietto;
     }
 
-/** Calcola il costo totale della prenotazione.
- * @return il costo totale della prenotazione
+/** Calcola il costo totale dei biglietti per una prenotazione.
+ * @return costo_totale costo della prenotazione
  */
     public double getCostoTotale(){
         return proiezione.getPrezzoBiglietto()*numeroBiglietto;
     }
 	
 	/**
-	*Restituisce il numero dei biglietti acquistati per una prenotazione al fine di calcolare il numero di posti occupati.
-	*@param pre è la prenotazione di cui si vuole calcolare il numero di posti prenotati.
-	*@return biglietti
+	*Restituisce il numero totale dei biglietti acquistati per una prenotazione al fine di calcolare il numero di posti occupati.
+	*@param orario orario che identifica una proiezione
+	*@return biglietti numero totale dei biglietti
+	*@throws ProiezioneNonEsistenteException proiezione di cui si vuole calcolare il totale dei biglietti che non esiste
+	*@throws IOException eccezione che si può sollevare nel caso si verifichino errori con gli stream
 	*/
 	public static int getTotaleBiglietti(LocalDateTime orario) throws ProiezioneNonEsistenteException, IOException{
 		int biglietti = 0;
@@ -125,19 +142,21 @@ public class Prenotazione {
 		return biglietti;
 	}
 
-    /** Restituisce una rappresentazione testuale della prenotazione, utilizzata per la visualizzazione delle informazioni e per la memorizzazione dei dati nel file csv.
-	* @return una stringa contenente i dati della prenotazione
+    /** Restituisce una rappresentazione testuale della prenotazione, utilizzata per la visualizzazione delle informazioni 
+	* e per la memorizzazione dei dati nel file Prenotazioni.csv.
+	* @return stringa_prenotazione stringa contenente i dati della prenotazione in formato testuale
 	*/
     public String toString(){
         return proiezione.getDataOra().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) +"," + utente.getID() + "," +utente.getNome() +"," + utente.getCognome() +"," + proiezione.getTitolo() +"," +  numeroBiglietto + ","+ codice;
     }
 	
 
-	/** Confronta l'oggetto corrente con un altro oggetto per verificarne l'uguaglianza.
-	 * @param <obj> oggetto da confrontare con la prenotazione corrente
-	 * @return {@code true} se i due oggetti sono considerati uguali, {@code false} altrimenti
-	 * @throws <RuntimeException> se si verifica un errore durante il confronto
-	 */
+	/** @deprecated
+	* Confronta la prenotazione corrente con un'altra per verificare che si tratti dello stesso oggetto.
+	* @param obj prenotazione da confrontare con la prenotazione corrente
+	* @return <code>true</code> se i due oggetti sono considerati uguali, <code> false</code> altrimenti
+	* @throws RuntimeException eccezione sollevata se si verifica un errore durante il confronto
+	*/
 	public boolean equals(Object obj) throws RuntimeException{
 		if(obj instanceof Prenotazione){
 			Prenotazione p=(Prenotazione) obj;

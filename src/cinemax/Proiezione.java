@@ -18,7 +18,7 @@ import java.util.ArrayList;
  la data e l'ora, il genere del film, il regista, l'anno di produzione, la durata in minuti del film,
  l'età minima consentita di visualizzazione e il prezzo del biglietto.
  * @author Arianna Necchio
- * @version 
+ * @version 2.1
  */
 public class Proiezione {
      /** Data e ora della proiezione. Questo campo è l'identificativo della proiezione 

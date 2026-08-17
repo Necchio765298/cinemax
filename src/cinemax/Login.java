@@ -10,7 +10,7 @@ import java.io.IOException;
 /** La classe Login gestisce l'autenticazione degli utenti all'applicazione.
  * La classe verifica le credenziali di accesso (username e password) dell'utente e ne determina il ruolo.
  * @author Arianna Necchio
- * @version 
+ * @version 2.1
  */
 public class Login{
 	//campi
@@ -48,7 +48,7 @@ public class Login{
 		return username;
 	}
 	
-	/** Restituisce la password dell'utente
+	/** Restituisce la password dell'utente. Metodo non utilizzabile fuori dalla classe <code>Login</code>
 	@return password password
 	*/
 	private String getPassword(){
