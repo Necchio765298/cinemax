@@ -13,14 +13,14 @@ import java.io.IOException;
  * @version 2.1
  */
 public class Login{
-	//campi
+	
 	/** Nome utente (username) utilizzato per l'accesso. */
 	private String username;
-	/** Password utilizzata per l'accesso associata all'utente. */
+	/** Password in chiaro utilizzata per l'accesso associata all'utente. */
 	private String password;
+	/**Password cifrata*/
 	private String hash;
 
-	//costruttore
 	/** Costruisce un nuovo oggetto di tipo <code> Login </code>.
  * @param username nome utente
  * @param password password dell'utente
@@ -32,7 +32,6 @@ public class Login{
 		this.hash = Utente.passwordHash(password);
 	}
 
-	//metodi
 
 	/** Restituisce una rappresentazione testuale dell'oggetto Login.
  * @return una stringa contenente le informazioni dell'oggetto: username e password cifrata

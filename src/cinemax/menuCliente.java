@@ -1,3 +1,5 @@
+//Necchio Arianna, matricola: 765298, sede: Como
+
 package cinemax;
 import java.lang.Integer;
 import java.time.LocalDateTime;
@@ -13,36 +15,32 @@ import java.io.Console;
 import java.util.UUID;
 import java.util.ArrayList;
 
-/** Gestisce le funzionalità riservate agli utenti con ruolo di cliente 
+/** Gestisce le funzionalità riservate agli utenti con ruolo di "Cliente"
  * La classe consente la creazione, la visualizzazione, la modifica e l'eliminazione delle prenotazioni
  * @author Arianna Necchio
- * @author Gaia Galimberti
+ * @version 2.1
  */
 public class menuCliente{
 	
-	//campi
-	/** Utente che utilizza il menu cliente. */
+	/** Utente che utilizza il menu-cliente. */
 	private Utente utente;
 	/** Prenotazione gestita dal cliente. */
 	private Prenotazione prenotazione;
 	
-	//costruttore
-	/** Costruisce un nuovo oggetto  di tipo <code>menuCliente</code>.
- * @param <utente> utente che utilizza il menu
- * @param <prenotazione> prenotazione associata al cliente
+	/** Costruisce un nuovo oggetto di tipo <code>menuCliente</code>.
+ * @param utente utente che utilizza il menu
+ * @param prenotazione prenotazione prenotata dal cliente
  */
 	public menuCliente(Utente utente, Prenotazione prenotazione){
 		this.utente = utente;
 		this.prenotazione = prenotazione;
 	}
-	
-	//metodi
 
-	/** Visualizza le prenotazioni associate all'utente specificato.
- * @param <id> identificativo dell'utente
- * @throws <IOException> se si verifica un errore durante la lettura del file
+
+	/** Visualizza una lista di prenotazioni.
+ * @param memo lista di oggetti di tipo <code>Prenotazione</code> da visualizzare
+ * @throws IOException se si verifica un errore durante la gestione degli stream
  */
- 
 	public static void visualizzaPrenotazione(ArrayList<Prenotazione> memo) throws IOException{
 		try{
 			System.out.println("Prenotazioni trovate: ");
@@ -53,11 +51,15 @@ public class menuCliente{
 		}
 	}
 
-	/** Crea una nuova prenotazione per la proiezione prevista nell'orario specificato se il 
+	/** Crea una nuovo oggetto di tipo <code>Prenotazione</code> per la proiezione prevista nell'orario specificato se il 
  * numero di posti richiesti è minore del numero di posti disponibili.
- * @param <orario> data e ora della proiezione
- * @return la prenotazione creata
- * @throws <IOExceptio> se si verifica un errore durante la gestione del file
+ * @param orario data e ora della proiezione da visionare
+ * @return prenotazione prenotazione creata se l'operazione ha avuto successo. Questo valore è fornito come elemento da aggiungere alla lista di prenotazioni da visualizzare.
+ * @see Prenotazione
+ * @see menuBigliettaio
+ * @return null se non è stato possibile creare una nuova prenotazione. 
+ * @throws IOException eccezione che si può sollevare durante la lettura/scrittura del file "Prenotazioni.csv"
+ * @throws Exception eccezione che si può sollevare e non rientra nella classe IOException
  */
 	public static Prenotazione creaPrenotazione(LocalDateTime orario, Utente u) throws IOException{
 		try{
@@ -84,11 +86,14 @@ public class menuCliente{
 		return null;
 	}
 
-	/** Modifica la data e l'ora di una prenotazione esistente
- * @param <dataVecchia> data e ora della proiezione originaria
- * @param <dataNuova> nuova data e ora della proiezione
- * @param <codice> codice identificativo della prenotazione
- * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
+	/** Modifica una prenotazione esistente nel file "Prenotazioni.csv" consentendo di modificare la proiezione da visionare
+	e il numero dei biglietti da acquistare solo se sia la data della vecchia prenotazione che quella per cui si vuole prenotare
+	siano successive alla data odierna.
+ * @param dataVecchia data e ora della proiezione da modificare
+ * @param dataNuova nuova data e ora della proiezione da salvare
+ * @param u utente che ha prenotato
+ * @throws IOException eccezione che si solleva se si verifica un errore durante la lettura/scrittura del file "Prenotazioni.csv"
+ * @throws Exception eccezione generica che non rientra nelle eccezioni di tipo <code>IOException</code>
  */
 	
 	public static void modificaPrenotazione(LocalDateTime dataVecchia, LocalDateTime dataNuova, Utente u) throws IOException{	
@@ -171,10 +176,11 @@ public class menuCliente{
 	
 			
 
-	/** Elimina una prenotazione dal sistema
- * @param <dataVecchia> data e ora della proiezione della prenotazione da eliminare
- * @param <codice> codice identificativo della prenotazione
- * @throws <IOException> se si verifica un errore durante la gestione del file
+	/** Elimina una prenotazione esistente dal file "Prenotazioni.csv" solo se la data della vecchia prenotazione sia successiva alla data odierna.
+ * @param dataVecchia data e ora della proiezione da eliminare
+ * @param codice codice della prenotazione da eliminare
+ * @throws IOException eccezione che si solleva se si verifica un errore durante la lettura/scrittura del file "Prenotazioni.csv"
+ * @throws Exception eccezione generica che non rientra nelle eccezioni di tipo <code>IOException</code>
  */
 	public static void eliminaPrenotazione(LocalDateTime dataVecchia, String codice) throws IOException{
 		Console cons = System.console();
