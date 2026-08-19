@@ -130,14 +130,24 @@ public class Prenotazione {
 	*/
 	public static int getTotaleBiglietti(LocalDateTime orario) throws ProiezioneNonEsistenteException, IOException{
 		int biglietti = 0;
-		FileReader frd = new FileReader("data/prenotazioni.csv");
-		BufferedReader brd = new BufferedReader(frd);
-		String riga;
-		while((riga =brd.readLine()) != null){
-			String[] dati = riga.split(",");
-			if(LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).equals(Proiezione.getProiezione(orario).getDataOra())){
-				biglietti = biglietti + Integer.parseInt(dati[5]);
+		FileReader frd = null;
+		BufferedReader brd= null;
+		try{
+			frd = new FileReader("data/prenotazioni.csv");
+			brd = new BufferedReader(frd);
+			String riga;
+			while((riga =brd.readLine()) != null){
+				String[] dati = riga.split(",");
+				if(LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).equals(Proiezione.getProiezione(orario).getDataOra())){
+					biglietti = biglietti + Integer.parseInt(dati[5]);
+				}
 			}
+			
+		}catch(Exception e){
+			System.err.println("Errore negli stream "+e.getMessage());
+		}finally{
+			brd.close();
+			frd.close();
 		}
 		return biglietti;
 	}
@@ -151,7 +161,7 @@ public class Prenotazione {
     }
 	
 
-	/** @deprecated
+	/**
 	* Confronta la prenotazione corrente con un'altra per verificare che si tratti dello stesso oggetto.
 	* @param obj prenotazione da confrontare con la prenotazione corrente
 	* @return <code>true</code> se i due oggetti sono considerati uguali, <code> false</code> altrimenti

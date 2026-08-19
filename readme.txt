@@ -1,33 +1,52 @@
-PROGETTO CINEMAX
-Autori
-Galimberti Gaia
-Necchio Arianna
+Necchio Arianna, Matricola: 765298, sede: Como
 
-Descrizione
-cineMax � un'applicazione sviluppata in linguaggio Java per la gestione di un cinema. Il software consente la registrazione degli utenti, l'autenticazione e la gestione delle prenotazioni e delle proiezioni in base al ruolo dell'utente.
+INDICAZIONI SULL'INSTALLAZIONE, COMPILAZIONE ED ESECUZIONE DI CINEMAX
+L'applicazione cineMax si occupa di gestire una sala cinema e gli eventi ad essa associati: a seconda del ruolo degli utenti registrati, 
+si hanno le seguenti funzionalità:
+- inserire, modificare o eliminare le proiezioni nel palinsesto;
+- possibilità di prenotare posti per i clienti registrati;
+- creare, modificare e eliminare le prenotazioni;
+- ricercare una proiezione;
+e altre possibilità.
 
-Requisiti
-- Java Development Kit (JDK) 17 o versione successiva.
-- Sistema operativo Windows, Linux oppure macOS.
+REQUISITI
+È necessario disporre di una versione di Java pari o successiva a Java 17 (JDK 17). 
 
-Installazione
-1. Scaricare o clonare il repository GitHub.
-2. Aprire la cartella del progetto.
-3. Verificare la presenza delle directory doc, bin e data.
-4. Assicurarsi di avere installato il JDK.
+INSTALLAZIONE (DOWNLOAD DELLA JAVA VIRTUAL MACHINE)
+1. recarsi all’indirizzo https://www.oracle.com/it/java/technologies/downloads/
+2. scegliere la versione di Java desiderata 
+3. scegliere il sistema operativo per cui scaricare l’ambiente
+4. cliccare sul link per scaricare l'eseguibile
 
-Compilazione
-Aprire il Prompt dei comandi nella cartella del progetto ed eseguire: javac bin/*.java
-Oppure entrare nella cartella bin ed eseguire: javac *.java
-Oppure aprire Esplora file e accedere alla cartella bin del progetto. Nella barra dell'indirizzo digitare "cmd" e premere Invio per aprire il Prompt dei comandi nella cartella corrente. Successivamente eseguire il comando: javac *.java
+INSTALLAZIONE (IMPOSTARE E CONFIGURARE LA JAVA VIRTUAL MACHINE)
+1. aprire la cartella appena scaricata
+2. recarsi in “Java”
+3. spostarsi sulla cartella denominata con “jdk-numero_versione”
+4. aprire la directory “bin”
+5. copiarne il classpath
+PROCEDURA PER WINDOWS (simile su altri SO)
+6. avviare le Impostazioni
+7. recarsi su “sistema” 
+8. cliccare su “informazioni sul sistema”
+9. accedere alle impostazioni di sistema avanzate
+10. aprire la scheda “Variabili d’ambiente”
+11. cliccare su “Variabili di sistema”
+12. selezionare “Path”
+13. cliccare su “Modifica”
+14. cliccare su "Nuovo"
+15. Incollare il classpath copiato e salvare
 
-Esecuzione
-Dopo la compilazione, per avviare l'applicazione eseguire il comando:
-java cineMax
+INSTALLAZIONE (SCARICARE IL PROGRAMMA)
+1. recarsi su https://github.com/Necchio765298/cinemax.git
+2. cliccare su “Code”
+3. cliccare su “Download ZIP”
 
-Documentazione
-Nella cartella doc sono disponibili il Manuale Utente, il Manuale Tecnico e la documentazione Javadoc.
+COMPILAZIONE
+1. scompattare l'archivio scaricato
+2. collocarsi all’interno della cartella “cinemax”
+3. digitare “cmd” all'interno della barra di navigazione della cartella
+4. digitare il comando javac -d bin src/cinemax/*.java
+5. digitare il comando jar cvfe cinemax.jar cinemax.cineMax -C bin cinemax data
 
-Note
-I dati dell'applicazione sono memorizzati nei file csv presenti nella cartella data. L'applicazione necessita di tali file per poter funzionare correttamente.
-Per ulteriori informazioni sul funzionamento dell'applicazione si rimanda al Manuale Utente, al Manuale Tecnico e alla documentazione Javadoc presenti nella cartella doc.
+ESECUZIONE
+1. digitare il comando java -jar bin/cinemax.jar

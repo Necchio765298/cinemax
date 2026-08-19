@@ -72,10 +72,12 @@ ovvero la relativa data e ora.
 @throws IOException se si verifica un errore nella gestione degli stream.
 */
 	public static Proiezione getProiezione(LocalDateTime ldt) throws ProiezioneNonEsistenteException, IOException{
-		FileReader frd = new FileReader("data/proiezioni.csv");
-		BufferedReader brd = new BufferedReader(frd);
+		FileReader frd=null;
+		BufferedReader brd=null;
 		String proiezione;
 		try{
+			frd = new FileReader("data/proiezioni.csv");
+			brd = new BufferedReader(frd);
 			while ((proiezione = brd.readLine()) != null) {
 				String[] dati = proiezione.split(",");
 				String dataPulita = dati[0].replace("\"", "").trim();
@@ -86,6 +88,9 @@ ovvero la relativa data e ora.
 			}	
 		}catch(Exception e){
 			System.err.println("Errore di recupero proiezione: " + e.getMessage());
+		}finally{
+			brd.close();
+			frd.close();
 		}
 		throw new ProiezioneNonEsistenteException(ldt);
 	}
@@ -318,7 +323,7 @@ ovvero la relativa data e ora.
     }
 
 	/** 
-	@deprecated 
+	 
 	Confronta la proiezione corrente con un'altra per verificare che si tratti dello stesso oggetto.
  * @param obj proiezione da confrontare con la proiezione corrente
  * @return <code>true</code> se i due oggetti sono considerati uguali, <code> false</code> altrimenti

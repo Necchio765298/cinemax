@@ -45,13 +45,14 @@ import java.util.ArrayList;
 	
 	public static ArrayList<Prenotazione> cercaPrenotazione(LocalDateTime data, long id, String nome, String cognome, String titolo, int biglietti, String codice) throws IOException{
 		Prenotazione pre = null;
-		ArrayList<Prenotazione> memo = new ArrayList<Prenotazione>();
+		ArrayList<Prenotazione> memo = null;
 		FileReader frd = null;
 		BufferedReader brd= null;
 		try{
 			frd = new FileReader("data/prenotazioni.csv");
 			brd = new BufferedReader(frd);
 			String prenotazione = null;	
+			memo = new ArrayList<Prenotazione>();
 			while((prenotazione = brd.readLine()) != null){
 				String[] dati = prenotazione.split(",");
 				if(((LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).isEqual(data))

@@ -116,7 +116,6 @@ public class menuCliente{
 					brd = new BufferedReader(frd);
 				try{	
 					ArrayList<Prenotazione> preVecchia = menuBigliettaio.cercaPrenotazione(dataVecchia, 0, "", "", "", 0, "");
-					//prenotazione da sovrascrivere = preOttenuta
 					Prenotazione preOttenuta= preVecchia.get(0);
 					System.out.println(" ");
 					Prenotazione preNuova = menuCliente.creaPrenotazione(dataNuova, u);
@@ -135,7 +134,7 @@ public class menuCliente{
 						if(!(preOttenuta.getCodice()).equals(daLinea.getCodice())){
 							bwt.write(daLinea.toString());
 						}else{
-						bwt.write(preNuova.toString());
+							bwt.write(preNuova.toString());
 						}
 						bwt.newLine();
 					}
@@ -212,7 +211,7 @@ public class menuCliente{
 						Proiezione p = Proiezione.getProiezione(LocalDateTime.parse(dati[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 						Utente u = Utente.getUtente(Long.parseLong(dati[1]));
 						Prenotazione preAltra = new Prenotazione(dati[6], u, p, Integer.parseInt(dati[5]));
-						System.out.println("Prenotazione che viene confrontata: "+preAltra.toString());
+						
 						
 						if(!(preOttenuta.getCodice().equals(preAltra.getCodice()))){
 							bwt.write(preAltra.toString());
