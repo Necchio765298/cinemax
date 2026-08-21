@@ -68,8 +68,8 @@ ovvero la relativa data e ora.
 
 * @param ldt la data e l'ora associata alla proiezione da ricercare
 * @return Proiezione oggetto di tipo <code>Proiezione</code>
-* @throws ProiezioneNonEsistenteException se la proiezione ricercata non esiste.
-@throws IOException se si verifica un errore nella gestione degli stream.
+* @throws ProiezioneNonEsistenteException eccezione che si solleva se la proiezione ricercata non esiste.
+@throws IOException eccezione che si solleva se si verifica un errore nella gestione degli stream.
 */
 	public static Proiezione getProiezione(LocalDateTime ldt) throws ProiezioneNonEsistenteException, IOException{
 		FileReader frd=null;
@@ -114,9 +114,9 @@ ovvero la relativa data e ora.
 * @param eta età minima consigliata per la visualizzazione
 * @param prezzo prezzo del biglietto per una persona
 * @return memo lista di proiezioni trovate, sotto un oggetto di tipo <code>ArrayList</code>
-* @throws ProiezioneNonEsistenteException se la proiezione non esiste
-* @throws IOException se si verifica un errore durante la lettura del file
-* @throws NumberFormatException se il formato della data inserita non è corretto
+* @throws ProiezioneNonEsistenteException eccezione che si solleva se la proiezione non esiste
+* @throws IOException eccezione che si solleva se si verifica un errore durante la lettura del file
+* @throws NumberFormatException eccezione che si solleva se il formato della data inserita non è corretto
 */
 	public static ArrayList<Proiezione> cercaProiezione(LocalDateTime data, String titolo, String genere, String regista, int anno, int durata, int eta, double prezzo) throws ProiezioneNonEsistenteException{
 		Proiezione p= null;
@@ -176,9 +176,9 @@ ovvero la relativa data e ora.
  * @param dataInizio data iniziale dell'intervallo
  * @param dataFine data finale dell'intervallo
  * @return memo lista di proiezioni trovate, sotto un oggetto di tipo <code>ArrayList</code>
- * @throws ProiezioneNonEsistenteException se la proiezione non esiste
- * @throws IOException se si verifica un errore durante la lettura del file
- * @throws NumberFormatException se il formato della data inserita non è corretto
+ * @throws ProiezioneNonEsistenteException eccezione che si solleva se la proiezione non esiste
+ * @throws IOException eccezione che si solleva se si verifica un errore durante la lettura del file
+ * @throws NumberFormatException eccezione che si solleva se il formato della data inserita non è corretto
  */
 	public static ArrayList<Proiezione> cercaProiezione(LocalDate dataInizio, LocalDate dataFine) throws ProiezioneNonEsistenteException{
 		Proiezione trovata= null;
@@ -234,7 +234,7 @@ ovvero la relativa data e ora.
  * @see cercaProiezione(LocalDateTime data, String titolo, String genere, String regista, int anno, int durata, int eta, double prezzo) e con 
  * @see cercaProiezione(LocalDate dataInizio, LocalDate dataFine).
  * @param memo lista di tipo <code>ArrayList</code> contenente le proiezioni da visualizzare
- * @throws IOException nel caso la lista sia inesistente o sollevi qualsiasi eccezione di altro tipo
+ * @throws IOException eccezione che si solleva nel caso la lista sia inesistente o sollevi qualsiasi eccezione di altro tipo
  */
 	public static void visualizzaProiezione(ArrayList<Proiezione> memo) throws IOException{
 		System.out.println("Proiezioni trovate: ");

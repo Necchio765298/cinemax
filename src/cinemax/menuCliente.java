@@ -39,7 +39,8 @@ public class menuCliente{
 
 	/** Visualizza una lista di prenotazioni.
  * @param memo lista di oggetti di tipo <code>Prenotazione</code> da visualizzare
- * @throws IOException se si verifica un errore durante la gestione degli stream
+ * @throws IOException eccezione che si solleva se si verifica un errore durante la gestione degli stream
+ * @throws Exception eccezione generica che non rientra nella classe <code>IOException</code>
  */
 	public static void visualizzaPrenotazione(ArrayList<Prenotazione> memo) throws IOException{
 		try{

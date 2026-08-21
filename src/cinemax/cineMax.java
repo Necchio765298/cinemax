@@ -1,3 +1,5 @@
+//Necchio Arianna, matricola: 765298, sede: Como
+
 package cinemax;
 
 import java.io.Console;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
  * Contiene il metodo main(), responsabile dell'avvio del programma, della gestione del menu principale e dell'interazione con l'utente
  * In base alle operazioni selezionate richiama le funzionalità implementate nelle altre classi del progetto
  * @author Arianna Necchio
- * @author Gaia Galimberti
+ * @version 2.1
  */
 public class cineMax {
 

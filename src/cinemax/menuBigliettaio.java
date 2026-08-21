@@ -1,3 +1,5 @@
+//Necchio Arianna, matricola: 765298, sede: Como
+
 package cinemax;
 
 import java.io.IOException;
@@ -9,40 +11,58 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-/** Gestisce le funzionalità riservate agli utenti con ruolo di bigliettaio 
- * La classe consente la ricerca e la visualizzazione delle prenotazioni effettuate dai clienti
+/** Gestisce le funzionalità riservate agli utenti con ruolo di "Bigliettaio"
+ * La classe consente la visualizzazione e la ricerca delle prenotazioni.
  * @author Arianna Necchio
- * @author Gaia Galimberti
+ * @version 2.1
  */
 	public class menuBigliettaio {
   
 	//CAMPI
-/** Prenotazione gestita dal menu del bigliettaio. */
+/** Prenotazione gestita dal menu*/
 	private Prenotazione prenotazione;
   
   //COSTRUTTORE
- /** Costruisce un nuovo oggetto menuBigliettaio.
- */
+ /** Costruisce un nuovo oggetto di tipo <code>menuBigliettaio</code>. */
 	public menuBigliettaio() {
 	   this.prenotazione = prenotazione;
 	   }
    
   //METODI	
-/** Visualizza le informazioni relative a una prenotazione.
- * @throws <IOException> se si verifica un errore durante la gestione del file
+	/** Visualizza una lista di prenotazioni.
+ * @param memo lista di oggetti di tipo <code>Prenotazione</code> da visualizzare
+ * @throws IOException eccezione che si solleva se si verifica un errore durante la gestione degli stream
  */
-	public static void visualizzaPrenotazione(ArrayList<Prenotazione> memo){
+	public static void visualizzaPrenotazione(ArrayList<Prenotazione> memo) throws IOException{
+		try{
 		System.out.println("Prenotazioni trovate: ");
 		for(Prenotazione pre : memo)
 			System.out.println(pre.toString());
+		}catch(Exception e){
+			e.getMessage();
 		}
+	}
 	
-/** Ricerca una prenotazione in base ai criteri specificati.
- * @param <arg> criteri utilizzati per la ricerca
- * @return la prenotazione trovata sotto forma di stringa
- * @throws <IOException> se si verifica un errore durante la lettura del file
- */
-	
+/** Ricerca una o più prenotazioni nel file Prenotazioni.csv in base ai criteri di ricerca specificati.
+* Il metodo riceve in argomento dati di tipo <code>String</code>, <code>LocalDateTime</code> e <code>int</code>, in particolare si può ricercare una prenotazione per:
+* - data e ora;
+* - codice ID del cliente;
+* - nome;
+* - cognome;
+* - titolo del film;
+* - numero dei biglietti prenotati;
+* - codice della prenotazione.
+* @param data data e ora della prenotazione in formato yyyy-MM-dd HH-mm-ss
+* @param id codice identificativo cliente
+* @param nome nome
+* @param cognome conome
+* @param titolo titolo del film
+* @param biglietti numero di biglietti prenotati
+* @param codice codice prenotazione
+* @return memo lista di prenotazioni trovate, sotto un oggetto di tipo <code>ArrayList</code>
+* @throws IOException eccezione che si solleva se si verifica un errore durante la lettura del file
+* @throws Exception eccezione che non rientra nella classe <code>IOException</code>
+*/
 	public static ArrayList<Prenotazione> cercaPrenotazione(LocalDateTime data, long id, String nome, String cognome, String titolo, int biglietti, String codice) throws IOException{
 		Prenotazione pre = null;
 		ArrayList<Prenotazione> memo = null;
@@ -78,12 +98,14 @@ import java.util.ArrayList;
 		return memo;
 	}
 
-/** Ricerca le prenotazioni comprese in un determinato intervallo di date e orari.
- * @param <dataInizio> data e ora di inizio dell'intervallo
- * @param <dataFine> data e ora di fine dell'intervallo
- * @throws <IOException> se si verifica un errore durante la lettura del file
- */
-	
+/** Ricerca una o più prenotazioni nel file Prenotazioni.csv per intervallo di date.
+* Il metodo riceve in argomento dati di tipo <code>LocalDateTime</code>
+* @param dataInizio data e ora di inizio ricerca della prenotazione in formato yyyy-MM-dd HH-mm-ss
+* @param dataFine data e ora di fine ricerca della prenotazione in formato yyyy-MM-dd HH-mm-ss
+* @return memo lista di prenotazioni trovate, sotto un oggetto di tipo <code>ArrayList</code>
+* @throws IOException eccezione che si solleva se si verifica un errore durante la lettura del file
+* @throws Exception eccezione che non rientra nella classe <code>IOException</code>
+*/
 	public static ArrayList<Prenotazione> cercaPrenotazione(LocalDateTime dataInizio, LocalDateTime dataFine) throws IOException{
 		FileReader frd = null;
 		BufferedReader brd = null;

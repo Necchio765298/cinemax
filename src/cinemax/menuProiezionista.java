@@ -1,3 +1,6 @@
+//Necchio Arianna, matricola: 765298, sede: Como
+
+
 package cinemax;
 
 import java.io.IOException;
@@ -11,26 +14,26 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-/** Gestisce le funzionalità riservate agli utenti con ruolo di proiezionista
- * La classe consente l'inserimento, la modifica e l'eliminazione delle proiezioni cinematografiche
+/** Gestisce le funzionalità riservate agli utenti con ruolo di "Proiezionista"
+ * La classe consente la creazione, la modifica e l'eliminazione delle prenotazioni.
  * @author Arianna Necchio
- * @author Gaia Galimberti
+ * @version 2.1
  */
  public class menuProiezionista {
   
 
- /** Proiezione gestita dal menu del proiezionista. */
+ /** Proiezione gestita dal menu */
 	private Proiezione proiezione;
  
 
-/** Costruisce un nuovo oggetto di tipo menuProiezionista.*/
+/** Costruisce un nuovo oggetto di tipo <code>menuProiezionista</code>.*/
 	public menuProiezionista() {
 		this.proiezione = proiezione;
 	}
 
 
- /** Crea una nuova proiezione utilizzando i dati inseriti
- * @return proiezione nuova proiezione da registrare su file
+ /** Crea una nuovo oggetto di tipo <code>Proiezione</code> chiedendo all'utente di compilare i dati richiesti, relativi alla proiezione
+ * @return proiezione nuova proiezione 
  */
 	public static Proiezione creaProiezione(){
 		Console cons = System.console();
@@ -55,11 +58,12 @@ import java.time.format.DateTimeFormatter;
 	}
 	   
    
-  /** Inserisce una proiezione su file acquisendo i dati necessari e verificanche non si sovrapponga con una già esistente.
-  @param p Proiezione da registrare su file
- * @throws <IOException> se si verifica un errore durante la lettura o la scrittura del file
+  /** Inserisce una proiezione in coda al file se la data e l'ora per cui è stata creata
+  non si accavallano con quelli di una già esistente, altrimenti l'operazione non viene portata a termine.
+  @param p oggetto di tipo <code>Proiezione</code> da registrare su file
+ * @throws IOException eccezione che si solleva se si verifica un errore durante la lettura o la scrittura del file
+ * @throws Exception eccezione generica che non rientra nella classe <code>IOException</code>
  */
- 
 	public static void aggiungiProiezione(Proiezione p) throws IOException{	
 		FileWriter fwt= null;
 		BufferedWriter bwt = null;
@@ -92,9 +96,11 @@ import java.time.format.DateTimeFormatter;
 		}
 	}
 
-	 /** Modifica una proiezione già presente nel file se non ci sono ancora prenotazioni per questa.
- * @param <orario> data e ora della proiezione da modificare
- * @throws <IOException> se si verifica un errore durante la gestione del file
+	 /** Modifica una proiezione esistente se non ci sono ancora prenotazioni per questa,
+	 ovvero se non sia stata effettuata nessuna prenotazione avente la medesima data e ora di quella da modificare.
+ * @param orario data e ora della proiezione da modificare
+ * @throws IOException eccezione che si solleva se si verifica un errore durante la fase di lettura/scrittura
+ @throws Exception eccezione generica che non rientra nella classe <code>IOException</code>
  */
 	public static void modificaProiezione(LocalDateTime orario) throws IOException{
 		FileReader frd = null;
@@ -180,9 +186,11 @@ import java.time.format.DateTimeFormatter;
 		}
 	}
 
-	 /** Elimina una proiezione dal sistema individuata dalla data e ora specificate
- * @param <orario> data e ora della proiezione da eliminare
- * @throws <IOException> se si verifica un errore durante la la gestione del file
+	 /** Elimina una proiezione esistente se non ci sono ancora prenotazioni per questa,
+	 ovvero se non sia stata effettuata nessuna prenotazione avente la medesima data e ora di quella da eliminare.
+ * @param orario data e ora della proiezione da eliminare
+ * @throws IOException eccezione che si solleva se si verifica un errore durante la la gestione del file
+  @throws Exception eccezione generica che non rientra nella classe <code>IOException</code>
  */
 	 //elimina con gli stream
 	public static void eliminaProiezione(LocalDateTime orario) throws IOException {
