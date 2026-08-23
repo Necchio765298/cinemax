@@ -40,7 +40,6 @@ public class menuCliente{
 	/** Visualizza una lista di prenotazioni.
  * @param memo lista di oggetti di tipo <code>Prenotazione</code> da visualizzare
  * @throws IOException eccezione che si solleva se si verifica un errore durante la gestione degli stream
- * @throws Exception eccezione generica che non rientra nella classe <code>IOException</code>
  */
 	public static void visualizzaPrenotazione(ArrayList<Prenotazione> memo) throws IOException{
 		try{
@@ -55,12 +54,11 @@ public class menuCliente{
 	/** Crea una nuovo oggetto di tipo <code>Prenotazione</code> per la proiezione prevista nell'orario specificato se il 
  * numero di posti richiesti è minore del numero di posti disponibili.
  * @param orario data e ora della proiezione da visionare
+ * @param u utente al quale va associata la prenotazione
  * @return prenotazione prenotazione creata se l'operazione ha avuto successo. Questo valore è fornito come elemento da aggiungere alla lista di prenotazioni da visualizzare.
  * @see Prenotazione
  * @see menuBigliettaio
- * @return null se non è stato possibile creare una nuova prenotazione. 
  * @throws IOException eccezione che si può sollevare durante la lettura/scrittura del file "Prenotazioni.csv"
- * @throws Exception eccezione che si può sollevare e non rientra nella classe IOException
  */
 	public static Prenotazione creaPrenotazione(LocalDateTime orario, Utente u) throws IOException{
 		try{
@@ -94,7 +92,6 @@ public class menuCliente{
  * @param dataNuova nuova data e ora della proiezione da salvare
  * @param u utente che ha prenotato
  * @throws IOException eccezione che si solleva se si verifica un errore durante la lettura/scrittura del file "Prenotazioni.csv"
- * @throws Exception eccezione generica che non rientra nelle eccezioni di tipo <code>IOException</code>
  */
 	
 	public static void modificaPrenotazione(LocalDateTime dataVecchia, LocalDateTime dataNuova, Utente u) throws IOException{	
@@ -180,7 +177,6 @@ public class menuCliente{
  * @param dataVecchia data e ora della proiezione da eliminare
  * @param codice codice della prenotazione da eliminare
  * @throws IOException eccezione che si solleva se si verifica un errore durante la lettura/scrittura del file "Prenotazioni.csv"
- * @throws Exception eccezione generica che non rientra nelle eccezioni di tipo <code>IOException</code>
  */
 	public static void eliminaPrenotazione(LocalDateTime dataVecchia, String codice) throws IOException{
 		Console cons = System.console();

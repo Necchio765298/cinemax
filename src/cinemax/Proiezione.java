@@ -22,7 +22,7 @@ import java.util.ArrayList;
  */
 public class Proiezione {
      /** Data e ora della proiezione. Questo campo è l'identificativo della proiezione 
-	*dal momento che in un certo orario ho una sola proiezione che viene riprodotta. */
+	dal momento che in un certo orario ho una sola proiezione che viene riprodotta. */
 	private LocalDateTime dataOra;
 	/** Titolo del film. */
     private String titolo ;
@@ -96,15 +96,15 @@ ovvero la relativa data e ora.
 	}
 
 /** Ricerca una o più proiezioni nel file Proiezioni.csv in base ai criteri di ricerca specificati.
-* Il metodo riceve in argomento dati di tipo String, LocalDateTime e double, in particolare si può ricercare una proiezione per:
-* - data e ora;
-* - titolo;
-* - genere;
-* - nome e cognome del regista;
-* - anno di produzione;
-* - durata in minuti;
-* - età minima di visualizzazione;
-* - prezzo del biglietto.
+* Il metodo riceve in argomento dati di tipo String, LocalDateTime e double, in particolare si può ricercare una proiezione per: <br>
+* - data e ora; <br>
+* - titolo; <br>
+* - genere;<br>
+* - nome e cognome del regista;<br>
+* - anno di produzione;<br>
+* - durata in minuti;<br>
+* - età minima di visualizzazione;<br>
+* - prezzo del biglietto.<br>
 * @param data data e ora della proiezione in formato yyyy-MM-dd HH-mm-ss
 * @param titolo titolo del film
 * @param genere genere del film, ad esempio Fantasy, Adventure...
@@ -115,8 +115,6 @@ ovvero la relativa data e ora.
 * @param prezzo prezzo del biglietto per una persona
 * @return memo lista di proiezioni trovate, sotto un oggetto di tipo <code>ArrayList</code>
 * @throws ProiezioneNonEsistenteException eccezione che si solleva se la proiezione non esiste
-* @throws IOException eccezione che si solleva se si verifica un errore durante la lettura del file
-* @throws NumberFormatException eccezione che si solleva se il formato della data inserita non è corretto
 */
 	public static ArrayList<Proiezione> cercaProiezione(LocalDateTime data, String titolo, String genere, String regista, int anno, int durata, int eta, double prezzo) throws ProiezioneNonEsistenteException{
 		Proiezione p= null;
@@ -177,8 +175,6 @@ ovvero la relativa data e ora.
  * @param dataFine data finale dell'intervallo
  * @return memo lista di proiezioni trovate, sotto un oggetto di tipo <code>ArrayList</code>
  * @throws ProiezioneNonEsistenteException eccezione che si solleva se la proiezione non esiste
- * @throws IOException eccezione che si solleva se si verifica un errore durante la lettura del file
- * @throws NumberFormatException eccezione che si solleva se il formato della data inserita non è corretto
  */
 	public static ArrayList<Proiezione> cercaProiezione(LocalDate dataInizio, LocalDate dataFine) throws ProiezioneNonEsistenteException{
 		Proiezione trovata= null;
@@ -232,7 +228,7 @@ ovvero la relativa data e ora.
 
 	/** Restituisce una rappresentazione testuale delle proiezioni memorizzate all'interno della lista creata con 
  * @see cercaProiezione(LocalDateTime data, String titolo, String genere, String regista, int anno, int durata, int eta, double prezzo) e con 
- * @see cercaProiezione(LocalDate dataInizio, LocalDate dataFine).
+ * @see cercaProiezione(LocalDate dataInizio, LocalDate dataFine)
  * @param memo lista di tipo <code>ArrayList</code> contenente le proiezioni da visualizzare
  * @throws IOException eccezione che si solleva nel caso la lista sia inesistente o sollevi qualsiasi eccezione di altro tipo
  */
@@ -266,7 +262,7 @@ ovvero la relativa data e ora.
     }
 
 	/** Modifica il prezzo del biglietto della proiezione.
- * @param <prezzoBiglietto> nuovo prezzo del biglietto
+ * @param prezzoBiglietto nuovo prezzo del biglietto
  */
     public void setPrezzoBiglietto(double prezzoBiglietto){
         this.prezzoBiglietto = prezzoBiglietto;

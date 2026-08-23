@@ -12,7 +12,7 @@ public class ProiezioneNonEsistenteException extends Exception{
 
 	/** Costruisce un nuovo oggetto di tipo <code>ProiezioneNonEsistenteException</code>
 quando si tenta di ricercare una proiezione non esistente.
- * @param Idt data e ora della proiezione
+ * @param ldt data e ora della proiezione
  */
 	public ProiezioneNonEsistenteException(LocalDateTime ldt){
 		System.out.println("La proiezione con data e ora " + ldt + " non esiste");

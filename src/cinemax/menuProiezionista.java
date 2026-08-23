@@ -33,7 +33,7 @@ import java.time.format.DateTimeFormatter;
 
 
  /** Crea una nuovo oggetto di tipo <code>Proiezione</code> chiedendo all'utente di compilare i dati richiesti, relativi alla proiezione
- * @return proiezione nuova proiezione 
+ * @return p nuova proiezione 
  */
 	public static Proiezione creaProiezione(){
 		Console cons = System.console();
@@ -61,8 +61,7 @@ import java.time.format.DateTimeFormatter;
   /** Inserisce una proiezione in coda al file se la data e l'ora per cui è stata creata
   non si accavallano con quelli di una già esistente, altrimenti l'operazione non viene portata a termine.
   @param p oggetto di tipo <code>Proiezione</code> da registrare su file
- * @throws IOException eccezione che si solleva se si verifica un errore durante la lettura o la scrittura del file
- * @throws Exception eccezione generica che non rientra nella classe <code>IOException</code>
+  @throws IOException eccezione che si solleva se si verifica un errore durante la lettura o la scrittura del file
  */
 	public static void aggiungiProiezione(Proiezione p) throws IOException{	
 		FileWriter fwt= null;
@@ -96,11 +95,10 @@ import java.time.format.DateTimeFormatter;
 		}
 	}
 
-	 /** Modifica una proiezione esistente se non ci sono ancora prenotazioni per questa,
-	 ovvero se non sia stata effettuata nessuna prenotazione avente la medesima data e ora di quella da modificare.
- * @param orario data e ora della proiezione da modificare
- * @throws IOException eccezione che si solleva se si verifica un errore durante la fase di lettura/scrittura
- @throws Exception eccezione generica che non rientra nella classe <code>IOException</code>
+/** Modifica una proiezione esistente se non ci sono ancora prenotazioni per questa,
+ovvero se non sia stata effettuata nessuna prenotazione avente la medesima data e ora di quella da modificare.
+@param orario data e ora della proiezione da modificare
+@throws IOException eccezione che si solleva se si verifica un errore durante la fase di lettura/scrittura
  */
 	public static void modificaProiezione(LocalDateTime orario) throws IOException{
 		FileReader frd = null;
@@ -186,11 +184,10 @@ import java.time.format.DateTimeFormatter;
 		}
 	}
 
-	 /** Elimina una proiezione esistente se non ci sono ancora prenotazioni per questa,
-	 ovvero se non sia stata effettuata nessuna prenotazione avente la medesima data e ora di quella da eliminare.
- * @param orario data e ora della proiezione da eliminare
- * @throws IOException eccezione che si solleva se si verifica un errore durante la la gestione del file
-  @throws Exception eccezione generica che non rientra nella classe <code>IOException</code>
+/** Elimina una proiezione esistente se non ci sono ancora prenotazioni per questa,
+ovvero se non sia stata effettuata nessuna prenotazione avente la medesima data e ora di quella da eliminare.
+@param orario data e ora della proiezione da eliminare
+@throws IOException eccezione che si solleva se si verifica un errore durante la la gestione del file
  */
 	 //elimina con gli stream
 	public static void eliminaProiezione(LocalDateTime orario) throws IOException {

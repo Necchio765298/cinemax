@@ -64,9 +64,6 @@ public class Login{
 	/** Verifica la validità delle credenziali inserite confrontandole con quelle memorizzate nel file Utenti.csv.
  * @param login oggetto di tipo <code> Login </code> contenente le credenziali da verificare
  * @return <code>true</code> se l'autenticazione va a buon fine, <code>false</code> altrimenti
- * @throws IOException se si verifica un errore durante la lettura del file
- * @throws UtenteNonEsistenteException se l'utente non è presente nel sistema
- @throws Exception eccezione generica per intercettare tutte le eccezioni generate che non rientrano in quelle sopra citate.
  */
 	public static Utente login(Login login){
 		Utente utente = null;

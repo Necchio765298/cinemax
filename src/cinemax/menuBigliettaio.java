@@ -44,14 +44,14 @@ import java.util.ArrayList;
 	}
 	
 /** Ricerca una o più prenotazioni nel file Prenotazioni.csv in base ai criteri di ricerca specificati.
-* Il metodo riceve in argomento dati di tipo <code>String</code>, <code>LocalDateTime</code> e <code>int</code>, in particolare si può ricercare una prenotazione per:
-* - data e ora;
-* - codice ID del cliente;
-* - nome;
-* - cognome;
-* - titolo del film;
-* - numero dei biglietti prenotati;
-* - codice della prenotazione.
+* Il metodo riceve in argomento dati di tipo <code>String</code>, <code>LocalDateTime</code> e <code>int</code>, in particolare si può ricercare una prenotazione per:<br>
+* - data e ora;<br>
+* - codice ID del cliente;<br>
+* - nome;<br>
+* - cognome;<br>
+* - titolo del film;<br>
+* - numero dei biglietti prenotati;<br>
+* - codice della prenotazione.<br>
 * @param data data e ora della prenotazione in formato yyyy-MM-dd HH-mm-ss
 * @param id codice identificativo cliente
 * @param nome nome
@@ -61,7 +61,6 @@ import java.util.ArrayList;
 * @param codice codice prenotazione
 * @return memo lista di prenotazioni trovate, sotto un oggetto di tipo <code>ArrayList</code>
 * @throws IOException eccezione che si solleva se si verifica un errore durante la lettura del file
-* @throws Exception eccezione che non rientra nella classe <code>IOException</code>
 */
 	public static ArrayList<Prenotazione> cercaPrenotazione(LocalDateTime data, long id, String nome, String cognome, String titolo, int biglietti, String codice) throws IOException{
 		Prenotazione pre = null;
@@ -104,7 +103,6 @@ import java.util.ArrayList;
 * @param dataFine data e ora di fine ricerca della prenotazione in formato yyyy-MM-dd HH-mm-ss
 * @return memo lista di prenotazioni trovate, sotto un oggetto di tipo <code>ArrayList</code>
 * @throws IOException eccezione che si solleva se si verifica un errore durante la lettura del file
-* @throws Exception eccezione che non rientra nella classe <code>IOException</code>
 */
 	public static ArrayList<Prenotazione> cercaPrenotazione(LocalDateTime dataInizio, LocalDateTime dataFine) throws IOException{
 		FileReader frd = null;

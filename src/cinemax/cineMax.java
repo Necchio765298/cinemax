@@ -1,5 +1,9 @@
 //Necchio Arianna, matricola: 765298, sede: Como
 
+/**
+ * @author Arianna Necchio
+ * @version 2.1
+ */
 package cinemax;
 
 import java.io.Console;
@@ -9,18 +13,15 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-/** Classe principale dell'applicazione
- * Contiene il metodo main(), responsabile dell'avvio del programma, della gestione del menu principale e dell'interazione con l'utente
- * In base alle operazioni selezionate richiama le funzionalità implementate nelle altre classi del progetto
- * @author Arianna Necchio
- * @version 2.1
- */
+
 public class cineMax {
 
-	/** Avvia l'applicazione e gestisce il flusso principale del programma.
- * Visualizza il menu iniziale, acquisisce le scelte dell'utente, gestisce l'autenticazione e richiama le funzionalità disponibili per il ruolo selezionato.
- * @param <args> argomenti passati dalla riga di comando
- * @throws <IOException> se si verifica un errore durante la lettura o la scrittura dei file
+	/** Avvia l'applicazione e consente all'utente di utilizzare le funzioni delle alre classi.
+ * Visualizza il menu di avvio, permette l'accesso alla piattaforma, dispone della facoltà di registrazione
+ e richiama, a seconda del ruolo del singolo, le relative funzionalità disponibili.
+ * @param args stringhe passate in input dalla riga di comando
+ * @throws IOException eccezione che si solleva se si verifica un errore durante la lettura o la scrittura dei file
+ * @throws UtenteNonEsistenteException eccezione che si solleva se un utente non registrato all'applicazione viene ricercato
  */
 	public static void main(String[] args) throws IOException, UtenteNonEsistenteException {
 		Console cons = System.console();

@@ -38,7 +38,6 @@ private String domicilio;
 private String ruolo;
 
 /** Costruisce un nuovo oggetto di tipo <code>Utente</code> da memorizzare nel file Utenti.csv.
- * @param ID codice identificativo generato secondo una numerazione progressiva
  * @param nome nome
  * @param cognome cognome
  * @param username username
@@ -46,6 +45,7 @@ private String ruolo;
  * @param dataNascita data di nascita
  * @param domicilio domicilio
  * @param ruolo ruolo
+ * @throws IOException eccezione che si solleva nella gestione degli stream
  */
     public Utente(String nome, String cognome, String username, String password, LocalDate dataNascita, String domicilio, String ruolo) throws IOException{
         
@@ -61,7 +61,7 @@ private String ruolo;
     }
 	
 	/** Costruisce un nuovo oggetto di tipo <code>Utente</code> una volta letta una stringa dal file Utenti.csv.
- * @param ID codice identificativo letto dal file
+ * @param idEsistente codice identificativo letto dal file
  * @param nome nome
  * @param cognome cognome
  * @param username username
@@ -69,6 +69,7 @@ private String ruolo;
  * @param dataNascita data di nascita
  * @param domicilio domicilio
  * @param ruolo ruolo
+ * @throws IOException eccezione che si solleva nella gestione degli stream
  */
 	public Utente(long idEsistente, String nome, String cognome, String username, String password, LocalDate dataNascita, String domicilio, String ruolo) throws IOException{
 		this.ID = idEsistente;
@@ -86,8 +87,6 @@ private String ruolo;
 	* nuovo oggetto di tipo <code>Utente</code> da memorizzare su file.
 	* Il valore generato è di tipo <code>Long</code>.
 	* @return idNuovo numero Long progressivo
-	* @throws IOException eccezione che si solleva se si verificano problemi con gli stream
-	* @throws Exception eccezione generica e che intercetta tutte le eccezioni a meno di IOException
 	*/
 	public static long generaID(){
 		FileReader frd = null;
@@ -147,7 +146,6 @@ private String ruolo;
 	/** Registra un nuovo oggetto di tipo <code>Utente</code> nel file Utenti.csv.
 	 * @param utente oggetto di tipo <code>Utente</code> da registrare
 	 * @throws IOException eccezione che si solleva se si verifica un errore durante la lettura/scrittura del file
-	 *@throws Exception eccezione generica che si solleva e che intercetta tutte le eccezioni a meno di IOException
 	 */
 	public static void registraUtente(Utente utente) throws IOException{
 		try{
@@ -236,8 +234,8 @@ private String ruolo;
 	/**
 	Metodo utilizzato per cifrare le password degli utenti registrati. Restituisce una stringa di 64 caratteri esadecimali.
 	@param password password in chiaro da cifrare
+	@return hexString password cifrata sotto una stringa di 64 caratteri esadecimali
 	@throws IOException eccezione che si solleva se si verifica un errore durante la lettura/scrittura del file
-	@throws Exception eccezione generica che si solleva e che intercetta tutte le eccezioni a meno di IOException
 	*/
 	public static String passwordHash(String password) throws IOException{
 		try{ 
