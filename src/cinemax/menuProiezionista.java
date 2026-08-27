@@ -237,7 +237,7 @@ ovvero se non sia stata effettuata nessuna prenotazione avente la medesima data 
 					System.err.println("Qualcosa non va "+e.getMessage());
 				}
 			}else{
-				System.out.println("ci sono prenotazioni per la proiezione da modificare, pertanto non è possibile modificarla");
+				System.out.println("ci sono prenotazioni per la proiezione da modificare, pertanto non è possibile eliminarla");
 				return;
 			}
 		}catch(Exception e){
@@ -250,6 +250,8 @@ ovvero se non sia stata effettuata nessuna prenotazione avente la medesima data 
 				fwt.close();
 			}catch(IOException ecc){
  			System.err.println("Errore nella chiusura dei flussi: " + ecc.getMessage());
+			}catch(NullPointerException nullecc){
+				System.err.println("un parametro è nullo: " + nullecc.getMessage());
 			}
 		}
 		try{

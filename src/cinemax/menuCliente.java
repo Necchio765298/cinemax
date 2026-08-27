@@ -153,6 +153,8 @@ public class menuCliente{
 				fwt.close();
 			}catch(IOException ecc){
  			System.err.println("Errore nella chiusura dei flussi: " + ecc.getMessage());
+			}catch(NullPointerException nullecc){
+				System.err.println("un parametro è nullo: " + nullecc.getMessage());
 			}
 		}
 		try{
@@ -234,6 +236,8 @@ public class menuCliente{
 				fwt.close();
 			}catch(IOException ecc){
  			System.err.println("Errore nella chiusura dei flussi: " + ecc.getMessage());
+			}catch(NullPointerException nullecc){
+				System.err.println("un parametro è nullo: " + nullecc.getMessage());
 			}
 		}
 		try{

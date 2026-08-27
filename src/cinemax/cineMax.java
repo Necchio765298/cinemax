@@ -97,7 +97,7 @@ public class cineMax {
 												
 											}else if(alternativa == 4){
 												//elimina una prenotazione
-												String vecchia = cons.readLine("Data e ora della proiezione prenotata nel formato AAAA-MM-GGTHH-MM-SS ");
+												String vecchia = cons.readLine("Data e ora della proiezione prenotata nel formato AAAA-MM-GG HH-MM-SS ");
 												LocalDateTime dataVecchia = LocalDateTime.parse(vecchia, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 												String codice = cons.readLine("Inserire il codice della prenotazione: ");
 												codice.toUpperCase();
